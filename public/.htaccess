@@ -1,7 +1,7 @@
 RewriteEngine On
-RewriteBase /AgencyBusiness/
+RewriteBase /
 
-# Redirect all requests to index.php except for existing files
+# Redirect all to index.php if not a real file or directory
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php [QSA,L] 
+RewriteRule ^(.*)$ index.php [QSA,L]

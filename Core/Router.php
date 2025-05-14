@@ -1,65 +1,83 @@
 <?php
 
-namespace Core;
+namespace core;
+
+use core\middleware\Authenticated;
+use core\middleware\Guest;
+use core\middleware\Middleware;
 
 class Router
 {
-    private $routes = [];
+    protected $routes = [];
 
     public function add($method, $uri, $controller)
     {
         $this->routes[] = [
             'uri' => $uri,
             'controller' => $controller,
-            'method' => $method
+            'method' => $method,
+            'middleware' => null
         ];
+
+        return $this;
     }
 
     public function get($uri, $controller)
     {
-        $this->add('GET', $uri, $controller);
+        return $this->add('GET', $uri, $controller);
     }
 
     public function post($uri, $controller)
     {
-        $this->add('POST', $uri, $controller);
+        return $this->add('POST', $uri, $controller);
+    }
+
+    public function delete($uri, $controller)
+    {
+        return $this->add('DELETE', $uri, $controller);
+    }
+
+    public function patch($uri, $controller)
+    {
+        return $this->add('PATCH', $uri, $controller);
+    }
+
+    public function put($uri, $controller)
+    {
+        return $this->add('PUT', $uri, $controller);
+    }
+
+    public function only($key)
+    {
+        $this->routes[array_key_last($this->routes)]['middleware'] = $key;
+
+        return $this;
     }
 
     public function route($uri, $method)
     {
-        // Debug information
-        error_log("Attempting to route: URI = {$uri}, Method = {$method}");
-        error_log("Available routes: " . print_r($this->routes, true));
-
         foreach ($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
-                $controllerPath = base_path($route['controller']);
-                error_log("Found matching route. Loading controller: {$controllerPath}");
-                
-                if (file_exists($controllerPath)) {
-                    return require $controllerPath;
-                } else {
-                    error_log("Controller file not found: {$controllerPath}");
-                    $this->abort(500);
-                }
+                Middleware::resolve($route['middleware']);
+
+                return require base_path('Http/Controllers/' . $route['controller']);
             }
         }
 
-        error_log("No matching route found for: {$uri} {$method}");
         $this->abort();
     }
 
-    public function abort($code = 404)
+    public function previousUrl()
+    {
+        return $_SERVER['HTTP_REFERER'];
+    }
+
+    protected function abort($code = 404)
     {
         http_response_code($code);
-        $errorFile = base_path("views/errors/{$code}.php");
-        error_log("Aborting with code {$code}. Looking for error file: {$errorFile}");
-        
-        if (file_exists($errorFile)) {
-            require $errorFile;
-        } else {
-            echo "Error {$code}: Page not found";
-        }
+
+        require base_path("views/{$code}.php");
+
         die();
     }
-} 
+}

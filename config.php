@@ -1,15 +1,12 @@
 <?php
 
-$config['db'] = [
-    'host' => 'localhost',
-    'dbname' => 'agency_business',
-    'username' => 'root',
-    'password' => 'mohammedmogeab'
+return [
+    'database' => [
+        'host' => 'localhost',
+        'port' => 3306,
+        'dbname' => 'AgencyBusiness',
+        'charset' => 'utf8mb4'
+    ],
+
 ];
 
-
-$config['app'] = [
-    'name' => 'Agency Business',
-    'url' => 'http://localhost/AgencyBusiness',
-    'debug' => true
-];

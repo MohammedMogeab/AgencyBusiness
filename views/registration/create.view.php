@@ -1,4 +1,6 @@
-<?php include 'assets/php/header.php'; ?>
+
+<?php require base_path('views/partials/header.php') ?>
+
 
 <main class="auth-main">
   <section class="auth-section">
@@ -181,5 +183,3 @@
 <!-- Ionicons -->
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-<?php include 'assets/php/footer.php'; ?>

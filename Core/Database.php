@@ -2,40 +2,49 @@
 
 namespace Core;
 
+use PDO;
+
 class Database
 {
-    private $connection;
-    private static $instance = null;
+    public $connection;
+    public $statement;
 
-    private function __construct()
+    public function __construct($config, $username = 'root', $password = '')
     {
-        $host = 'localhost';
-        $dbname = 'agency_business';
-        $username = 'root';
-        $password = '';
+        $dsn = 'mysql:' . http_build_query($config, '', ';');
 
-        try {
-            $this->connection = new \PDO(
-                "mysql:host={$host};dbname={$dbname}",
-                $username,
-                $password
-            );
-            $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-        } catch (\PDOException $e) {
-            die("Connection failed: " . $e->getMessage());
+        $this->connection = new PDO($dsn, $username, $password, [
+           PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+        ]);
+    }
+
+    public function query($query, $params = [])
+    {
+        $this->statement = $this->connection->prepare($query);
+
+        $this->statement->execute($params);
+
+        return $this;
+    }
+
+    public function get()
+    {
+        return $this->statement->fetchAll();
+    }
+
+    public function find()
+    {
+        return $this->statement->fetch();
+    }
+
+    public function findOrFail()
+    {
+        $result = $this->find();
+
+        if (! $result) {
+            abort();
         }
-    }
 
-    public static function getInstance()
-    {
-        if (self::$instance === null) {
-            self::$instance = new self();
-        }
-        return self::$instance;
+        return $result;
     }
-
-    public function getConnection()
-    {
-        return $this->connection;
-    }
-} 
+}

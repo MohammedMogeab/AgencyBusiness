@@ -1,4 +1,4 @@
-<?php include 'assets/php/header.php'; ?>
+<?php require('partials/header.php') ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,9 +11,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700&display=swap" rel="stylesheet">
   <!-- Base CSS -->
-  <link rel="stylesheet" href="./assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
   <!-- Page Specific CSS -->
-  <link rel="stylesheet" href="./assets/css/pages/projects.css">
+  <link rel="stylesheet" href="../assets/css/pages/projects.css">
 </head>
 <body>
   <header class="contact-header" style="background: var(--primary-color); color: var(--white); padding: 40px 0 20px 0; text-align: center;">
@@ -49,7 +49,7 @@
       </div>
       <div class="projects-grid" id="projectsGrid">
         <div class="project-card" data-language="JavaScript" data-type="Desktop">
-          <img src="./assets/images/blog-1.jpg" alt="AI Chatting Desktop" class="project-image">
+          <img src="../assets/images/blog-1.jpg" alt="AI Chatting Desktop" class="project-image">
           <div class="project-content">
             <div class="tags">
               <span class="tag blue">Development</span>
@@ -71,7 +71,7 @@
           </div>
         </div>
         <div class="project-card" data-language="HTML" data-type="Website">
-          <img src="./assets/images/blog-1.jpg" alt="Portfolio Website" class="project-image">
+          <img src="../assets/images/blog-1.jpg" alt="Portfolio Website" class="project-image">
           <div class="project-content">
             <div class="tags">
               <span class="tag blue">Development</span>
@@ -93,7 +93,7 @@
           </div>
         </div>
         <div class="project-card" data-language="Android" data-type="Android">
-          <img src="./assets/images/blog-1.jpg" alt="Mobile App" class="project-image">
+          <img src="../assets/images/blog-1.jpg" alt="Mobile App" class="project-image">
           <div class="project-content">
             <div class="tags">
               <span class="tag blue">Development</span>
@@ -117,7 +117,7 @@
       </div>
     </section>
   </main>
-  <?php include 'assets/php/footer.php'; ?>
+  <?php require('partials/footer.php') ?>
   <script>
     // Simple search and filter functionality
     const searchInput = document.getElementById('search');
