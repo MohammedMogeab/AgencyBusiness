@@ -12,20 +12,20 @@
         <div class="container mx-auto px-6 py-24 relative">
             <div class="flex flex-col md:flex-row items-center justify-between gap-12">
                 <div class="md:w-1/2 space-y-8">
-                    <span class="px-4 py-2 bg-white/10 rounded-full text-sm font-medium border border-white/20">In Progress</span>
-                    <h1 class="text-5xl md:text-6xl font-bold leading-tight tracking-tight">Modern E-commerce Platform</h1>
-                    <p class="text-xl md:text-2xl text-blue-100 leading-relaxed">A cutting-edge e-commerce solution with advanced features and seamless user experience.</p>
+                    <span class="px-4 py-2 bg-white/10 rounded-full text-sm font-medium border border-white/20"><?= $project['status'] ?></span>
+                    <h1 class="text-5xl md:text-6xl font-bold leading-tight tracking-tight"><?= $project['title'] ?></h1>
+                    <p class="text-xl md:text-2xl text-blue-100 leading-relaxed"><?= $project['description'] ?></p>
                     <div class="flex flex-wrap gap-4 pt-4">
                         <div class="flex items-center space-x-2 bg-white/10 px-4 py-3 rounded-lg border border-white/20">
-                            <span>TechCorp Inc.</span>
+                            <span><?= $project['client_name'] ?></span>
                         </div>
                         <div class="flex items-center space-x-2 bg-white/10 px-4 py-3 rounded-lg border border-white/20">
-                            <span>Jan 2024</span>
+                            <span><?= new DateTime($project['start_date'])->format('M Y') ?></span>
                         </div>
                     </div>
                 </div>
                 <div class="md:w-1/2 relative">
-                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Project Preview" class="w-full h-[400px] object-cover rounded-2xl shadow-2xl">
+                    <img src="<?= './assets/images/' . $project['main_image'] ?>" alt="Project Preview" class="w-full h-[400px] object-cover rounded-2xl shadow-2xl">
                 </div>
             </div>
         </div>
@@ -37,19 +37,21 @@
         <!-- Main Content -->
                 <div class="lg:col-span-2 space-y-8">
             <!-- Project Description -->
-                    <div class="bg-white rounded-2xl shadow-xl p-8">
-                        <h2 class="text-3xl font-bold mb-8 text-gray-800">Project Overview</h2>
-                        <div class="prose prose-lg max-w-none text-gray-600">
-                            <p>This project represents a significant advancement in e-commerce technology, combining cutting-edge features with an intuitive user interface. The platform offers seamless shopping experiences, advanced inventory management, and robust analytics capabilities.</p>
-                            <ul>
-                                <li>Real-time inventory tracking</li>
-                                <li>Advanced search and filtering</li>
-                                <li>Secure payment processing</li>
-                                <li>Customer loyalty program</li>
-                                <li>Mobile-responsive design</li>
-                            </ul>
+                    <?php if(isset($project['overviews']) || isset($project['overview'])):?>
+                        <div class="bg-white rounded-2xl shadow-xl p-8">
+                            <h2 class="text-3xl font-bold mb-8 text-gray-800">Project Overview</h2>
+                            <div class="prose prose-lg max-w-none text-gray-600">
+                                <p><?= isset($project['overview']) ? $project['overview'] : ''?></p>
+                                <?php if(isset($project['overviews'])):?>
+                                <ul>
+                                    <?php foreach($project['overviews'] as $overview):?>
+                                    <li><?= $overview['overview'] ?></li>
+                                    <?php endforeach;?>
+                                </ul>
+                                <?php endif;?>
+                            </div>
                         </div>
-                    </div>
+                    <?php endif;?>
                     <!-- Project Gallery -->
                     <div class="bg-white rounded-2xl shadow-xl p-8">
                         <h2 class="text-3xl font-bold mb-8 text-gray-800">Project Gallery</h2>
@@ -70,22 +72,22 @@
                             <div class="space-y-2">
                                 <div class="flex justify-between items-center">
                                     <span class="text-gray-600 font-medium">Progress</span>
-                                    <span class="text-gray-800 font-semibold">75%</span>
+                                    <span class="text-gray-800 font-semibold"><?= $project['progress']?>%</span>
                                 </div>
                                 <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
-                                    <div class="h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full" style="width: 75%"></div>
+                                    <div class="h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full" style="width: <?= $project['progress']?>%"></div>
                                 </div>
                             </div>
                             <div class="grid grid-cols-2 gap-4">
                                 <div class="bg-gray-50 rounded-xl p-4">
                                     <p class="text-sm text-gray-500 mb-1">Budget</p>
-                                    <p class="text-xl font-bold text-gray-800">$150,000</p>
+                                    <p class="text-xl font-bold text-gray-800"><?= $project['budget']?></p>
                                 </div>
                                 <div class="bg-gray-50 rounded-xl p-4">
                                     <p class="text-sm text-gray-500 mb-1">Duration</p>
-                                    <p class="text-xl font-bold text-gray-800">6 months</p>
-            </div>
-        </div>
+                                    <p class="text-xl font-bold text-gray-800"><?= $project['duration']?> months</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- Team Members -->
@@ -107,7 +109,7 @@
         <div class="container mx-auto px-6 py-20 relative">
             <div class="max-w-3xl mx-auto text-center">
                 <h2 class="text-4xl font-bold mb-6">Ready to Start Your Project?</h2>
-                <p class="text-xl text-blue-100 mb-10 leading-relaxed">Let's transform your ideas into reality. Our team of experts is ready to help you create something amazing.</p>
+                <p class="text-xl text-blue-100 mb-10 leading-relaxed">Let\'s transform your ideas into reality. Our team of experts is ready to help you create something amazing.</p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 bg-white text-blue-900 rounded-xl font-semibold hover:bg-blue-50 transition-colors duration-300 transform hover:scale-105">Get in Touch</a>
                     <a href="/projects" class="inline-flex items-center justify-center px-8 py-4 bg-blue-800 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105">View All Projects</a>
@@ -149,15 +151,15 @@
     <div class="bg-white py-12">
         <div class="container mx-auto flex flex-wrap justify-center gap-12">
             <div class="text-center">
-                <div class="text-5xl font-bold text-blue-700" id="counter-users">0</div>
+                <div class="text-5xl font-bold text-blue-700" id="counter-users"><?= $project['users_impacted'] ?></div>
                 <div class="text-gray-600">Users Impacted</div>
             </div>
             <div class="text-center">
-                <div class="text-5xl font-bold text-blue-700" id="counter-lines">0</div>
+                <div class="text-5xl font-bold text-blue-700" id="counter-lines"><?= $project['lines_of_code'] ?></div>
                 <div class="text-gray-600">Lines of Code</div>
             </div>
             <div class="text-center">
-                <div class="text-5xl font-bold text-blue-700" id="counter-countries">0</div>
+                <div class="text-5xl font-bold text-blue-700" id="counter-countries"><?= $project['countries_deployed'] ?></div>
                 <div class="text-gray-600">Countries Deployed</div>
             </div>
         </div>
@@ -165,21 +167,23 @@
 
     <!-- Video Demo Section -->
     <div class="container mx-auto px-6 py-12">
-        <h2 class="text-3xl font-bold mb-6 text-gray-800">Project Video Demo</h2>
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">Project Video</h2>
         <div class="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden shadow-xl">
-            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Project Demo" allowfullscreen class="w-full h-full"></iframe>
+            <iframe src="<?= $project['video'] ?>" title="Project Video" allowfullscreen class="w-full h-full"></iframe>
         </div>
     </div>
 
     <!-- Downloadable Resources -->
+    <?php if (isset($project['resources'])): ?>
     <div class="container mx-auto px-6 py-12">
         <h2 class="text-3xl font-bold mb-6 text-gray-800">Downloadable Resources</h2>
         <div class="flex flex-wrap gap-4">
+            
             <a href="#" download class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">Download Brochure (PDF)</a>
             <a href="#" download class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition">Download Case Study (ZIP)</a>
         </div>
     </div>
-
+    <?php endif; ?>
     <!-- FAQ Accordion -->
     <div class="container mx-auto px-6 py-12">
         <h2 class="text-3xl font-bold mb-6 text-gray-800">Frequently Asked Questions</h2>
@@ -341,7 +345,11 @@
         projectData.team.forEach(member => {
             const div = document.createElement('div');
             div.className = 'flex items-center space-x-4 p-3 rounded-xl hover:bg-gray-50 transition-colors duration-300';
-            div.innerHTML = `<img src="${member.avatar}" alt="${member.name}" class="w-14 h-14 rounded-xl object-cover ring-2 ring-blue-100"><div><h3 class="font-semibold text-gray-800">${member.name}</h3><p class="text-sm text-blue-600">${member.role}</p></div>`;
+            div.innerHTML = `<img src="${member.avatar}" alt="${member.name}" class="w-14 h-14 rounded-xl object-cover ring-2 ring-blue-100">
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">${member.name}</h3>
+                                    <p class="text-sm text-blue-600">${member.role}</p>
+                                </div>`;
             team.appendChild(div);
         });
         // Technologies
@@ -386,7 +394,7 @@
                 // Example: Add fake social icons on hover
                 const socials = document.createElement('div');
                 socials.className = 'absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex space-x-2';
-                socials.innerHTML = `<a href="#" title="LinkedIn"><svg class="w-5 h-5 text-blue-700" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"/></svg></a>`;
+                socials.innerHTML = `<a href="${div['linkedin']}" title="LinkedIn"><svg class="w-5 h-5 text-blue-700" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"/></svg></a>`;
                 div.appendChild(socials);
             });
         }
