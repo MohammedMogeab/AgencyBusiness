@@ -20,7 +20,7 @@
                             <span><?= $project['client_name'] ?></span>
                         </div>
                         <div class="flex items-center space-x-2 bg-white/10 px-4 py-3 rounded-lg border border-white/20">
-                            <span><?php echo (new DateTime($project['start_date'])->format('M Y')) ?></span>
+                            <span><?php echo (new DateTime($project['start_date']))->format('M Y') ?></span>
                         </div>
                     </div>
                 </div>
@@ -234,9 +234,9 @@
         <div class="flex overflow-x-auto gap-6 pb-4" id="related-carousel">
             <?php foreach($project['related_projects'] as $related_project):?>
                 <div class="min-w-[300px] bg-white rounded-xl shadow p-4 flex-shrink-0">
-                    <img src="<?= './assets/images/' . $related_project['main_image'] ?>" alt="Project" class="w-full h-40 object-cover rounded mb-2" loading="lazy">
+                    <img src="<?= '../assets/images/' . $related_project['main_image'] ?>" alt="Project" class="w-full h-40 object-cover rounded mb-2" loading="lazy">
                     <div class="font-bold text-lg"><?= $related_project['title']?></div>
-                    <?php foreach ($project['related_services'] as $item):?>
+                    <?php foreach ($related_project['technologies'] as $item):?>
                         <div class="text-gray-500 text-sm"><?= $item['technology']?></div>
                     <?php endforeach; ?>
                 </div>

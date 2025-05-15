@@ -47,8 +47,8 @@ $project['related_projects'] = $db->query("select
         LEFT JOIN projects pp ON (re.related_project_id = pp.id)
         WHERE re.project_id = :project_id", ['project_id' => $project['id']])->get();
 
-foreach ($project['related_services'] as $item) {
-    $item['technologies'] = $db->query("SELECT technology FROM project_technologies WHERE project_id = :project_id", ['project_id' => $item['id']])->get();
+foreach ($project['related_projects'] as $key => $item) {
+    $project['related_projects'][$key]['technologies'] = $db->query("SELECT technology FROM project_technologies WHERE project_id = :project_id", ['project_id' => $item['id']])->get();
 }
 
 $project['overviews'] = $db->query("select overview from project_overviews where project_id = :project_id", ['project_id' => $project['id']])->get();
@@ -73,4 +73,4 @@ echo "<br><br><br>$projectData<br><br></pre>";
 
 
 
-view("project/show.view.php");
+include '../views/project/show.view.php';
