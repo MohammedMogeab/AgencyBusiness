@@ -80,8 +80,8 @@
     </nav>
 
     <div class="header-actions">
-      <a href="login.php" class="btn btn-outline">Login</a>
-      <a href="signup.php" class="btn btn-primary">Sign Up</a>
+      <a href="/login" class="btn btn-outline">Login</a>
+      <a href="signup" class="btn btn-primary">Sign Up</a>
     </div>
 
     <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>

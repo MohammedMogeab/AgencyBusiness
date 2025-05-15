@@ -66,7 +66,7 @@
             </div>
             <div class="project-footer">
               <span class="project-price">$3,750</span>
-              <button class="btn btn-primary">View Project</button>
+              <button onclick="window.location.href='/project'" class="inline-flex items-center justify-center px-8 py-4 bg-blue-800 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105">View Project</button>
             </div>
           </div>
         </div>
@@ -88,7 +88,7 @@
             </div>
             <div class="project-footer">
               <span class="project-price">$1,200</span>
-              <button class="btn btn-primary">View Project</button>
+              <button onclick="window.location.href='/project'" class="inline-flex items-center justify-center px-8 py-4 bg-blue-800 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105">View Project</button>
             </div>
           </div>
         </div>
@@ -110,7 +110,7 @@
             </div>
             <div class="project-footer">
               <span class="project-price">$2,000</span>
-              <button class="btn btn-primary">View Project</button>
+              <button onclick="window.location.href='/project'" class="inline-flex items-center justify-center px-8 py-4 bg-blue-800 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105">View Project</button>
             </div>
           </div>
         </div>

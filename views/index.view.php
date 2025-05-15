@@ -264,7 +264,13 @@
                         <div class="project-preview-desc">A desktop app for chatting and moving, with fancy features and AI integration.</div>
                         <div class="project-preview-footer">
                             <span class="project-preview-price">$3,750</span>
-                            <a href="projects.php" class="btn btn-outline">View Project</a>
+                            <button onclick="window.location.href='/project'" 
+                              class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 text-white rounded-xl font-bold shadow-lg text-lg gap-2 transition-all duration-300 hover:from-indigo-600 hover:to-blue-600 hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-blue-300">
+                              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                              </svg>
+                              View Project
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -275,7 +281,13 @@
                         <div class="project-preview-desc">A modern, responsive portfolio website built with HTML, CSS, and JavaScript.</div>
                         <div class="project-preview-footer">
                             <span class="project-preview-price">$1,200</span>
-                            <a href="projects.php" class="btn btn-outline">View Project</a>
+                            <button onclick="window.location.href='/project'" 
+                              class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 text-white rounded-xl font-bold shadow-lg text-lg gap-2 transition-all duration-300 hover:from-indigo-600 hover:to-blue-600 hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-blue-300">
+                              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                              </svg>
+                              View Project
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -286,7 +298,13 @@
                         <div class="project-preview-desc">A feature-rich Android app for productivity and communication.</div>
                         <div class="project-preview-footer">
                             <span class="project-preview-price">$2,000</span>
-                            <a href="projects.php" class="btn btn-outline">View Project</a>
+                            <button onclick="window.location.href='/project'" 
+                              class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 text-white rounded-xl font-bold shadow-lg text-lg gap-2 transition-all duration-300 hover:from-indigo-600 hover:to-blue-600 hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-blue-300">
+                              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                              </svg>
+                              View Project
+                            </button>
                         </div>
                     </div>
                 </div>
