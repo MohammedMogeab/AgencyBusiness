@@ -33,4 +33,5 @@ $router->post('/signup', 'registration/store.php')->only('guest');
 $router->get('/login', 'session/create.php')->only('guest');
 $router->get('/logout', 'logout.php');
 $router->get('/project', 'project/show.php');
+$router->get('/project/create', 'project/create.php');
 
