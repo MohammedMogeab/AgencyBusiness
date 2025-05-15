@@ -2,6 +2,7 @@
 use core\App;
 use core\Database;
 $db = App::resolve(Database::class);
+$page_name = 'project';
 
 $project=  $db->query(
     "Select 
@@ -39,11 +40,17 @@ $project['milestones'] = $db->query("select
         pm.milestone,
         pm.badge_color from project_milestones pm where project_id = :project_id", ['project_id' => $project['id']])->get();
 $project['related_projects'] = $db->query("select 
+        pp.id,
         pp.title,
-        ppt.technology FROM related_projects re
+        pp.main_image
+        FROM related_projects re
         LEFT JOIN projects pp ON (re.related_project_id = pp.id)
-        LEFT JOIN project_technologies ppt ON (pp.id = ppt.project_id)
         WHERE re.project_id = :project_id", ['project_id' => $project['id']])->get();
+
+foreach ($project['related_services'] as $item) {
+    $item['technologies'] = $db->query("SELECT technology FROM project_technologies WHERE project_id = :project_id", ['project_id' => $item['id']])->get();
+}
+
 $project['overviews'] = $db->query("select overview from project_overviews where project_id = :project_id", ['project_id' => $project['id']])->get();
 
 $gttt = [

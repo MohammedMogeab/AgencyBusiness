@@ -20,7 +20,7 @@
                             <span><?= $project['client_name'] ?></span>
                         </div>
                         <div class="flex items-center space-x-2 bg-white/10 px-4 py-3 rounded-lg border border-white/20">
-                            <span><?= new DateTime($project['start_date'])->format('M Y') ?></span>
+                            <span><?php echo (new DateTime($project['start_date'])->format('M Y')) ?></span>
                         </div>
                     </div>
                 </div>
@@ -178,107 +178,118 @@
     <div class="container mx-auto px-6 py-12">
         <h2 class="text-3xl font-bold mb-6 text-gray-800">Downloadable Resources</h2>
         <div class="flex flex-wrap gap-4">
-            
-            <a href="#" download class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">Download Brochure (PDF)</a>
-            <a href="#" download class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition">Download Case Study (ZIP)</a>
+            <?php foreach ($project['resources'] as $resource): ?>
+            <a href="<?= isset($resource['resource_url'])? $resource['resource_url']:("../uploads/". $resource['resource_name'] . $resource['type']) ?>" download class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">Download Brochure (<?= $resource['type'] ?>)</a>
+            <?php endforeach; ?>
         </div>
     </div>
     <?php endif; ?>
     <!-- FAQ Accordion -->
-    <div class="container mx-auto px-6 py-12">
-        <h2 class="text-3xl font-bold mb-6 text-gray-800">Frequently Asked Questions</h2>
-        <div id="faq-accordion" class="space-y-4">
-            <div class="border rounded-lg">
-                <button class="w-full text-left px-6 py-4 font-semibold text-gray-800 focus:outline-none" aria-expanded="false">What technologies were used?</button>
-                <div class="px-6 py-4 hidden text-gray-600">React, Node.js, MongoDB, AWS, and more.</div>
-            </div>
-            <div class="border rounded-lg">
-                <button class="w-full text-left px-6 py-4 font-semibold text-gray-800 focus:outline-none" aria-expanded="false">Is the platform mobile-friendly?</button>
-                <div class="px-6 py-4 hidden text-gray-600">Yes, it is fully responsive and works on all devices.</div>
-            </div>
-            <div class="border rounded-lg">
-                <button class="w-full text-left px-6 py-4 font-semibold text-gray-800 focus:outline-none" aria-expanded="false">How can I get support?</button>
-                <div class="px-6 py-4 hidden text-gray-600">Contact us via the form above or WhatsApp for instant support.</div>
-            </div>
+     <?php if(isset($project['faq']) && count($project['faq']) > 0):?>
+        <div class="container mx-auto px-6 py-12">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">Frequently Asked Questions</h2>
+            <div id="faq-accordion" class="space-y-4">
+                <?php foreach($project['faq'] as $faq):?>
+                <div class="border rounded-lg">
+                    <button class="w-full text-left px-6 py-4 font-semibold text-gray-800 focus:outline-none" aria-expanded="false"><?= $faq['question']?></button>
+                    <div class="px-6 py-4 hidden text-gray-600"><?= $faq['answer']?></div>
                 </div>
+                <?php endforeach;?>
             </div>
-
+        </div>
+    <?php endif; ?>
     <!-- Reviews & Ratings -->
+    <?php if(isset($project['previews']) && count($project['previews']) > 0):?>
     <div class="container mx-auto px-6 py-12">
         <h2 class="text-3xl font-bold mb-6 text-gray-800">Client Reviews</h2>
         <div class="flex flex-wrap gap-8">
+            <?php foreach($project['previews'] as $preview):?>
             <div class="bg-gray-50 rounded-xl p-6 shadow w-80">
                 <div class="flex items-center mb-2">
-                    <span class="text-yellow-400 text-xl">★★★★★</span>
-                    <span class="ml-2 text-gray-700 font-semibold">5.0</span>
+                    <span class="text-yellow-400 text-xl"><?php for($i = 0; $i < $preview['rating']; $i++) echo '★'; ?></span>
+                    <span class="ml-2 text-gray-700 font-semibold"><?= $preview['rating']?></span>
                 </div>
-                <p class="text-gray-700 mb-2">"Amazing work! The team delivered beyond expectations and the platform is super fast."</p>
-                <div class="text-sm text-gray-500">— Alice, CEO at ExampleCorp</div>
+                <p class="text-gray-700 mb-2">"<?= $preview['review']?>"</p>
+                <div class="text-sm text-gray-500">— <?= $preview['reviewer_name']?><?= isset($preview['reviewer_role'])? ', '.$preview['reviewer_role']:''?></div>
             </div>
-            <div class="bg-gray-50 rounded-xl p-6 shadow w-80">
-                <div class="flex items-center mb-2">
-                    <span class="text-yellow-400 text-xl">★★★★☆</span>
-                    <span class="ml-2 text-gray-700 font-semibold">4.5</span>
-                </div>
-                <p class="text-gray-700 mb-2">"Great communication and support. Highly recommended!"</p>
-                <div class="text-sm text-gray-500">— Bob, CTO at Techies</div>
-            </div>
+            <?php endforeach;?>
         </div>
     </div>
-
+    <?php endif; ?>
     <!-- Project Milestone Badges -->
-    <div class="container mx-auto px-6 py-12">
-        <h2 class="text-3xl font-bold mb-6 text-gray-800">Key Milestones</h2>
-        <div class="flex flex-wrap gap-4">
-            <span class="inline-block bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-semibold">Kickoff</span>
-            <span class="inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full font-semibold">MVP Launch</span>
-            <span class="inline-block bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full font-semibold">1000+ Users</span>
-            <span class="inline-block bg-purple-100 text-purple-800 px-4 py-2 rounded-full font-semibold">Global Expansion</span>
+     <?php if(isset($project['milestones']) && count($project['milestones']) > 0):?>
+        <div class="container mx-auto px-6 py-12">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">Key Milestones</h2>
+            <div class="flex flex-wrap gap-4">
+                <?php foreach($project['milestones'] as $milestone):?>
+                <span class="inline-block text-blue-800 px-4 py-2 rounded-full font-semibold" style="background-color: <?= $milestone['badge_color']?>;"><?= $milestone['milestone']?></span>
+                <?php endforeach; ?>
+            </div>
         </div>
-    </div>
-
+    <?php endif; ?>
     <!-- Related Projects Carousel -->
+     <?php if(isset($project['related_projects']) && count($project['related_projects']) > 0):?>
     <div class="container mx-auto px-6 py-12">
         <h2 class="text-3xl font-bold mb-6 text-gray-800">Related Projects</h2>
         <div class="flex overflow-x-auto gap-6 pb-4" id="related-carousel">
-            <div class="min-w-[300px] bg-white rounded-xl shadow p-4 flex-shrink-0">
-                <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80" alt="Project 1" class="w-full h-40 object-cover rounded mb-2" loading="lazy">
-                <div class="font-bold text-lg">Inventory App</div>
-                <div class="text-gray-500 text-sm">React, Firebase</div>
-            </div>
-            <div class="min-w-[300px] bg-white rounded-xl shadow p-4 flex-shrink-0">
-                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Project 2" class="w-full h-40 object-cover rounded mb-2" loading="lazy">
-                <div class="font-bold text-lg">Analytics Dashboard</div>
-                <div class="text-gray-500 text-sm">Vue, Node.js</div>
-            </div>
-            <div class="min-w-[300px] bg-white rounded-xl shadow p-4 flex-shrink-0">
-                <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Project 3" class="w-full h-40 object-cover rounded mb-2" loading="lazy">
-                <div class="font-bold text-lg">Mobile Shop</div>
-                <div class="text-gray-500 text-sm">Flutter, Firebase</div>
-            </div>
+            <?php foreach($project['related_projects'] as $related_project):?>
+                <div class="min-w-[300px] bg-white rounded-xl shadow p-4 flex-shrink-0">
+                    <img src="<?= './assets/images/' . $related_project['main_image'] ?>" alt="Project" class="w-full h-40 object-cover rounded mb-2" loading="lazy">
+                    <div class="font-bold text-lg"><?= $related_project['title']?></div>
+                    <?php foreach ($project['related_services'] as $item):?>
+                        <div class="text-gray-500 text-sm"><?= $item['technology']?></div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endforeach; ?>
         </div>
     </div>
-
+    <?php endif; ?>
     <!-- Share Buttons -->
     <div class="container mx-auto px-6 py-12 text-center">
         <h2 class="text-3xl font-bold mb-6 text-gray-800">Share This Project</h2>
+        <?php $currentUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") 
+                    . $_SERVER['HTTP_HOST'] 
+                    . $_SERVER['REQUEST_URI'];
+        ?>
         <div class="flex justify-center gap-4">
-            <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition" aria-label="Share on Facebook">Facebook</a>
-            <a href="#" class="bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-500 transition" aria-label="Share on Twitter">Twitter</a>
-            <a href="#" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition" aria-label="Share on LinkedIn">LinkedIn</a>
-            <a href="#" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition" aria-label="Share on WhatsApp">WhatsApp</a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=<?= urlencode($currentUrl) ?>" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition" aria-label="Share on Facebook">  Facebook</a>
+            <a href="https://twitter.com/intent/tweet?text=<?= urlencode($currentUrl) ?>" class="bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-500 transition" aria-label="Share on Twitter">   Twitter </a>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url=<?= urlencode($currentUrl) ?>" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition" aria-label="Share on LinkedIn">  LinkedIn</a>
+            <a href="https://api.whatsapp.com/send?text=<?= urlencode($currentUrl) ?>" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition" aria-label="Share on WhatsApp">WhatsApp</a>
     </div>
 </div>
 
     <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/1234567890" target="_blank" aria-label="Contact on WhatsApp" class="fixed bottom-8 left-8 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg flex items-center justify-center">
+    <a href="https://wa.me/+967772867128" target="_blank" aria-label="Contact on WhatsApp" class="fixed bottom-8 left-8 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg flex items-center justify-center">
         <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M20.52 3.48A12.07 12.07 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.18-1.62A12.07 12.07 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.21-1.25-6.23-3.48-8.52zM12 22c-1.85 0-3.68-.5-5.25-1.44l-.37-.22-3.67.96.98-3.58-.24-.37A9.94 9.94 0 0 1 2 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10zm5.2-7.6c-.28-.14-1.65-.81-1.9-.9-.25-.09-.43-.14-.61.14-.18.28-.7.9-.86 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.25-1.4-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.34.42-.51.14-.17.18-.29.28-.48.09-.19.05-.36-.02-.5-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.62-.47-.16-.01-.35-.01-.54-.01-.19 0-.5.07-.76.34-.26.27-1 1-.97 2.43.03 1.43 1.04 2.81 1.19 3 .15.19 2.05 3.13 5.01 4.27.7.3 1.25.48 1.68.61.71.23 1.36.2 1.87.12.57-.09 1.65-.67 1.88-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.19-.53-.33z"/></svg>
     </a>
+
+
+
+
+
+
+
+
+
 
     <!-- Invest in this Project Button -->
     <div class="container mx-auto px-6 mt-8 flex justify-center">
         <button onclick="toggleInvestModal()" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-xl shadow-lg text-lg transition">Invest in this Project</button>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <!-- Invest Modal -->
     <div id="investModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
@@ -309,21 +320,7 @@
 
     <script>
         // Sample data
-        const projectData = {
-            gallery: [
-                { url: 'https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', caption: 'Dashboard Overview' },
-                { url: 'https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', caption: 'Mobile Interface' }
-            ],
-            timeline: [
-                { title: 'Project Kickoff', date: 'January 2024', description: 'Initial planning and requirements gathering' },
-                { title: 'Design Phase', date: 'February 2024', description: 'UI/UX design and wireframing' }
-            ],
-            team: [
-                { name: 'John Doe', role: 'Project Manager', avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80' },
-                { name: 'Jane Smith', role: 'Lead Developer', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80' }
-            ],
-            technologies: ['React', 'Node.js', 'MongoDB', 'AWS']
-        };
+        const projectData = <?php echo $projectData?>;
         // Gallery
         const gallery = document.getElementById('gallery');
         projectData.gallery.forEach(item => {
