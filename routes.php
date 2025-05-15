@@ -39,3 +39,6 @@ $router->get('/forget','ForgetPassword/create.php');
 $router->post('/forget', 'ForgetPassword/store.php');
 
 
+
+$router->get('/project/create', 'project/create.php');
+
