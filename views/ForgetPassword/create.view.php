@@ -1,4 +1,7 @@
+
 <?php require base_path('views/partials/header.php') ?>
+
+
 
 <main class="auth-main">
   <section class="auth-section">
@@ -7,28 +10,35 @@
         <img src="./assets/images/logo-light.svg" alt="Zetrix Logo" width="80" height="30">
       </a>
       <h2 class="auth-title">Welcome Back</h2>
-      <form class="auth-form" autocomplete="off" method="POST" action="/login" >
+      <form class="auth-form" autocomplete="off" method="POST" action="/forget" >
         <div class="form-group">
           <label for="email">Email Address</label>
           <div class="input-icon">
             <ion-icon name="mail-outline"></ion-icon>
             <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            <div style="color:red"><?php if (isset($errors['email'])) echo $errors; ?></div>
           </div>
         </div>
         <div class="form-group">
           <label for="password">Password</label>
           <div class="input-icon">
             <ion-icon name="lock-closed-outline"></ion-icon>
-            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <input type="password" id="password" name="password" placeholder="Enter your new  password" required>
             <div style="color:red"><?php if (isset($errors['password'])) echo $errors; ?></div>
+            
+          </div>
+
+          <div class="form-group">
+          <label for="confirm-password">Confirm Password</label>
+          <div class="input-icon">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your new password" required>
+            <div style="color:red"><?php if (isset($errors['confirm-password'])) echo $errors; ?></div>
           </div>
           
-          <div style="color:red"><?php if (isset($errors['email'])) echo $errors; ?></div>
         </div>
-        <button type="submit" class="btn btn-primary auth-btn" name="login">Change Password</button>
+        <button type="submit" class="btn btn-primary auth-btn" name="forget">Change Password</button>
       </form>
-      <p class="auth-switch">Don't have an account? <a href="/signup">Sign Up</a></p>
-      <p class="auth-switch">Forget Password <a href="/forget">Change Password</a></p>
     </div>
   </section>
 </main>
