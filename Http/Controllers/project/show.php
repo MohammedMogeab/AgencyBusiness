@@ -3,7 +3,10 @@ use core\App;
 use core\Database;
 $db = App::resolve(Database::class);
 $page_name = 'project';
-
+if(!isset($_GET['project_id'])){
+    abort(404);
+    exit;
+}
 $project=  $db->query(
     "Select 
         p.id,
@@ -60,17 +63,19 @@ $gttt = [
     'technologies' => $db->query("SELECT technology FROM project_technologies WHERE project_id = :project_id", ['project_id' => $project['id']])->get()
 ];
 
-$projectData = json_encode($gttt);
 
-echo "<pre> <br><br><br><br><br><br><br><br>";
-print_r($project);
-echo "</pre>";
-echo "<pre> <br><br><br><br><br><br><br><br>";
-print_r($gttt);
-echo "<br><br><br>$projectData<br><br></pre>";
-
+// echo "<pre> <br><br><br><br><br><br><br><br>";
+// print_r($project);
+// echo "</pre>";
+// echo "<pre> <br><br><br><br><br><br><br><br>";
+// print_r($gttt);
+// echo "<br><br><br>$projectData<br><br></pre>";
 
 
 
 
-include '../views/project/show.view.php';
+
+view('../views/project/show.view.php', [
+    'project' => $project,
+    'gttt' => $gttt
+]);

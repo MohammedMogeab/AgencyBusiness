@@ -37,7 +37,7 @@
         <!-- Main Content -->
                 <div class="lg:col-span-2 space-y-8">
             <!-- Project Description -->
-                    <?php if(isset($project['overviews']) || isset($project['overview'])):?>
+                    <?php if((isset($project['overviews']) && count($project['overviews']) > 0 )|| isset($project['overview'])):?>
                         <div class="bg-white rounded-2xl shadow-xl p-8">
                             <h2 class="text-3xl font-bold mb-8 text-gray-800">Project Overview</h2>
                             <div class="prose prose-lg max-w-none text-gray-600">
@@ -179,7 +179,7 @@
         <h2 class="text-3xl font-bold mb-6 text-gray-800">Downloadable Resources</h2>
         <div class="flex flex-wrap gap-4">
             <?php foreach ($project['resources'] as $resource): ?>
-            <a href="<?= isset($resource['resource_url'])? $resource['resource_url']:("../uploads/". $resource['resource_name'] . $resource['type']) ?>" download class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">Download Brochure (<?= $resource['type'] ?>)</a>
+            <a href="<?= isset($resource['resource_url'])? $resource['resource_url']:("../uploads/". $resource['resource_name'] .'.'. $resource['type']) ?>" download class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">Download Brochure (<?= $resource['type'] ?>)</a>
             <?php endforeach; ?>
         </div>
     </div>
@@ -260,7 +260,7 @@
 </div>
 
     <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/+967772867128" target="_blank" aria-label="Contact on WhatsApp" class="fixed bottom-8 left-8 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg flex items-center justify-center">
+    <a href="https://wa.me/+967772867128?text=I'm%20interested%20in%20your%20project" target="_blank" aria-label="Contact on WhatsApp" class="fixed bottom-8 left-8 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg flex items-center justify-center">
         <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M20.52 3.48A12.07 12.07 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.18-1.62A12.07 12.07 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.21-1.25-6.23-3.48-8.52zM12 22c-1.85 0-3.68-.5-5.25-1.44l-.37-.22-3.67.96.98-3.58-.24-.37A9.94 9.94 0 0 1 2 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10zm5.2-7.6c-.28-.14-1.65-.81-1.9-.9-.25-.09-.43-.14-.61.14-.18.28-.7.9-.86 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.25-1.4-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.34.42-.51.14-.17.18-.29.28-.48.09-.19.05-.36-.02-.5-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.62-.47-.16-.01-.35-.01-.54-.01-.19 0-.5.07-.76.34-.26.27-1 1-.97 2.43.03 1.43 1.04 2.81 1.19 3 .15.19 2.05 3.13 5.01 4.27.7.3 1.25.48 1.68.61.71.23 1.36.2 1.87.12.57-.09 1.65-.67 1.88-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.19-.53-.33z"/></svg>
     </a>
 
@@ -320,7 +320,8 @@
 
     <script>
         // Sample data
-        const projectData = <?php echo $projectData?>;
+        const projectData = <?php echo json_encode($gttt);?>;
+        console.log(projectData);
         // Gallery
         const gallery = document.getElementById('gallery');
         projectData.gallery.forEach(item => {
@@ -354,7 +355,7 @@
         projectData.technologies.forEach(item => {
             const span = document.createElement('span');
             span.className = 'px-4 py-2 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-100 transition-colors duration-300';
-            span.textContent = item;
+            span.textContent = item['technology'];
             tech.appendChild(span);
         });
 
