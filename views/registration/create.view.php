@@ -9,7 +9,7 @@
         <img src="./assets/images/logo-light.svg" alt="Zetrix Logo" width="80" height="30">
       </a>
       <h2 class="auth-title">Create Your Zetrix Account</h2>
-      <form class="auth-form" autocomplete="off" >
+      <form class="auth-form" autocomplete="off"method="POST" action="/signup" >
         <div class="form-group">
           <label for="name">Full Name</label>
           <div class="input-icon">
@@ -23,6 +23,7 @@
             <ion-icon name="mail-outline"></ion-icon>
             <input type="email" id="email" name="email" placeholder="Enter your email" required>
           </div>
+          <div  style="color:red"><?php if(isset($errors)) echo $errors;?></div>
         </div>
         <div class="form-group">
           <label for="password">Password</label>
@@ -37,6 +38,7 @@
             <ion-icon name="lock-closed-outline"></ion-icon>
             <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
           </div>
+          <div  style="color:red"><?php if(isset($errors)) echo $errors;?></div>
         </div>
         <button type="submit" class="btn btn-primary auth-btn">Sign Up</button>
       </form>
