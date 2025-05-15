@@ -30,13 +30,13 @@
             </div>
         </div>
     </div>
-    <!-- Project Details Section -->
+<!-- Project Details Section -->
     <div class="bg-gray-50">
         <div class="container mx-auto px-6 py-20">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                <!-- Main Content -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <!-- Main Content -->
                 <div class="lg:col-span-2 space-y-8">
-                    <!-- Project Description -->
+            <!-- Project Description -->
                     <div class="bg-white rounded-2xl shadow-xl p-8">
                         <h2 class="text-3xl font-bold mb-8 text-gray-800">Project Overview</h2>
                         <div class="prose prose-lg max-w-none text-gray-600">
@@ -54,8 +54,8 @@
                     <div class="bg-white rounded-2xl shadow-xl p-8">
                         <h2 class="text-3xl font-bold mb-8 text-gray-800">Project Gallery</h2>
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-6" id="gallery"></div>
-                    </div>
-                    <!-- Project Timeline -->
+            </div>
+            <!-- Project Timeline -->
                     <div class="bg-white rounded-2xl shadow-xl p-8">
                         <h2 class="text-3xl font-bold mb-8 text-gray-800">Project Timeline</h2>
                         <div class="relative space-y-8" id="timeline"></div>
@@ -84,8 +84,8 @@
                                 <div class="bg-gray-50 rounded-xl p-4">
                                     <p class="text-sm text-gray-500 mb-1">Duration</p>
                                     <p class="text-xl font-bold text-gray-800">6 months</p>
-                                </div>
-                            </div>
+            </div>
+        </div>
                         </div>
                     </div>
                     <!-- Team Members -->
@@ -100,8 +100,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+                        </div>
+                    </div>
     <!-- Call to Action Section -->
     <div class="relative bg-gradient-to-br from-blue-900 to-indigo-900 text-white overflow-hidden">
         <div class="container mx-auto px-6 py-20 relative">
@@ -196,8 +196,8 @@
                 <button class="w-full text-left px-6 py-4 font-semibold text-gray-800 focus:outline-none" aria-expanded="false">How can I get support?</button>
                 <div class="px-6 py-4 hidden text-gray-600">Contact us via the form above or WhatsApp for instant support.</div>
             </div>
-        </div>
-    </div>
+                </div>
+            </div>
 
     <!-- Reviews & Ratings -->
     <div class="container mx-auto px-6 py-12">
@@ -263,8 +263,8 @@
             <a href="#" class="bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-500 transition" aria-label="Share on Twitter">Twitter</a>
             <a href="#" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition" aria-label="Share on LinkedIn">LinkedIn</a>
             <a href="#" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition" aria-label="Share on WhatsApp">WhatsApp</a>
-        </div>
     </div>
+</div>
 
     <!-- WhatsApp Floating Button -->
     <a href="https://wa.me/1234567890" target="_blank" aria-label="Contact on WhatsApp" class="fixed bottom-8 left-8 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg flex items-center justify-center">
@@ -300,8 +300,8 @@
                 <div class="text-gray-600 mb-4">We appreciate your support. Our team will contact you soon.</div>
                 <button onclick="toggleInvestModal()" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">Close</button>
             </div>
-        </div>
     </div>
+</div>
 
     <script>
         // Sample data
