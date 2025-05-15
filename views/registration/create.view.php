@@ -9,7 +9,7 @@
         <img src="./assets/images/logo-light.svg" alt="Zetrix Logo" width="80" height="30">
       </a>
       <h2 class="auth-title">Create Your Zetrix Account</h2>
-      <form class="auth-form" autocomplete="off">
+      <form class="auth-form" autocomplete="off" >
         <div class="form-group">
           <label for="name">Full Name</label>
           <div class="input-icon">

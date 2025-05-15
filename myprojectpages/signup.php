@@ -7,7 +7,7 @@
         <img src="./assets/images/logo-light.svg" alt="Zetrix Logo" width="80" height="30">
       </a>
       <h2 class="auth-title">Create Your Zetrix Account</h2>
-      <form class="auth-form" autocomplete="off">
+      <form method="POST" action="../Http/Controllers/registration/store.php" class="auth-form" autocomplete="off">
         <div class="form-group">
           <label for="name">Full Name</label>
           <div class="input-icon">
@@ -36,7 +36,7 @@
             <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary auth-btn">Sign Up</button>
+        <button type="submit" name="signup" class="btn btn-primary auth-btn" >Sign Up</button>
       </form>
       <p class="auth-switch">Already have an account? <a href="login.php">Login</a></p>
     </div>
