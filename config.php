@@ -4,7 +4,9 @@ return [
     'database' => [
         'host' => 'localhost',
         'port' => 3306,
-        'dbname' => 'AgencyBusiness',
+        'username'=>"root",
+        'password'=>'12345678',
+        'dbname' => 'web',
         'charset' => 'utf8mb4'
     ],
 
