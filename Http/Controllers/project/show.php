@@ -3,6 +3,7 @@ use core\App;
 use core\Database;
 $db = App::resolve(Database::class);
 $page_name = 'project';
+
 if(!isset($_GET['project_id'])){
     abort(404);
     exit;

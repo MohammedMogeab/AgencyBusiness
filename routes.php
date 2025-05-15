@@ -26,12 +26,17 @@
 $router->get('/', 'index.php');
 $router->get('/about', 'about.php');
 $router->get('/contact', 'contact.php');
-$router->get('/blog', 'blog.php');
+$router->get('/blog', 'blogs/show.php');
 $router->get('/projects', 'projects.php');
 $router->get('/signup', 'registration/create.php');
 $router->post('/signup', 'registration/store.php')->only('guest');
 $router->get('/login', 'session/create.php')->only('guest');
 $router->get('/logout', 'logout.php');
 $router->get('/project', 'project/show.php');
-$router->get('/project/create', 'project/create.php');
+$router->get('/project_create', 'project/create.php');
+$router->post('/project_create', 'project/store.php');
+$router->get('/project_edit', 'project/edit.php');
+$router->post('/project_edit', 'project/update.php');
+$router->get('/project_delete', 'project/destroy.php');
+
 
