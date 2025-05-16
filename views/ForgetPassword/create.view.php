@@ -16,25 +16,28 @@
           <div class="input-icon">
             <ion-icon name="mail-outline"></ion-icon>
             <input type="email" id="email" name="email" placeholder="Enter your email" required>
-            <div style="color:red"><?php if (isset($errors['email'])) echo $errors; ?></div>
+            
           </div>
+          <div style="color:red"><?php if (isset($errors['email'])) echo $errors['email']; ?></div>
         </div>
         <div class="form-group">
           <label for="password">Password</label>
           <div class="input-icon">
             <ion-icon name="lock-closed-outline"></ion-icon>
             <input type="password" id="password" name="password" placeholder="Enter your new  password" required>
-            <div style="color:red"><?php if (isset($errors['password'])) echo $errors; ?></div>
+            
             
           </div>
+          <div style="color:red"><?php if (isset($errors['password'])) echo $errors['password']; ?></div>
 
           <div class="form-group">
           <label for="confirm-password">Confirm Password</label>
           <div class="input-icon">
             <ion-icon name="lock-closed-outline"></ion-icon>
             <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your new password" required>
-            <div style="color:red"><?php if (isset($errors['confirm-password'])) echo $errors; ?></div>
+            
           </div>
+          <div style="color:red"><?php if (isset($errors['confirm-password'])) echo $errors['confirm-password']; ?></div>
           
         </div>
         <button type="submit" class="btn btn-primary auth-btn" name="forget">Change Password</button>

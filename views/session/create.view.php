@@ -15,17 +15,18 @@
             <input type="email" id="email" name="email" placeholder="Enter your email" required>
           </div>
         </div>
+        <div style="color:red"><?php if (isset($errors['email'])) echo $errors['email']; ?></div>
         <div class="form-group">
           <label for="password">Password</label>
           <div class="input-icon">
             <ion-icon name="lock-closed-outline"></ion-icon>
             <input type="password" id="password" name="password" placeholder="Enter your password" required>
-            <div style="color:red"><?php if (isset($errors['password'])) echo $errors; ?></div>
+            
           </div>
+          <div style="color:red"><?php if (isset($errors['password'])) echo $errors['password']; ?></div>
           
-          <div style="color:red"><?php if (isset($errors['email'])) echo $errors; ?></div>
         </div>
-        <button type="submit" class="btn btn-primary auth-btn" name="login">Change Password</button>
+        <button type="submit" class="btn btn-primary auth-btn" name="login">Logi</button>
       </form>
       <p class="auth-switch">Don't have an account? <a href="/signup">Sign Up</a></p>
       <p class="auth-switch">Forget Password <a href="/forget">Change Password</a></p>
@@ -34,10 +35,10 @@
 </main>
 
 <!-- نفس التنسيق الموجود في صفحة التسجيل -->
-<style>
+<!-- <style>
 /* نفس التنسيق الذي أرسلته بالضبط */
-<?php include 'signup-style.css'; ?> /* يمكنك أيضًا وضع التنسيق في ملف خارجي إن أردت */
-</style>
+/* يمكنك أيضًا وضع التنسيق في ملف خارجي إن أردت */
+</style> -->
 
 <style>
 :root {
