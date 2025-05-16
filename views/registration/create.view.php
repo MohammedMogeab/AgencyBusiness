@@ -5,8 +5,8 @@
 <main class="auth-main">
   <section class="auth-section">
     <div class="auth-card glass">
-      <a href="index.php" class="auth-logo">
-        <img src="./assets/images/logo-light.svg" alt="Zetrix Logo" width="80" height="30">
+      <a href="/" class="auth-logo">
+        <!-- <img src="./assets/images/logo-light.svg" alt="Zetrix Logo" width="80" height="30"> -->
       </a>
       <h2 class="auth-title">Create Your Zetrix Account</h2>
       <form class="auth-form" autocomplete="off"method="POST" action="/signup" >
