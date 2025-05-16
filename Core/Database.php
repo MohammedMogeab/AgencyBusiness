@@ -49,4 +49,12 @@ class Database
 
         return $result;
     }
+
+    public function lastInsertId(){
+        try {
+            return $this->connection->lastInsertId();
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
 }

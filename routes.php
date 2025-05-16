@@ -38,11 +38,8 @@ $router->post('/login', 'sessions/store.php');
 $router->get('/forget','ForgetPassword/create.php');
 $router->post('/forget', 'ForgetPassword/store.php');
 $router->get('/project/create', 'project/create.php');
-$router->get('/project_create', 'project/create.php');
-$router->post('/project_create', 'project/store.php');
-$router->get('/project_edit', 'project/edit.php');
-$router->post('/project_edit', 'project/update.php');
-$router->get('/project_delete', 'project/destroy.php');
+$router->post('/project/create', 'project/store.php');
+$router->post('/project/store', 'project/store.php');
 $router->get('/aboutus', 'about.php');
 
 
