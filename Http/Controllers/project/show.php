@@ -7,7 +7,7 @@ $db = App::resolve(Database::class);
 
 $page_name = 'product';
 
-if(!isset($_GET['product_id'])){
+if(!isset($_GET['project_id'])){
     abort(404);
     exit;
 }
@@ -32,7 +32,7 @@ $project=  $db->query(
         WHERE product_id = :product_id
     ",
 [
-    'product_id' => $_GET['product_id']
+    'product_id' => $_GET['project_id']
 ])->findOrFail();
 
 

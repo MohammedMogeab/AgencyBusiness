@@ -522,8 +522,9 @@
     }
 
     .btn-invest:hover {
-      background: var(--primary-color-dark);
+      background: blue;
       transform: translateY(-2px);
+      color: black;
     }
 
     .btn-details {
