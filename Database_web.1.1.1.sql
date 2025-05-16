@@ -12,7 +12,9 @@ user_name varchar(50),
 password varchar(15) not null default '1234567890',
 email varchar(25) not null,
 photo varchar(255),
-user_type varchar(25));
+user_type varchar(25),
+role varchar(255)
+);
 
 create table blogs(
 blog_id int primary key auto_increment,
@@ -190,7 +192,7 @@ CREATE TABLE `product_resources`(
 CREATE TABLE `related_products`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `product_id` INT NULL,
-    `related_project_id` INT NULL,
+    `related_product_id` INT NULL,
     constraint re_pr_product_fk foreign key(product_id) references products(product_id)
 );
 CREATE TABLE `product_technologies`(

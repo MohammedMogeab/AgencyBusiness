@@ -325,7 +325,7 @@ require base_path('views/partials/header.php');
                             </td>
                             <td><span class="status-badge active">Active</span></td>
                             <td>$250,000</td>
-                            <td>15%</td>
+                            <td>15%</td>    
                             <td>
                                 <button class="action-btn edit">Edit</button>
                                 <button class="action-btn delete">Delete</button>

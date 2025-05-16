@@ -5,75 +5,84 @@ use core\Database;
 require base_path('vendor/autoload.php');
 $db = App::resolve(Database::class);
 
-$page_name = 'project';
+$page_name = 'product';
 
-if(!isset($_GET['project_id'])){
+if(!isset($_GET['product_id'])){
     abort(404);
     exit;
 }
 $project=  $db->query(
-    "Select 
-        p.id,
-        p.title,
-        p.description,
-        p.status,
-        p.client_name,
-        p.start_date,
-        p.main_image,
-        p.progress,
-        p.budget,
-        p.duration,
-        p.vidio,
-        p.overview,
-        p.users_impacted,
-        p.lines_of_code,
-        p.countries_deployed
-        FROM projects P
-        WHERE p.id = :project_id
+    "SELECT 
+        product_id AS id,
+        product_name AS title,
+        large_description AS description,
+        status,
+        client_name,
+        start_date,
+        main_image,
+        progress,
+        budget,
+        duration,
+        vidio,
+        overview,
+        users_imapacted AS users_impacted,
+        lines_of_code,
+        countries_deployed
+        FROM products
+        WHERE product_id = :product_id
     ",
 [
-    'project_id' => $_GET['project_id']
+    'product_id' => $_GET['product_id']
 ])->findOrFail();
-$project['resources'] = $db->query("select pr.resource_name,pr.resource_url,pr.type from project_resources pr where pr.project_id = :project_id", ['project_id' => $project['id']])->get();
-$project['faq'] = $db->query("select pf.question, pf.answer from project_faq pf where pf.project_id = :project_id", ['project_id' => $project['id']])->get();
 
-$project['previews'] = $db->query("select 
-        pre.reviewer_name,
-        pre.reviewer_role,
-        pre.rating,
-        pre.review,
-        pre.created_at from project_reviews pre where pre.project_id = :project_id", ['project_id' => $project['id']])->get();
-$project['milestones'] = $db->query("select 
+
+$project['resources'] = $db->query("SELECT pr.resource_name,pr.resource_url,pr.type FROM product_resources pr WHERE pr.product_id = :product_id", ['product_id' => $project['id']])->get();
+$project['faq'] = $db->query("SELECT pf.question, pf.answer FROM product_faq pf WHERE pf.product_id = :product_id", ['product_id' => $project['id']])->get();
+
+$project['previews'] = $db->query("SELECT
+        u.user_name AS reviewer_name,
+        u.role AS reviewer_role,
+        r.rate AS rating,
+        c.content AS review,
+        c.dates AS created_at
+        FROM comments c
+        LEFT JOIN users u on(c.user_id = u.user_id)
+        LEFT JOIN rates r on(c.user_id = r.user_id and r.product_id = :product_id)
+         WHERE c.product_id = :product_id", ['product_id' => $project['id']]
+)->get();
+
+$project['milestones'] = $db->query("SELECT 
         pm.milestone,
-        pm.badge_color from project_milestones pm where project_id = :project_id", ['project_id' => $project['id']])->get();
-$project['related_projects'] = $db->query("select 
-        pp.id,
-        pp.title,
-        pp.main_image
-        FROM related_projects re
-        LEFT JOIN projects pp ON (re.related_project_id = pp.id)
-        WHERE re.project_id = :project_id", ['project_id' => $project['id']])->get();
+        pm.badge_color FROM product_milestones pm WHERE product_id = :product_id", ['product_id' => $project['id']])->get();
 
-foreach ($project['related_projects'] as $key => $item) {
-    $project['related_projects'][$key]['technologies'] = $db->query("SELECT technology FROM project_technologies WHERE project_id = :project_id", ['project_id' => $item['id']])->get();
+$project['related_products'] = $db->query("SELECT 
+        pp.product_id as id,
+        pp.product_name as title,
+        pp.main_image
+        FROM related_products re
+        LEFT JOIN products pp ON (re.related_product_id = pp.product_id)
+        WHERE re.product_id = :product_id", ['product_id' => $project['id']])->get();
+
+foreach ($project['related_products'] as $key => $item) {
+    $project['related_products'][$key]['technologies'] = $db->query("SELECT technology FROM product_technologies WHERE product_id = :product_id", ['product_id' => $item['id']])->get();
 }
 
-$project['overviews'] = $db->query("select overview from project_overviews where project_id = :project_id", ['project_id' => $project['id']])->get();
+$project['overviews'] = $db->query("SELECT feature as overview FROM product_featuers WHERE product_id = :product_id", ['product_id' => $project['id']])->get();
+
 
 $gttt = [
-    'gallery' => $db->query("SELECT image_url as url, caption FROM project_gallery WHERE project_id = :project_id", ['project_id' => $project['id']])->get(),
-    'timeline' => $db->query("SELECT title, description, date FROM project_timeline WHERE project_id = :project_id", ['project_id' => $project['id']])->get(),
-    'team' => $db->query("SELECT name, role, avatar, linkedin FROM project_team WHERE project_id = :project_id", ['project_id' => $project['id']])->get(),
-    'technologies' => $db->query("SELECT technology FROM project_technologies WHERE project_id = :project_id", ['project_id' => $project['id']])->get()
+    'gallery' => $db->query("SELECT photo AS url, caption FROM products_photoes WHERE product_id = :product_id", ['product_id' => $project['id']])->get(),
+    'timeline' => $db->query("SELECT title, description, date FROM product_timeline WHERE product_id = :product_id", ['product_id' => $project['id']])->get(),
+    'team' => $team = $db->query("SELECT u.user_name AS name, u.role as role, u.photo AS avatar, dl.link AS linkedin FROM product_developers pd LEFT JOIN users u on(pd.user_id = u.user_id) LEFT JOIN developers_links dl on(pd.user_id = dl.user_id and dl.link_type = 'linkedin') WHERE product_id = :product_id ", ['product_id' => $project['id']])->get(),
+    'technologies' => $db->query("SELECT technology FROM product_technologies WHERE product_id = :product_id", ['product_id' => $project['id']])->get()
 ];
-
 
 // echo "<pre> <br><br><br><br><br><br><br><br>";
 // print_r($project);
 // echo "</pre>";
 // echo "<pre> <br><br><br><br><br><br><br><br>";
 // print_r($gttt);
-// echo "<br><br><br>$projectData<br><br></pre>";
+// echo "<br><br><br>$productData<br><br></pre>";
 
 
 
@@ -83,3 +92,5 @@ view('project/show.view.php', [
     'project' => $project,
     'gttt' => $gttt
 ]);
+
+//intelliPHP
