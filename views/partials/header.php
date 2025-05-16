@@ -1,313 +1,320 @@
 <!-- header.php -->
-<link rel="stylesheet" href="/assets/css/base.css">
-<header class="header" data-header>
-  <div class="container">
-    <a href="/" class="logo">
-      <img src="/assets/images/logo-light.svg" width="90" height="30" alt="Zetrix home" class="logo-light">
-      <img src="/assets/images/logo-dark.svg" width="90" height="30" alt="Zetrix home" class="logo-dark">
-    </a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zetrix - Digital Agency</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Base CSS -->
+    <link rel="stylesheet" href="./assets/css/base.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <!-- Logo -->
+            <a href="/" class="header-logo">
+                <!-- <img src="./assets/images/logo.png" alt="Zetrix Logo" class="logo-img"> -->
+                <span class="logo-text">Zetrix</span>
+            </a>
 
-    <nav class="navbar" data-navbar>
-      <div class="navbar-top">
-        <a href="index.php" class="logo">
-          <img src="/assets/images/logo-light.svg" width="90" height="30" alt="Zetrix home">
-        </a>
+            <!-- Navigation -->
+            <nav class="header-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/about" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/services" class="nav-link">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/projects" class="nav-link">projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/blog" class="nav-link">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/contact" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+            </nav>
 
-        <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
-          <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
-        </button>
-      </div>
+            <!-- CTA Button -->
+            <div class="header-cta">
+                <a href="/login" class="cta-button">
+                    <span>Get Started</span>
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                </a>
+            </div>
 
-      <ul class="navbar-list">
-        <li>
-          <a href="index.php" class="navbar-link">Home</a>
-        </li>
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" aria-label="Toggle Menu">
+                <span class="menu-icon"></span>
+            </button>
+        </div>
+    </header>
 
-        <li>
-          <a href="aboutus.php" class="navbar-link">About</a>
-        </li>
+    <style>
+    .main-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(43, 45, 66, 0.08);
+        transition: all 0.3s ease;
+    }
 
-        <li>
-          <a href="projects.php" class="navbar-link">Projects</a>
-        </li>
+    .main-header.scrolled {
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 4px 20px rgba(43, 45, 66, 0.08);
+    }
 
-        <li>
-          <a href="blog.php" class="navbar-link">Blog</a>
-        </li>
+    .header-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 24px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
-        <li>
-          <a href="contact.php" class="navbar-link">Contact</a>
-        </li>
-      </ul>
+    .header-logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        transition: transform 0.3s ease;
+    }
 
-      <div class="navbar-contact">
-        <a href="mailto:info@zetrix.com" class="contact-link">
-          <ion-icon name="mail-outline"></ion-icon>
-          <span>info@zetrix.com</span>
-        </a>
+    .header-logo:hover {
+        transform: translateY(-2px);
+    }
 
-        <a href="tel:+1234567890" class="contact-link">
-          <ion-icon name="call-outline"></ion-icon>
-          <span>+1 (234) 567-890</span>
-        </a>
-      </div>
+    .logo-img {
+        height: 40px;
+        width: auto;
+    }
 
-      <ul class="social-list">
-        <li>
-          <a href="#" class="social-link" aria-label="Facebook">
-            <ion-icon name="logo-facebook"></ion-icon>
-          </a>
-        </li>
+    .logo-text {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--primary-color);
+        letter-spacing: -0.5px;
+    }
 
-        <li>
-          <a href="#" class="social-link" aria-label="Twitter">
-            <ion-icon name="logo-twitter"></ion-icon>
-          </a>
-        </li>
+    .header-nav {
+        margin-left: auto;
+        margin-right: 40px;
+    }
 
-        <li>
-          <a href="#" class="social-link" aria-label="Instagram">
-            <ion-icon name="logo-instagram"></ion-icon>
-          </a>
-        </li>
+    .nav-list {
+        display: flex;
+        gap: 40px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
 
-        <li>
-          <a href="#" class="social-link" aria-label="LinkedIn">
-            <ion-icon name="logo-linkedin"></ion-icon>
-          </a>
-        </li>
-      </ul>
-    </nav>
+    .nav-item {
+        position: relative;
+    }
 
-    <div class="header-actions">
-      <a href="/login" class="btn btn-outline">Login</a>
-      <a href="signup" class="btn btn-primary">Sign Up</a>
-    </div>
+    .nav-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-size: 1.05rem;
+        font-weight: 500;
+        padding: 8px 0;
+        transition: all 0.3s ease;
+        position: relative;
+    }
 
-    <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
-      <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
-    </button>
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        transition: width 0.3s ease;
+        border-radius: 2px;
+    }
 
-    <div class="overlay" data-nav-toggler data-overlay></div>
-  </div>
-</header>
+    .nav-link:hover {
+        color: var(--accent-color);
+    }
 
-<style>
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: var(--white);
-  padding: 20px 0;
-  z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  transition: 0.3s ease;
-}
+    .nav-link:hover::after {
+        width: 100%;
+    }
 
-.header .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+    .header-cta {
+        display: flex;
+        align-items: center;
+    }
 
-.logo {
-  display: block;
-  transition: 0.3s ease;
-}
+    .cta-button {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(120deg, var(--primary-color), var(--accent-color));
+        color: white;
+        text-decoration: none;
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1.05rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+    }
 
-.logo:hover {
-  transform: scale(1.05);
-}
+    .cta-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+    }
 
-.navbar {
-  position: fixed;
-  top: 0;
-  right: -350px;
-  width: 350px;
-  height: 100vh;
-  background: var(--primary-color);
-  padding: 30px;
-  transition: 0.3s ease;
-  z-index: 1001;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.12);
-}
+    .cta-button ion-icon {
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+    }
 
-.navbar.active {
-  right: 0;
-}
+    .cta-button:hover ion-icon {
+        transform: translateX(4px);
+    }
 
-.navbar-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
+    .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+    }
 
-.nav-close-btn {
-  background: transparent;
-  border: none;
-  color: var(--white);
-  font-size: 24px;
-  cursor: pointer;
-}
+    .menu-icon {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: var(--primary-color);
+        position: relative;
+        transition: all 0.3s ease;
+    }
 
-.navbar-list {
-  margin-bottom: 30px;
-}
+    .menu-icon::before,
+    .menu-icon::after {
+        content: '';
+        position: absolute;
+        width: 24px;
+        height: 2px;
+        background: var(--primary-color);
+        transition: all 0.3s ease;
+    }
 
-.navbar-link {
-  display: block;
-  color: var(--white);
-  font-size: 1.1rem;
-  padding: 10px 0;
-  transition: 0.3s ease;
-  font-weight: 600;
-}
+    .menu-icon::before {
+        top: -8px;
+    }
 
-.navbar-link:hover {
-  color: var(--accent-color);
-  transform: translateX(5px);
-}
+    .menu-icon::after {
+        bottom: -8px;
+    }
 
-.navbar-contact {
-  margin-bottom: 30px;
-}
+    @media (max-width: 1024px) {
+        .header-container {
+            height: 70px;
+        }
 
-.contact-link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--white);
-  margin-bottom: 10px;
-  transition: 0.3s ease;
-}
+        .nav-list {
+            gap: 30px;
+        }
 
-.contact-link:hover {
-  color: var(--accent-color);
-}
+        .nav-link {
+            font-size: 1rem;
+        }
 
-.social-list {
-  display: flex;
-  gap: 15px;
-}
+        .cta-button {
+            padding: 10px 20px;
+            font-size: 1rem;
+        }
+    }
 
-.social-link {
-  width: 40px;
-  height: 40px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--white);
-  transition: 0.3s ease;
-  font-size: 1.2rem;
-}
+    @media (max-width: 768px) {
+        .header-nav {
+            display: none;
+        }
 
-.social-link:hover {
-  background: var(--accent-color);
-  color: var(--white);
-  transform: translateY(-3px);
-}
+        .header-cta {
+            display: none;
+        }
 
-.header-actions {
-  display: flex;
-  gap: 15px;
-}
+        .mobile-menu-btn {
+            display: block;
+        }
 
-.btn {
-  padding: 10px 24px;
-  border-radius: 30px;
-  font-weight: 700;
-  font-size: 1rem;
-  transition: 0.3s ease;
-}
+        .mobile-menu-btn.active .menu-icon {
+            background: transparent;
+        }
 
-.btn-outline {
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
-  background: transparent;
-}
+        .mobile-menu-btn.active .menu-icon::before {
+            transform: rotate(45deg);
+            top: 0;
+        }
 
-.btn-outline:hover {
-  background: var(--primary-color);
-  color: var(--white);
-}
+        .mobile-menu-btn.active .menu-icon::after {
+            transform: rotate(-45deg);
+            bottom: 0;
+        }
+    }
 
-.btn-primary {
-  background: var(--accent-color);
-  color: var(--white);
-  border: none;
-}
+    @media (max-width: 480px) {
+        .header-container {
+            padding: 0 16px;
+        }
 
-.btn-primary:hover {
-  background: var(--primary-color);
-  color: var(--white);
-  transform: translateY(-2px);
-}
+        .logo-text {
+            font-size: 1.3rem;
+        }
 
-.nav-open-btn {
-  display: none;
-  background: transparent;
-  border: none;
-  color: var(--primary-color);
-  font-size: 24px;
-  cursor: pointer;
-}
+        .logo-img {
+            height: 32px;
+        }
+    }
+    </style>
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.3s ease;
-  z-index: 1000;
-}
+    <script>
+    // Add scroll effect to header
+    window.addEventListener('scroll', function() {
+        const header = document.querySelector('.main-header');
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
 
-.overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
+    // Mobile menu functionality
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const headerNav = document.querySelector('.header-nav');
+    
+    mobileMenuBtn.addEventListener('click', function() {
+        this.classList.toggle('active');
+        headerNav.classList.toggle('active');
+    });
+    </script>
 
-@media (max-width: 991px) {
-  .nav-open-btn {
-    display: block;
-  }
-  
-  .navbar {
-    right: -100%;
-    width: 100%;
-    max-width: 400px;
-  }
-  
-  .navbar.active {
-    right: 0;
-  }
-}
-
-@media (max-width: 575px) {
-  .header-actions {
-    display: none;
-  }
-  
-  .navbar {
-    width: 100%;
-    max-width: 100vw;
-  }
-  
-  .logo img {
-    width: 70px;
-    height: auto;
-  }
-}
-</style>
-
-<!-- Ionicons -->
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-<div style="height: 50px;"></div>
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
