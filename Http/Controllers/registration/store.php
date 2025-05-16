@@ -6,7 +6,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 require base_path('vendor/autoload.php');
-session_start();
+// session_start();
 $db = App::resolve(Database::class);
 $auth = new Authenticator(); 
 $errors = [];
@@ -179,7 +179,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
                 echo $errors;
            }
        
-           $query_run = $db->query('INSERT INTO users(user_name,user_password,email,verfiy_token)
+           $query_run = $db->query('INSERT INTO users(user_name,password,email,verfiy_token)
             Values(:username,:pass,:email,:verfiy_token)', [
             ':username'=> $username,
             ':pass'=> password_hash($password, PASSWORD_DEFAULT),

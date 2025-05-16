@@ -263,21 +263,25 @@
                         </div>
                     </div>
                     <div class="contact-form">
-                        <form id="contactForm">
+                        <form id="contactForm"
+                        method="POST"  action="/contact">
                             <div class="form-group">
                                 <label for="email" class="form-label">Your email</label>
-                                <input type="email" id="email" class="form-control" placeholder="name@example.com" required>
+                                <input type="email" id="email" name='email' class="form-control" placeholder="name@example.com" required>
                             </div>
+                            <div style="color:red;"><?php if(isset($errors['filed'])) echo $errors['filed'];?></div>
+                            <div style="color:red;"><?php if(isset($errors['email not found in database plaes login'])) echo $errors['email not found in database plaes login'];?></div>
                             <div class="form-group">
                                 <label for="subject" class="form-label">Subject</label>
-                                <input type="text" id="subject" class="form-control" placeholder="Let us know how we can help you" required>
+                                <input type="text" id="subject" name="subject" class="form-control"  placeholder="Let us know how we can help you" required>
                             </div>
                             <div class="form-group">
                                 <label for="message" class="form-label">Your message</label>
-                                <textarea id="message" class="form-control" rows="6" placeholder="Leave a comment..." required></textarea>
+                                <textarea id="message" name='message' class="form-control" rows="6" placeholder="Leave a comment..." required></textarea>
                             </div>
                             <button type="submit" class="submit-btn">Send message</button>
                             <p id="formMessage" style="margin-top:10px;color:var(--accent-color);"></p>
+                            <div style="color:green;"><?php if(isset($errors['send'])) echo $errors['send'];?></div>
                         </form>
                     </div>
                 </div>
@@ -327,20 +331,20 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script>
         // Simple form validation and feedback
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            var email = document.getElementById('email').value.trim();
-            var subject = document.getElementById('subject').value.trim();
-            var message = document.getElementById('message').value.trim();
-            var formMessage = document.getElementById('formMessage');
-            if (!email || !subject || !message) {
-                formMessage.textContent = 'Please fill in all fields.';
-                return;
-            }
-            formMessage.style.color = 'green';
-            formMessage.textContent = 'Thank you for contacting us! We will get back to you soon.';
-            this.reset();
-        });
+        // document.getElementById('contactForm').addEventListener('submit', function(e) {
+        //     e.preventDefault();
+        //     var email = document.getElementById('email').value.trim();
+        //     var subject = document.getElementById('subject').value.trim();
+        //     var message = document.getElementById('message').value.trim();
+        //     var formMessage = document.getElementById('formMessage');
+        //     if (!email || !subject || !message) {
+        //         formMessage.textContent = 'Please fill in all fields.';
+        //         return;
+        //     }
+        //     // formMessage.style.color = 'green';
+        //     // formMessage.textContent = 'Thank you for contacting us! We will get back to you soon.';
+           
+        // });
     </script>
 </body>
 </html>
