@@ -73,7 +73,7 @@ $project['overviews'] = $db->query("SELECT feature as overview FROM product_feat
 $gttt = [
     'gallery' => $db->query("SELECT photo AS url, caption FROM products_photoes WHERE product_id = :product_id", ['product_id' => $project['id']])->get(),
     'timeline' => $db->query("SELECT title, description, date FROM product_timeline WHERE product_id = :product_id", ['product_id' => $project['id']])->get(),
-    'team' => $team = $db->query("SELECT u.user_name AS name, u.role as role, u.photo AS avatar, dl.link AS linkedin FROM product_developers pd LEFT JOIN users u on(pd.user_id = u.user_id) LEFT JOIN developers_links dl on(pd.user_id = dl.user_id and dl.link_type = 'linkedin') WHERE product_id = :product_id ", ['product_id' => $project['id']])->get(),
+    'team' => $team = $db->query("SELECT u.name AS name, u.role as role, u.avatar AS avatar, dl.link AS linkedin FROM product_developers pd LEFT JOIN developers u on(pd.developer_id = u.developer_id) LEFT JOIN developers_links dl on(pd.developer_id = dl.developer_id and dl.link_type = 'linkedin') WHERE product_id = :product_id ", ['product_id' => $project['id']])->get(),
     'technologies' => $db->query("SELECT technology FROM product_technologies WHERE product_id = :product_id", ['product_id' => $project['id']])->get()
 ];
 

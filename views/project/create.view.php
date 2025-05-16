@@ -360,7 +360,7 @@ require base_path('views/partials/header.php');
     <div class="bg-blob bg-blob3"></div>
     <div class="form-container">
         <h1>Create New Project</h1>
-        <form action="/project/create" method="POST" enctype="multipart/form-data">
+        <form action="/project/store" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" name="title" id="title" required>
@@ -466,9 +466,9 @@ require base_path('views/partials/header.php');
                 preview.style.display = 'none';
             }
         });
-        document.querySelector('.file-upload-label').addEventListener('click', function() {
-            document.getElementById('image').click();
-        });
+        // document.querySelector('.file-upload-label').addEventListener('click', function() {
+        //     document.getElementById('image').click();
+        // });
         // Gallery
         function addGalleryItem() {
             const list = document.getElementById('gallery-list');
