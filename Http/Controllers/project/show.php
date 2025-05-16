@@ -1,7 +1,10 @@
 <?php
+
 use core\App;
 use core\Database;
+require base_path('vendor/autoload.php');
 $db = App::resolve(Database::class);
+
 $page_name = 'project';
 if(!isset($_GET['project_id'])){
     abort(404);
@@ -75,7 +78,7 @@ $gttt = [
 
 
 
-view('../views/project/show.view.php', [
+view('project/show.view.php', [
     'project' => $project,
     'gttt' => $gttt
 ]);
