@@ -132,7 +132,7 @@
 .logo-text {
   font-size: 1.5rem;
   font-weight: 800;
-  color: var(--white);
+  color: #f50303;
   letter-spacing: -0.5px;
 }
 
