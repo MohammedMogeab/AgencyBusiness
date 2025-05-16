@@ -1,1 +1,4 @@
-$db=App::resolvejhkk;
+<?php
+
+
+?>

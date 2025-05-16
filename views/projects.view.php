@@ -551,10 +551,12 @@
   <main style="margin-top: 0;">
     <section class="section project">
       <div class="container-filter">
+        <form action="\projects" method="GET">
         <div class="filter-search">
-          <input type="text" class="input-search" id="search" placeholder="Search in Projects">
+          <input type="text" class="input-search" id="search" placeholder="Search in Projects" name="search">
           <span class="icon-search"><ion-icon name="search-outline"></ion-icon></span>
         </div>
+        </form>
         <div class="filter-controls">
           <div class="filtes-categrio">
             <div class="options-filter-language">
@@ -610,36 +612,47 @@
         </div>
       </div>
       <div class="projects-grid" id="projectsGrid">
-        <div class="project-card" data-language="JavaScript" data-type="Desktop">
-          <img src="../assets/images/blog-1.jpg" alt="AI Chatting Desktop" class="project-image">
-          <div class="project-content">
-            <div class="tags">
-              <span class="tag blue">Development</span>
-              <span class="tag red">Desktop</span>
-              <span class="tag green">Project</span>
-            </div>
-            <h2 class="project-title">AI Chatting Desktop</h2>
-            <p class="project-desc">A desktop app for chatting and moving, with fancy features and AI integration.</p>
-            <div class="project-stats">
-              <span><ion-icon name="chatbubble-ellipses-outline"></ion-icon> 8762 <span>Comments</span></span>
-              <span><ion-icon name="star-outline"></ion-icon> 3236 <span>Rate</span></span>
-              <span><ion-icon name="trending-up-outline"></ion-icon> 345 <span>ROI</span></span>
-              <span><ion-icon name="time-outline"></ion-icon> 12 <span>Months</span></span>
-            </div>
-            <div class="project-footer">
-              <div class="investment-info">
-                <span class="investment-amount">$3,750</span>
-                <span class="investment-label">Minimum Investment</span>
-              </div>
-              <div class="footer-divider"></div>
-              <div class="button-group">
-                <button class="btn-quick-view"><ion-icon name="eye-outline"></ion-icon> Quick View</button>
-                <button onclick="window.location.href='/project'">View Investment</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="project-card" data-language="HTML" data-type="Website">
+        <?php if(isset($results) && is_array($results)):?>
+        <?php  foreach($results as  $v):?>
+          
+          <div class="project-card" data-language="JavaScript" data-type="Desktop">
+                          <img src="<?= isset($v['main_image'])?$v['main_image']:''?>" alt="AI Chatting Desktop" class="project-image">
+                          <div class="project-content">
+                        
+                            <div class="tags">
+                              <span class="tag blue">Development</span>
+                              <span class="tag red"><?= isset($v['caregory_name'])?$v['category_name']:'oooo'?></span>
+                              <span class="tag green">Project</span>
+                            </div>
+                            <h2 class="project-title"><?= isset($v['product_name'])?$v['product_name']:'oooooo'?></h2>
+                            <p class="project-desc"><?= isset($v['short_description'])?$v['short_description']:'pppp'?></p>
+                            <div class="project-stats">
+                              <span><ion-icon name="chatbubble-ellipses-outline"></ion-icon>  <?= isset($v['number_comments'])?$v['number_comments']:'1'?><span>Comments</span></span>
+                              <span><ion-icon name="star-outline"></ion-icon> <?= isset($v['number_rates'])?$v['number_rates']:'2'?><span>Rate</span></span>
+                              <span><ion-icon name="trending-up-outline"></ion-icon> 345 <span>ROI</span></span>
+                              <span><ion-icon name="time-outline"></ion-icon> <?= isset($v['duration'])?$v['duration']:'99'?><span>Months</span></span>
+                            </div>
+                            <div class="project-footer">
+                              <div class="investment-info">
+                                <span class="investment-amount"><?= isset($v['price'])?$v['price']:'888'?></span>
+                                <span class="investment-label">Minimum Investment</span>
+                              </div>
+                              <div class="footer-divider"></div>
+                              <div class="button-group">
+                                <button class="btn-quick-view"><ion-icon name="eye-outline"></ion-icon> Quick View</button>
+                                <button onclick="window.location.href='/project'">View Investment</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+        <?php   endforeach;?>
+        
+        <?php else :?>
+          <p>nnnnnnnnnnnnnnnnnnnn</p>
+        <?php endif;?>
+
+        <!-- <div class="project-card" data-language="HTML" data-type="Website">
           <img src="../assets/images/blog-1.jpg" alt="Portfolio Website" class="project-image">
           <div class="project-content">
             <div class="tags">
@@ -696,7 +709,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </section>
   </main>
@@ -836,6 +849,20 @@
         if (card) createQuickViewModal(card);
       });
     });
+
+    document.getElementById("search").addEventListener('input',function()
+  {
+    let keyword=this.value;
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET","projects?ajax=1&search="+encodeURIComponent(keyword,true));
+    xhr.onload=function(){
+      if(xhr.status===200)
+    {
+      document.getElementById('projectsGrides').innerHTML=xhr.responseText;
+    }
+    };
+    xhr.send();
+  })
   </script>
   <!-- Ionicons -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
