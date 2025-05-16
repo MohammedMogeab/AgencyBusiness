@@ -38,7 +38,7 @@
                     <p>From web development to digital marketing, our multidisciplinary team brings together expertise, creativity, and a relentless drive to deliver results that matter. We are committed to making a positive impact for our clients and the communities we serve.</p>
                 </div>
                 <div class="about-story-img">
-                    <img src="./assets/images/about-hero.jpg" alt="Our Story" />
+                    <img src="./assets/images/blog-1.jpg" alt="Our Story" />
                 </div>
             </div>
         </section>
@@ -49,24 +49,52 @@
                 <h2 class="section-title">Meet Our Team</h2>
                 <div class="team-grid">
                     <div class="team-card">
-                        <img src="./assets/images/mohammedmogeabprofile.png" alt="Team Member" class="team-img">
+                        <div class="team-img-wrapper">
+                            <img src="./assets/images/blog-2.jpg" alt="Team Member" class="team-img">
+                        </div>
                         <h3 class="team-name">Alex Morgan</h3>
                         <p class="team-role">CEO & Founder</p>
+                        <div class="team-social">
+                            <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
+                            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+                            <a href="#"><ion-icon name="mail-outline"></ion-icon></a>
+                        </div>
                     </div>
                     <div class="team-card">
-                        <img src="./assets/images/profile.jpeg" alt="Team Member" class="team-img">
+                        <div class="team-img-wrapper">
+                            <img src="./assets/images/blog-2.jpg" alt="Team Member" class="team-img">
+                        </div>
                         <h3 class="team-name">Sara Lee</h3>
                         <p class="team-role">Lead Designer</p>
+                        <div class="team-social">
+                            <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
+                            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+                            <a href="#"><ion-icon name="mail-outline"></ion-icon></a>
+                        </div>
                     </div>
                     <div class="team-card">
-                        <img src="./assets/images/download.jpeg" alt="Team Member" class="team-img">
+                        <div class="team-img-wrapper">
+                            <img src="./assets/images/blog-2.jpg" alt="Team Member" class="team-img">
+                        </div>
                         <h3 class="team-name">Michael Chen</h3>
                         <p class="team-role">Head of Development</p>
+                        <div class="team-social">
+                            <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
+                            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+                            <a href="#"><ion-icon name="mail-outline"></ion-icon></a>
+                        </div>
                     </div>
                     <div class="team-card">
-                        <img src="./assets/images/team-4.jpg" alt="Team Member" class="team-img">
+                        <div class="team-img-wrapper">
+                            <img src="./assets/images/blog-2.jpg" alt="Team Member" class="team-img">
+                        </div>
                         <h3 class="team-name">Priya Patel</h3>
                         <p class="team-role">Marketing Director</p>
+                        <div class="team-social">
+                            <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
+                            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+                            <a href="#"><ion-icon name="mail-outline"></ion-icon></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -110,107 +138,234 @@
     .about-hero {
         background: linear-gradient(120deg, var(--primary-color) 60%, var(--accent-color) 100%);
         color: var(--white);
-        padding: 110px 0 60px 0;
+        padding: 120px 0 80px 0;
         text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    .about-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('./assets/images/pattern.svg') center/cover;
+        opacity: 0.1;
     }
     .about-hero-title {
-        font-size: 2.8rem;
+        font-size: 3.2rem;
         font-weight: 800;
-        margin-bottom: 18px;
+        margin-bottom: 20px;
         letter-spacing: 1px;
+        position: relative;
     }
     .about-hero-text {
         font-size: 1.3rem;
         opacity: 0.92;
-        max-width: 600px;
+        max-width: 700px;
         margin: 0 auto;
+        line-height: 1.6;
     }
     .about-story-section {
         background: var(--white);
-        padding: 70px 0 60px 0;
+        padding: 100px 0;
+        position: relative;
     }
     .about-story-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 50px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
         align-items: center;
-        justify-content: space-between;
     }
     .about-story-text {
-        flex: 1 1 340px;
-        min-width: 280px;
+        padding-right: 40px;
     }
     .about-story-text h2 {
         color: var(--primary-color);
-        font-size: 2rem;
+        font-size: 2.4rem;
         font-weight: 700;
-        margin-bottom: 18px;
+        margin-bottom: 24px;
+        line-height: 1.3;
     }
     .about-story-text p {
         color: var(--secondary-color);
-        font-size: 1.08rem;
-        margin-bottom: 16px;
+        font-size: 1.1rem;
+        margin-bottom: 20px;
         line-height: 1.7;
+        opacity: 0.9;
     }
     .about-story-img {
-        flex: 1 1 320px;
-        min-width: 240px;
-        text-align: center;
+        position: relative;
+    }
+    .about-story-img::before {
+        content: '';
+        position: absolute;
+        top: -20px;
+        left: -20px;
+        width: 100%;
+        height: 100%;
+        border: 2px solid var(--accent-color);
+        border-radius: 24px;
+        z-index: 0;
     }
     .about-story-img img {
-        max-width: 350px;
         width: 100%;
-        border-radius: 18px;
+        border-radius: 20px;
         box-shadow: 0 8px 32px rgba(43,45,66,0.10);
+        position: relative;
+        z-index: 1;
+        transition: transform 0.3s ease;
+    }
+    .about-story-img:hover img {
+        transform: translate(-10px, -10px);
     }
     .about-team-section {
         background: var(--background-color);
-        padding: 70px 0 60px 0;
+        padding: 100px 0;
         text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    .about-team-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.2), transparent);
     }
     .section-title {
         color: var(--primary-color);
-        font-size: 2.2rem;
+        font-size: 2.4rem;
         font-weight: 800;
-        margin-bottom: 40px;
+        margin-bottom: 50px;
         letter-spacing: 1px;
+        position: relative;
+        display: inline-block;
+    }
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, #6366f1, #f472b6);
+        border-radius: 3px;
     }
     .team-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 32px;
-        max-width: 1000px;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 40px;
+        max-width: 1200px;
         margin: 0 auto;
+        padding: 0 20px;
     }
     .team-card {
         background: var(--white);
-        border-radius: 16px;
-        box-shadow: 0 4px 24px rgba(43,45,66,0.10);
-        padding: 32px 18px 24px 18px;
+        border-radius: 24px;
+        box-shadow: 0 4px 24px rgba(43,45,66,0.08);
+        padding: 40px 24px 30px 24px;
         text-align: center;
-        transition: transform 0.2s, box-shadow 0.2s;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .team-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #6366f1, #f472b6);
+        opacity: 0;
+        transition: opacity 0.3s ease;
     }
     .team-card:hover {
-        transform: translateY(-8px) scale(1.03);
-        box-shadow: 0 8px 32px rgba(43,45,66,0.13);
+        transform: translateY(-10px);
+        box-shadow: 0 12px 40px rgba(43,45,66,0.12);
+    }
+    .team-card:hover::before {
+        opacity: 1;
+    }
+    .team-img-wrapper {
+        position: relative;
+        width: 140px;
+        height: 140px;
+        margin-bottom: 24px;
     }
     .team-img {
-        width: 90px;
-        height: 90px;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
         border-radius: 50%;
-        margin-bottom: 18px;
         border: 3px solid var(--accent-color);
+        box-shadow: 0 4px 16px rgba(99, 102, 241, 0.2);
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 1;
+    }
+    .team-img-wrapper::before {
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        right: -4px;
+        bottom: -4px;
+        background: linear-gradient(45deg, #6366f1, #f472b6);
+        border-radius: 50%;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .team-card:hover .team-img-wrapper::before {
+        opacity: 0.3;
+    }
+    .team-card:hover .team-img {
+        transform: scale(1.05);
     }
     .team-name {
-        font-size: 1.15rem;
+        font-size: 1.3rem;
         font-weight: 700;
         color: var(--primary-color);
-        margin-bottom: 6px;
+        margin-bottom: 8px;
+        transition: color 0.3s ease;
     }
     .team-role {
         color: var(--secondary-color);
-        font-size: 1rem;
+        font-size: 1.05rem;
+        margin-bottom: 20px;
+        opacity: 0.9;
+    }
+    .team-social {
+        display: flex;
+        gap: 12px;
+        margin-top: auto;
+    }
+    .team-social a {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--background-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-color);
+        transition: all 0.3s ease;
+    }
+    .team-social a:hover {
+        background: var(--accent-color);
+        color: white;
+        transform: translateY(-3px);
+    }
+    .team-social ion-icon {
+        font-size: 1.2rem;
     }
     .about-values-section {
         background: var(--white);
@@ -253,25 +408,22 @@
         font-size: 1rem;
         line-height: 1.6;
     }
-    @media (max-width: 900px) {
-        .about-story-grid {
-            flex-direction: column;
-            gap: 32px;
-            text-align: center;
-        }
-        .about-story-img img {
-            max-width: 100%;
+    @media (max-width: 992px) {
+        .team-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
         }
     }
-    @media (max-width: 600px) {
-        .about-hero-title {
-            font-size: 1.5rem;
+    @media (max-width: 768px) {
+        .about-team-section {
+            padding: 60px 0;
         }
         .section-title {
-            font-size: 1.2rem;
+            font-size: 2rem;
         }
-        .about-story-section, .about-team-section, .about-values-section {
-            padding: 40px 0 30px 0;
+        .team-grid {
+            grid-template-columns: 1fr;
+            max-width: 400px;
         }
     }
     </style>

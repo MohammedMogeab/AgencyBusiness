@@ -46,7 +46,7 @@ $router->post('/project_create', 'project/store.php');
 $router->get('/project_edit', 'project/edit.php');
 $router->post('/project_edit', 'project/update.php');
 $router->get('/project_delete', 'project/destroy.php');
-
+$router->get('/aboutus', 'about.php');
 
 
 $router->get('/manage', 'manage/dashboard.php');

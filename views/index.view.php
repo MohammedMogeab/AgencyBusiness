@@ -304,6 +304,90 @@
                 padding: 20px 16px;
             }
         }
+        .contact-section {
+            background: var(--white);
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.2), transparent);
+        }
+        .contact-section h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+        }
+        .contact-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #6366f1, #f472b6);
+            border-radius: 3px;
+        }
+        .contact-section p {
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        .contact-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(90deg, #6366f1 0%, #2563eb 100%);
+            color: #fff;
+            font-weight: 600;
+            padding: 16px 36px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .contact-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(99, 102, 241, 0.3);
+        }
+        .contact-cta:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.2);
+        }
+        .contact-cta ion-icon {
+            font-size: 1.4rem;
+        }
+        @media (max-width: 600px) {
+            .contact-section {
+                padding: 60px 0;
+            }
+            .contact-section h2 {
+                font-size: 1.8rem;
+            }
+            .contact-section p {
+                font-size: 1rem;
+                padding: 0 20px;
+            }
+            .contact-cta {
+                padding: 14px 28px;
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -402,10 +486,13 @@
             </div>
         </section>
         <!-- Contact Preview Section -->
-        <section class="features-section" id="contact">
+        <section class="contact-section" id="contact">
             <h2>Get in Touch</h2>
-            <p style="max-width: 600px; margin: 0 auto 40px auto; color: var(--secondary-color);">Have a question, feedback, or need support? Reach out to us and our team will get back to you as soon as possible.</p>
-            <a href="contact.php" class="btn btn-primary">Contact Us</a>
+            <p>Have a question, feedback, or need support? Reach out to us and our team will get back to you as soon as possible.</p>
+            <a href="contact.php" class="contact-cta">
+                <ion-icon name="mail-outline"></ion-icon>
+                Contact Us
+            </a>
         </section>
     </main>
     <!-- Ionicons -->
