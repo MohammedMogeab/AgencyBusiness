@@ -3,7 +3,6 @@
 // Load the bootstrap file
 
 
-
 use core\session;
 use core\ValidationException;
 define('BASE_PATH', __DIR__ . '/../');
@@ -23,7 +22,7 @@ spl_autoload_register(function ($class) {
   
   });
 
-  require BASE_PATH . 'bootstrap.php';
+require BASE_PATH . 'bootstrap.php';
 
 $router = new \core\Router();
 require BASE_PATH . 'routes.php';

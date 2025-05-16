@@ -19,10 +19,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700&display=swap" rel="stylesheet">
     
     <!-- Base CSS -->
-    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="/assets/css/base.css">
     
     <!-- Page Specific CSS -->
-    <link rel="stylesheet" href="./assets/css/pages/home.css">
+    <link rel="stylesheet" href="/assets/css/pages/home.css">
     
     <!-- Preload Images -->
     <link rel="preload" as="image" href="./assets/images/hero-bg.jpg">
@@ -142,64 +142,148 @@
         .project-preview-card {
             background: var(--white);
             border-radius: 16px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+            box-shadow: 0 4px 20px rgba(30, 64, 175, 0.08);
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s ease;
             text-align: left;
+            border: 1px solid #e0e7ef;
+            position: relative;
+            height: 100%;
         }
         .project-preview-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(30, 64, 175, 0.12);
+            border-color: #6366f1;
+        }
+        .project-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: linear-gradient(90deg, #6366f1 60%, #f472b6 100%);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px #6366f122;
+            letter-spacing: 0.5px;
+            z-index: 2;
+            backdrop-filter: blur(4px);
+        }
+        .project-preview-img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
         }
         .project-preview-img {
             width: 100%;
-            height: 160px;
+            height: 100%;
             object-fit: cover;
             background: #f3f3f3;
+            display: block;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+            transition: transform 0.3s ease;
+        }
+        .project-preview-card:hover .project-preview-img {
+            transform: scale(1.05);
+        }
+        .project-img-gradient {
+            position: absolute;
+            left: 0; right: 0; bottom: 0; top: 0;
+            background: linear-gradient(180deg, rgba(30,41,59,0.0) 60%, rgba(30,41,59,0.15) 100%);
+            z-index: 1;
         }
         .project-preview-content {
-            padding: 22px 18px 18px 18px;
+            padding: 24px 20px;
             flex: 1;
             display: flex;
             flex-direction: column;
+            position: relative;
+            z-index: 2;
+            background: var(--white);
         }
         .project-preview-title {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 700;
-            color: var(--primary-color);
+            color: #1d4ed8;
             margin-bottom: 8px;
+            letter-spacing: 0.2px;
+            line-height: 1.4;
         }
         .project-preview-desc {
             color: var(--secondary-color);
-            font-size: 0.97rem;
-            margin-bottom: 14px;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
             flex: 1;
+            line-height: 1.6;
+            opacity: 0.9;
         }
         .project-preview-footer {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-top: 10px;
-        }
-        .project-preview-price {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--accent-color);
+            justify-content: center;
+            margin-top: auto;
+            padding-top: 16px;
+            border-top: 1px solid rgba(224, 231, 239, 0.8);
         }
         .btn.btn-outline {
-            border: 2px solid var(--accent-color);
-            color: var(--accent-color);
+            border: 2px solid #6366f1;
+            color: #6366f1;
             background: transparent;
+            font-weight: 800;
+            border-radius: 30px;
+            padding: 12px 32px;
+            transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+            box-shadow: 0 1px 4px #6366f111;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
         .btn.btn-outline:hover {
-            background: var(--accent-color);
-            color: var(--white);
+            background: #6366f1;
+            color: #fff;
+            box-shadow: 0 4px 16px #6366f122;
+        }
+        .btn.btn-gradient {
+            background: #6366f1;
+            color: #fff;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 24px;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px #6366f122;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            outline: none;
+            width: 100%;
+            justify-content: center;
+            letter-spacing: 0.3px;
+        }
+        .btn.btn-gradient:hover, .btn.btn-gradient:focus {
+            background: #4f46e5;
+            box-shadow: 0 4px 12px #6366f144;
+            transform: translateY(-1px);
+        }
+        .btn.btn-gradient:active {
+            background: #4338ca;
+            box-shadow: 0 2px 6px #6366f122;
+            transform: translateY(0);
+        }
+        .btn.btn-gradient svg {
+            margin-right: 6px;
         }
         @media (max-width: 900px) {
             .features-grid, .projects-preview-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
             }
         }
         @media (max-width: 600px) {
@@ -208,9 +292,100 @@
             }
             .features-grid, .projects-preview-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
             .main-hero .hero-img {
                 max-width: 100%;
+            }
+            .project-preview-img-wrapper {
+                height: 160px;
+            }
+            .project-preview-content {
+                padding: 20px 16px;
+            }
+        }
+        .contact-section {
+            background: var(--white);
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.2), transparent);
+        }
+        .contact-section h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+        }
+        .contact-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #6366f1, #f472b6);
+            border-radius: 3px;
+        }
+        .contact-section p {
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        .contact-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(90deg, #6366f1 0%, #2563eb 100%);
+            color: #fff;
+            font-weight: 600;
+            padding: 16px 36px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .contact-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(99, 102, 241, 0.3);
+        }
+        .contact-cta:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.2);
+        }
+        .contact-cta ion-icon {
+            font-size: 1.4rem;
+        }
+        @media (max-width: 600px) {
+            .contact-section {
+                padding: 60px 0;
+            }
+            .contact-section h2 {
+                font-size: 1.8rem;
+            }
+            .contact-section p {
+                font-size: 1rem;
+                padding: 0 20px;
+            }
+            .contact-cta {
+                padding: 14px 28px;
+                font-size: 1rem;
             }
         }
     </style>
@@ -258,51 +433,51 @@
             <h2>Featured Projects</h2>
             <div class="projects-preview-grid">
                 <div class="project-preview-card">
-                    <img src="./assets/images/blog-1.jpg" alt="AI Chatting Desktop" class="project-preview-img">
+                    <span class="project-badge">Featured</span>
+                    <div class="project-preview-img-wrapper">
+                        <img src="./assets/images/blog-1.jpg" alt="AI Chatting Desktop" class="project-preview-img">
+                        <div class="project-img-gradient"></div>
+                    </div>
                     <div class="project-preview-content">
                         <div class="project-preview-title">AI Chatting Desktop</div>
                         <div class="project-preview-desc">A desktop app for chatting and moving, with fancy features and AI integration.</div>
                         <div class="project-preview-footer">
-                            <span class="project-preview-price">$3,750</span>
                             <button onclick="window.location.href='/project'" 
-                              class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 text-white rounded-xl font-bold shadow-lg text-lg gap-2 transition-all duration-300 hover:from-indigo-600 hover:to-blue-600 hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-blue-300">
-                              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                              </svg>
+                              class="btn btn-gradient">
                               View Project
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="project-preview-card">
-                    <img src="./assets/images/blog-1.jpg" alt="Portfolio Website" class="project-preview-img">
+                    <span class="project-badge">New</span>
+                    <div class="project-preview-img-wrapper">
+                        <img src="./assets/images/blog-1.jpg" alt="Portfolio Website" class="project-preview-img">
+                        <div class="project-img-gradient"></div>
+                    </div>
                     <div class="project-preview-content">
                         <div class="project-preview-title">Portfolio Website</div>
                         <div class="project-preview-desc">A modern, responsive portfolio website built with HTML, CSS, and JavaScript.</div>
                         <div class="project-preview-footer">
-                            <span class="project-preview-price">$1,200</span>
                             <button onclick="window.location.href='/project'" 
-                              class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 text-white rounded-xl font-bold shadow-lg text-lg gap-2 transition-all duration-300 hover:from-indigo-600 hover:to-blue-600 hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-blue-300">
-                              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                              </svg>
+                              class="btn btn-gradient">
                               View Project
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="project-preview-card">
-                    <img src="./assets/images/blog-1.jpg" alt="Mobile App" class="project-preview-img">
+                    <span class="project-badge">Popular</span>
+                    <div class="project-preview-img-wrapper">
+                        <img src="./assets/images/blog-1.jpg" alt="Mobile App" class="project-preview-img">
+                        <div class="project-img-gradient"></div>
+                    </div>
                     <div class="project-preview-content">
                         <div class="project-preview-title">Mobile App</div>
                         <div class="project-preview-desc">A feature-rich Android app for productivity and communication.</div>
                         <div class="project-preview-footer">
-                            <span class="project-preview-price">$2,000</span>
                             <button onclick="window.location.href='/project'" 
-                              class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 text-white rounded-xl font-bold shadow-lg text-lg gap-2 transition-all duration-300 hover:from-indigo-600 hover:to-blue-600 hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-blue-300">
-                              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                              </svg>
+                              class="btn btn-gradient">
                               View Project
                             </button>
                         </div>
@@ -311,10 +486,13 @@
             </div>
         </section>
         <!-- Contact Preview Section -->
-        <section class="features-section" id="contact">
+        <section class="contact-section" id="contact">
             <h2>Get in Touch</h2>
-            <p style="max-width: 600px; margin: 0 auto 40px auto; color: var(--secondary-color);">Have a question, feedback, or need support? Reach out to us and our team will get back to you as soon as possible.</p>
-            <a href="contact.php" class="btn btn-primary">Contact Us</a>
+            <p>Have a question, feedback, or need support? Reach out to us and our team will get back to you as soon as possible.</p>
+            <a href="contact.php" class="contact-cta">
+                <ion-icon name="mail-outline"></ion-icon>
+                Contact Us
+            </a>
         </section>
     </main>
     <!-- Ionicons -->

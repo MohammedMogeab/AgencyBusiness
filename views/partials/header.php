@@ -1,17 +1,16 @@
 <!-- header.php -->
 <link rel="stylesheet" href="./assets/css/base.css">
-<!-- <link rel="stylesheet" href="./assets/css/style.css"> -->
 <header class="header" data-header>
   <div class="container">
-    <a href="index.php" class="logo">
-      <img src="./assets/images/logo-light.svg" width="90" height="30" alt="Zetrix home" class="logo-light">
-      <img src="./assets/images/logo-dark.svg" width="90" height="30" alt="Zetrix home" class="logo-dark">
+    <a href="/" class="logo">
+      <img src="/assets/images/logo-light.svg" width="90" height="30" alt="Zetrix home" class="logo-light">
+      <img src="/assets/images/logo-dark.svg" width="90" height="30" alt="Zetrix home" class="logo-dark">
     </a>
 
     <nav class="navbar" data-navbar>
       <div class="navbar-top">
         <a href="index.php" class="logo">
-          <img src="./assets/images/logo-light.svg" width="90" height="30" alt="Zetrix home">
+          <img src="/assets/images/logo-light.svg" width="90" height="30" alt="Zetrix home">
         </a>
 
         <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>

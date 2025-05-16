@@ -1,4 +1,4 @@
-<?php include 'assets/php/header.php'; ?>
+<?php require base_path('views/partials/header.php'); ?>
 
 <main class="blog-main">
   <!-- Hero Section -->
@@ -16,7 +16,9 @@
       <div class="blog-posts">
         <div class="blog-grid">
           <a href="blog-post.php?id=1" class="blog-card">
-            <img src="./assets/images/blog-1.jpg" alt="Blog Post" class="blog-img">
+            <div class="blog-img-wrapper">
+              <img src="./assets/images/blog-1.jpg" alt="Blog Post" class="blog-img">
+            </div>
             <div class="blog-card-content">
               <h2 class="blog-title">The Future of AI in Business</h2>
               <p class="blog-excerpt">Discover how artificial intelligence is transforming industries and what it means for your business in 2024 and beyond.</p>
@@ -27,7 +29,9 @@
             </div>
           </a>
           <a href="blog-post.php?id=2" class="blog-card">
-            <img src="./assets/images/blog-2.jpg" alt="Blog Post" class="blog-img">
+            <div class="blog-img-wrapper">
+              <img src="./assets/images/blog-2.jpg" alt="Blog Post" class="blog-img">
+            </div>
             <div class="blog-card-content">
               <h2 class="blog-title">Design Trends to Watch</h2>
               <p class="blog-excerpt">Explore the top UI/UX design trends that are shaping the digital world and how to implement them in your projects.</p>
@@ -38,7 +42,9 @@
             </div>
           </a>
           <a href="blog-post.php?id=3" class="blog-card">
-            <img src="./assets/images/blog-3.jpg" alt="Blog Post" class="blog-img">
+            <div class="blog-img-wrapper">
+              <img src="./assets/images/blog-3.jpg" alt="Blog Post" class="blog-img">
+            </div>
             <div class="blog-card-content">
               <h2 class="blog-title">Building Scalable Web Apps</h2>
               <p class="blog-excerpt">A practical guide to architecting web applications that grow with your business and user base.</p>
@@ -49,7 +55,9 @@
             </div>
           </a>
           <a href="blog-post.php?id=4" class="blog-card">
-            <img src="./assets/images/blog-4.jpg" alt="Blog Post" class="blog-img">
+            <div class="blog-img-wrapper">
+              <img src="./assets/images/blog-4.jpg" alt="Blog Post" class="blog-img">
+            </div>
             <div class="blog-card-content">
               <h2 class="blog-title">Digital Marketing in 2024</h2>
               <p class="blog-excerpt">Learn the latest strategies and tools for effective digital marketing in a rapidly changing landscape.</p>
@@ -96,28 +104,52 @@
 .blog-hero {
   background: linear-gradient(120deg, var(--primary-color) 60%, var(--accent-color) 100%);
   color: var(--white);
-  padding: 110px 0 60px 0;
+  padding: 120px 0 80px 0;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.blog-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('./assets/images/pattern.svg') center/cover;
+  opacity: 0.1;
 }
 .blog-hero-title {
-  font-size: 2.6rem;
+  font-size: 3.2rem;
   font-weight: 800;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
   letter-spacing: 1px;
+  position: relative;
 }
 .blog-hero-text {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   opacity: 0.92;
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
+  line-height: 1.6;
 }
 .blog-content-section {
   background: var(--background-color);
-  padding: 70px 0 60px 0;
+  padding: 80px 0 70px 0;
+  position: relative;
+}
+.blog-content-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.2), transparent);
 }
 .blog-content-grid {
   display: flex;
-  gap: 50px;
+  gap: 60px;
   align-items: flex-start;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -127,72 +159,137 @@
 }
 .blog-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
 }
 .blog-card {
   background: var(--white);
-  border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(43,45,66,0.10);
+  border-radius: 24px;
+  box-shadow: 0 4px 24px rgba(43,45,66,0.08);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: all 0.3s ease;
+  position: relative;
+}
+.blog-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #6366f1, #f472b6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 .blog-card:hover {
-  transform: translateY(-8px) scale(1.03);
-  box-shadow: 0 8px 32px rgba(43,45,66,0.13);
+  transform: translateY(-10px);
+  box-shadow: 0 12px 40px rgba(43,45,66,0.12);
+}
+.blog-card:hover::before {
+  opacity: 1;
+}
+.blog-img-wrapper {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
 }
 .blog-img {
   width: 100%;
-  height: 180px;
+  height: 100%;
   object-fit: cover;
-  background: #f3f3f3;
+  transition: transform 0.5s ease;
+}
+.blog-card:hover .blog-img {
+  transform: scale(1.05);
 }
 .blog-card-content {
-  padding: 22px 18px 18px 18px;
+  padding: 28px 24px 24px 24px;
   flex: 1;
   display: flex;
   flex-direction: column;
+  background: var(--white);
 }
 .blog-title {
-  font-size: 1.15rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: var(--primary-color);
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+  line-height: 1.4;
+  transition: color 0.3s ease;
+}
+.blog-card:hover .blog-title {
+  color: var(--accent-color);
 }
 .blog-excerpt {
   color: var(--secondary-color);
-  font-size: 1rem;
-  margin-bottom: 14px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
   flex: 1;
+  opacity: 0.9;
 }
 .blog-meta {
   display: flex;
   align-items: center;
-  gap: 18px;
-  font-size: 0.97rem;
+  gap: 20px;
+  font-size: 0.95rem;
   color: var(--secondary-color);
-  margin-top: 10px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(43,45,66,0.08);
+}
+.blog-author {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.blog-author::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--accent-color);
+  border-radius: 50%;
+}
+.blog-date {
+  opacity: 0.8;
 }
 .blog-sidebar {
-  flex: 1 1 260px;
+  flex: 1 1 280px;
   background: var(--white);
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(43,45,66,0.07);
-  padding: 32px 20px 24px 20px;
-  min-width: 240px;
-  max-width: 320px;
+  border-radius: 24px;
+  box-shadow: 0 4px 24px rgba(43,45,66,0.08);
+  padding: 36px 24px 28px 24px;
+  min-width: 260px;
+  max-width: 340px;
+  position: sticky;
+  top: 100px;
 }
 .sidebar-section {
-  margin-bottom: 32px;
+  margin-bottom: 36px;
+}
+.sidebar-section:last-child {
+  margin-bottom: 0;
 }
 .sidebar-title {
   color: var(--primary-color);
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 700;
-  margin-bottom: 16px;
-  letter-spacing: 1px;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+  position: relative;
+  padding-bottom: 12px;
+}
+.sidebar-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, #6366f1, #f472b6);
+  border-radius: 3px;
 }
 .sidebar-list {
   list-style: none;
@@ -200,38 +297,68 @@
 }
 .sidebar-link {
   color: var(--secondary-color);
-  font-size: 1rem;
+  font-size: 1.05rem;
   display: block;
-  margin-bottom: 10px;
-  transition: color 0.2s, transform 0.2s;
+  padding: 10px 0;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(43,45,66,0.06);
 }
 .sidebar-link:hover {
   color: var(--accent-color);
-  transform: translateX(5px);
+  transform: translateX(8px);
+  border-bottom-color: var(--accent-color);
 }
 .recent-posts .sidebar-link {
-  font-size: 0.97rem;
-  margin-bottom: 8px;
+  font-size: 1rem;
+  padding: 12px 0;
 }
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
   .blog-content-grid {
-    flex-direction: column;
     gap: 40px;
   }
   .blog-sidebar {
+    position: static;
     max-width: 100%;
-    min-width: 0;
-    width: 100%;
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  .blog-hero {
+    padding: 100px 0 60px 0;
+  }
   .blog-hero-title {
-    font-size: 1.3rem;
+    font-size: 2.4rem;
+  }
+  .blog-hero-text {
+    font-size: 1.1rem;
   }
   .blog-content-section {
-    padding: 40px 0 30px 0;
+    padding: 60px 0 50px 0;
+  }
+  .blog-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .blog-title {
+    font-size: 1.3rem;
+  }
+}
+@media (max-width: 480px) {
+  .blog-hero-title {
+    font-size: 2rem;
+  }
+  .blog-img-wrapper {
+    height: 200px;
+  }
+  .blog-card-content {
+    padding: 24px 20px 20px 20px;
+  }
+  .blog-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
 }
 </style>
 
-<?php include 'assets/php/footer.php'; ?>
+<?php require base_path('views/partials/footer.php'); ?>
+<?php require base_path('views/partials/footer.php'); ?>
