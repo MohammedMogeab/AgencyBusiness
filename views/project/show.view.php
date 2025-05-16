@@ -35,30 +35,30 @@
         <div class="container mx-auto px-6 py-20">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
         <!-- Main Content -->
-                <div class="lg:col-span-2 space-y-8">
+        <div class="lg:col-span-2 space-y-8">
             <!-- Project Description -->
-                    <?php if((isset($project['overviews']) && count($project['overviews']) > 0 )|| isset($project['overview'])):?>
-                        <div class="bg-white rounded-2xl shadow-xl p-8">
-                            <h2 class="text-3xl font-bold mb-8 text-gray-800">Project Overview</h2>
-                            <div class="prose prose-lg max-w-none text-gray-600">
-                                <p><?= isset($project['overview']) ? $project['overview'] : ''?></p>
-                                <?php if(isset($project['overviews'])):?>
-                                <ul>
-                                    <?php foreach($project['overviews'] as $overview):?>
-                                    <li><?= $overview['overview'] ?></li>
-                                    <?php endforeach;?>
-                                </ul>
-                                <?php endif;?>
-                            </div>
-                        </div>
-                    <?php endif;?>
-                    <!-- Project Gallery -->
-                    <div class="bg-white rounded-2xl shadow-xl p-8">
-                        <h2 class="text-3xl font-bold mb-8 text-gray-800">Project Gallery</h2>
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-6" id="gallery"></div>
+            <?php if((isset($project['overviews']) && count($project['overviews']) > 0 )|| isset($project['overview'])):?>
+                <div class="bg-white rounded-2xl shadow-xl p-8">
+                    <h2 class="text-3xl font-bold mb-8 text-gray-800">Project Overview</h2>
+                    <div class="prose prose-lg max-w-none text-gray-600">
+                        <p><?= isset($project['overview']) ? $project['overview'] : ''?></p>
+                        <?php if(isset($project['overviews'])):?>
+                        <ul>
+                            <?php foreach($project['overviews'] as $overview):?>
+                            <li><?= $overview['overview'] ?></li>
+                            <?php endforeach;?>
+                        </ul>
+                        <?php endif;?>
+                    </div>
+                </div>
+            <?php endif;?>
+            <!-- Project Gallery -->
+            <div class="bg-white rounded-2xl shadow-xl p-8" id="galleryy">
+                <h2 class="text-3xl font-bold mb-8 text-gray-800">Project Gallery</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-6" id="gallery"></div>
             </div>
             <!-- Project Timeline -->
-                    <div class="bg-white rounded-2xl shadow-xl p-8">
+                    <div class="bg-white rounded-2xl shadow-xl p-8" id="timelinee">
                         <h2 class="text-3xl font-bold mb-8 text-gray-800">Project Timeline</h2>
                         <div class="relative space-y-8" id="timeline"></div>
                     </div>
@@ -91,19 +91,19 @@
                         </div>
                     </div>
                     <!-- Team Members -->
-                    <div class="bg-white rounded-2xl shadow-xl p-8">
+                    <div class="bg-white rounded-2xl shadow-xl p-8" id="team">
                         <h2 class="text-2xl font-bold mb-8 text-gray-800">Project Team</h2>
                         <div class="space-y-4" id="team-members"></div>
                     </div>
                     <!-- Technologies Used -->
-                    <div class="bg-white rounded-2xl shadow-xl p-8">
+                    <div class="bg-white rounded-2xl shadow-xl p-8" id="techntechn">
                         <h2 class="text-2xl font-bold mb-8 text-gray-800">Technologies Used</h2>
                         <div class="flex flex-wrap gap-3" id="technologies"></div>
                     </div>
                 </div>
             </div>
-                        </div>
-                    </div>
+        </div>
+    </div>
     <!-- Call to Action Section -->
     <div class="relative bg-gradient-to-br from-blue-900 to-indigo-900 text-white overflow-hidden">
         <div class="container mx-auto px-6 py-20 relative">
@@ -324,40 +324,57 @@
         console.log(projectData);
         // Gallery
         const gallery = document.getElementById('gallery');
+        var glry = true;
         projectData.gallery.forEach(item => {
             const div = document.createElement('div');
             div.className = 'group relative rounded-xl overflow-hidden aspect-square cursor-pointer';
             div.innerHTML = `<img src="${item.url}" alt="${item.caption}" class="w-full h-full object-cover"><div class="absolute bottom-0 left-0 right-0 p-2 bg-black bg-opacity-50 text-white text-xs">${item.caption}</div>`;
             gallery.appendChild(div);
+            glry = false;
         });
+        if(glry){
+            document.getElementById('galleryy').classList.add('hidden');
+        }
         // Timeline
         const timeline = document.getElementById('timeline');
+        var tmln = true;
         projectData.timeline.forEach(item => {
             const div = document.createElement('div');
             div.className = 'relative flex items-start group';
             div.innerHTML = `<div class="flex-shrink-0 w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center"><span class="text-white font-bold">&#10003;</span></div><div class="ml-8 bg-gray-50 rounded-xl p-6 flex-1"><h3 class="text-xl font-semibold text-gray-800 mb-2">${item.title}</h3><p class="text-blue-600 font-medium mb-3">${item.date}</p><p class="text-gray-600 leading-relaxed">${item.description}</p></div>`;
             timeline.appendChild(div);
+            tmln = false;
         });
+        if(tmln){
+            document.getElementById('timelinee').classList.add('hidden');
+        }
         // Team
         const team = document.getElementById('team-members');
+        var bbbt = true;
+        console.log(projectData.team);
         projectData.team.forEach(member => {
             const div = document.createElement('div');
             div.className = 'flex items-center space-x-4 p-3 rounded-xl hover:bg-gray-50 transition-colors duration-300';
-            div.innerHTML = `<img src="${member.avatar}" alt="${member.name}" class="w-14 h-14 rounded-xl object-cover ring-2 ring-blue-100">
-                                <div>
-                                    <h3 class="font-semibold text-gray-800">${member.name}</h3>
-                                    <p class="text-sm text-blue-600">${member.role}</p>
-                                </div>`;
+            div.innerHTML = `<img src="${member.avatar}" alt="${member.name}" class="w-14 h-14 rounded-xl object-cover ring-2 ring-blue-100"><div><h3 class="font-semibold text-gray-800">${member.name}</h3><p class="text-sm text-blue-600">${member.role}</p></div>`;
             team.appendChild(div);
+            bbbt = false;
         });
+        if(projectData.team.length <= 0){
+            document.getElementById('team').classList.add('hidden');
+        }
         // Technologies
         const tech = document.getElementById('technologies');
+        var techn = true;
         projectData.technologies.forEach(item => {
             const span = document.createElement('span');
             span.className = 'px-4 py-2 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-100 transition-colors duration-300';
             span.textContent = item['technology'];
             tech.appendChild(span);
+            techn = false;
         });
+        if(techn){
+            document.getElementById('techntechn').classList.add('hidden');
+        }
 
         // --- Lightbox for Gallery ---
         if (gallery) {
@@ -381,7 +398,7 @@
             const bar = document.querySelector('.h-full.bg-gradient-to-r');
             if (bar) {
                 bar.style.width = '0%';
-                setTimeout(() => { bar.style.width = '75%'; }, 300);
+                setTimeout(() => { bar.style.width = '<?= $project['progress'] ?>%'; }, 300);
             }
         });
 
@@ -424,6 +441,9 @@
                     if (span.lastChild) span.removeChild(span.lastChild);
                 };
             });
+        }
+        else{
+            tech.classList.add('hidden');
         }
 
         // --- Dark Mode Toggle ---
@@ -468,9 +488,9 @@
             }, 20);
         }
         window.addEventListener('DOMContentLoaded', () => {
-            animateCounter('counter-users', 1200);
-            animateCounter('counter-lines', 50000);
-            animateCounter('counter-countries', 12);
+            animateCounter('counter-users', <?= ceil($project['users_impacted'])?>);
+            animateCounter('counter-lines', <?=  ceil($project['lines_of_code']) ?> );
+            animateCounter('counter-countries', <?= ceil($project['countries_deployed']) ?>);
         });
 
         // FAQ Accordion
