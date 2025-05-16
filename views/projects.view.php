@@ -562,31 +562,27 @@
             <div class="options-filter-language">
               <select name="language" id="filter-language">
                 <option value="">Language</option>
-                <option value="HTML">HTML</option>
-                <option value="CSS">CSS</option>
-                <option value="JavaScript">JavaScript</option>
-                <option value="PHP">PHP</option>
-                <option value="Python">Python</option>
-                <option value="React">React</option>
-                <option value="Node.js">Node.js</option>
+           
+                  <?php  foreach($results as  $v):?>
+                 
+                 <option value="<?= isset($v['language_name'])?$v['language_name']:''?>"><?= isset($v['language_name'])?$v['language_name']:''?></option>
+                 <?php   endforeach;?>
               </select>
             </div>
             <div class="options-filter-type">
               <select name="type" id="filter-type">
                 <option value="">Type</option>
-                <option value="Website">Website</option>
-                <option value="Desktop">Desktop</option>
-                <option value="Android">Android</option>
-                <option value="iOS">iOS</option>
-                <option value="Web App">Web App</option>
+                 <?php  foreach($results as  $v):?>
+                 <option value="<?= isset($v['cetagory_name'])?$v['category_name']:''?>"><?= isset($v['category_name'])?$v['category_name']:''?></option>
+                 <?php   endforeach;?>
               </select>
             </div>
             <div class="options-filter-status">
               <select name="status" id="filter-status">
                 <option value="">Status</option>
-                <option value="Completed">Completed</option>
-                <option value="In Progress">In Progress</option>
-                <option value="Upcoming">Upcoming</option>
+                <?php  foreach($results as  $v):?>
+                 <option value="<?= isset($v['status'])?$v['status']:''?>"><?= isset($v['status'])?$v['status']:''?></option>
+                 <?php   endforeach;?>
               </select>
             </div>
           </div>
@@ -849,6 +845,7 @@
         if (card) createQuickViewModal(card);
       });
     });
+    /*
 
     document.getElementById("search").addEventListener('input',function()
   {
@@ -863,6 +860,48 @@
     };
     xhr.send();
   })
+    */applyPriceBtn
+    
+function fetchFilteredProjects() {
+    const search = document.getElementById("search").value;
+    const type = document.getElementById("filter-type").value;
+    const language = document.getElementById("filter-language").value;
+    const status = document.getElementById("filter-status").value;
+    const sort = document.getElementById("sort-projects").value;
+    const priceMin = document.getElementById("price-min").value;
+    const priceMax = document.getElementById("price-max").value;
+
+    const params = new URLSearchParams({
+        ajax: "1",
+        search,
+        type,
+        language,
+        status,
+        sort,
+        price_min: priceMin,
+        price_max: priceMax
+    });
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "projects?" + params.toString(), true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            document.getElementById("projectsGrid").innerHTML = xhr.responseText;
+        }
+    };
+    xhr.send();
+}
+
+// تفعيل على الفورمات
+document.getElementById("search").addEventListener("input", fetchFilteredProjects);
+document.getElementById("filter-type").addEventListener("change", fetchFilteredProjects);
+document.getElementById("filter-language").addEventListener("change", fetchFilteredProjects);
+document.getElementById("filter-status").addEventListener("change", fetchFilteredProjects);
+document.getElementById("sort-projects").addEventListener("change", fetchFilteredProjects);
+document.getElementById("apply-price").addEventListener("click", function(e) {
+    e.preventDefault(); // لا تجعل الفورم يعيد تحميل الصفحة
+    fetchFilteredProjects();
+});
   </script>
   <!-- Ionicons -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
