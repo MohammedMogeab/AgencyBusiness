@@ -27,13 +27,13 @@ $errors = [];
         }else{
             $errors['password'] = 'Error in  password';
             return view('session/create.view.php', [
-             'errors' => $errors['password']]);
+             'errors' => $errors]);
         }
     }else
     {
         $errors['email'] = 'Error in email or password';
        return view('session/create.view.php', [
-        'errors' => $errors['email']]);;
+        'errors' => $errors]);;
     }
 
 

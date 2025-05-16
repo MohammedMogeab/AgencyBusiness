@@ -27,7 +27,7 @@ $router->get('/', 'index.php');
 $router->get('/about', 'about.php');
 $router->get('/contact', 'contact.php');
 $router->get('/blog', 'blog.php');
-$router->get('/projects', 'projects.php');
+$router->get('/projects', 'projects/projects.php');
 $router->get('/signup', 'registration/create.php');
 $router->post('/signup', 'registration/store.php')->only('guest');
 $router->get('/logout', 'logout.php');
@@ -37,8 +37,6 @@ $router->post('/login', 'sessions/store.php');
 
 $router->get('/forget','ForgetPassword/create.php');
 $router->post('/forget', 'ForgetPassword/store.php');
-
-
-
 $router->get('/project/create', 'project/create.php');
+$router->post('/projects','projects/store.php');
 
