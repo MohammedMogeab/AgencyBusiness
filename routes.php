@@ -50,3 +50,4 @@ $router->get('/aboutus', 'about.php');
 
 
 $router->get('/manage', 'manage/dashboard.php');
+$router->get('/blog', 'blogs/blog.php');
