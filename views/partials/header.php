@@ -62,7 +62,7 @@
                         <ion-icon name="chevron-down-outline"></ion-icon>
                     </button>
                     <div class="dropdown-menu">
-                        <a href="/dashboard" class="dropdown-item">
+                        <a href="/manage" class="dropdown-item">
                             <ion-icon name="grid-outline"></ion-icon>
                             <span>Dashboard</span>
                         </a>
