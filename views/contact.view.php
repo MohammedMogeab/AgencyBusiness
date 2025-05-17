@@ -261,7 +261,7 @@
                                 </div>
                                 <div class="contact-text">
                                     <h3>Email</h3>
-                                    <p>info@zetrix.com</p>
+                                    <p>moha772876@gmail.com</p>
                                 </div>
                             </div>
                             <div class="contact-item">
@@ -270,7 +270,7 @@
                                 </div>
                                 <div class="contact-text">
                                     <h3>Phone</h3>
-                                    <p>+1 (555) 123-4567</p>
+                                    <p>+967772867128</p>
                                 </div>
                             </div>
                             <div class="contact-item">

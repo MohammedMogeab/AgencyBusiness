@@ -637,8 +637,8 @@
                               </div>
                               <div class="footer-divider"></div>
                               <div class="button-group">
-                                <button class="btn-quick-view"><ion-icon name="eye-outline"></ion-icon> Quick View</button>
-                                <button onclick="window.location.href='/project'">View Investment</button>
+                                <button class="btn-quick-view" onclick="createQuickViewModal(this);"><ion-icon name="eye-outline"></ion-icon> Quick View</button>
+                                <button onclick="window.location.href='/project?project_id=<?=$v['product_id']?>'">View Investment</button>
                               </div>
                             </div>
                           </div>
@@ -647,68 +647,8 @@
         <?php   endforeach;?>
         
         <?php else :?>
-          <p>nnnnnnnnnnnnnnnnnnnn</p>
         <?php endif;?>
         <div id ="load-more"></div>
-
-        <!-- <div class="project-card" data-language="HTML" data-type="Website">
-          <img src="../assets/images/blog-1.jpg" alt="Portfolio Website" class="project-image">
-          <div class="project-content">
-            <div class="tags">
-              <span class="tag blue">Development</span>
-              <span class="tag red">Website</span>
-              <span class="tag green">Project</span>
-            </div>
-            <h2 class="project-title">Portfolio Website</h2>
-            <p class="project-desc">A modern, responsive portfolio website built with HTML, CSS, and JavaScript.</p>
-            <div class="project-stats">
-              <span><ion-icon name="chatbubble-ellipses-outline"></ion-icon> 1200 <span>Comments</span></span>
-              <span><ion-icon name="star-outline"></ion-icon> 950 <span>Rate</span></span>
-              <span><ion-icon name="trending-up-outline"></ion-icon> 280 <span>ROI</span></span>
-              <span><ion-icon name="time-outline"></ion-icon> 8 <span>Months</span></span>
-            </div>
-            <div class="project-footer">
-              <div class="investment-info">
-                <span class="investment-amount">$1,200</span>
-                <span class="investment-label">Minimum Investment</span>
-              </div>
-              <div class="footer-divider"></div>
-              <div class="button-group">
-                <button class="btn-quick-view"><ion-icon name="eye-outline"></ion-icon> Quick View</button>
-                <button onclick="window.location.href='/project'">View Investment</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="project-card" data-language="Android" data-type="Android">
-          <img src="../assets/images/blog-1.jpg" alt="Mobile App" class="project-image">
-          <div class="project-content">
-            <div class="tags">
-              <span class="tag blue">Development</span>
-              <span class="tag red">Android</span>
-              <span class="tag green">Project</span>
-            </div>
-            <h2 class="project-title">Mobile App</h2>
-            <p class="project-desc">A feature-rich Android app for productivity and communication.</p>
-            <div class="project-stats">
-              <span><ion-icon name="chatbubble-ellipses-outline"></ion-icon> 500 <span>Comments</span></span>
-              <span><ion-icon name="star-outline"></ion-icon> 300 <span>Rate</span></span>
-              <span><ion-icon name="trending-up-outline"></ion-icon> 420 <span>ROI</span></span>
-              <span><ion-icon name="time-outline"></ion-icon> 18 <span>Months</span></span>
-            </div>
-            <div class="project-footer">
-              <div class="investment-info">
-                <span class="investment-amount">$2,000</span>
-                <span class="investment-label">Minimum Investment</span>
-              </div>
-              <div class="footer-divider"></div>
-              <div class="button-group">
-                <button class="btn-quick-view"><ion-icon name="eye-outline"></ion-icon> Quick View</button>
-                <button onclick="window.location.href='/project'">View Investment</button>
-              </div>
-            </div>
-          </div>
-        </div> -->
       </div>
     </section>
   </main>
