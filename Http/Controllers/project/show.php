@@ -5,6 +5,8 @@ use core\Database;
 require base_path('vendor/autoload.php');
 $db = App::resolve(Database::class);
 
+
+
 $page_name = 'product';
 
 if(!isset($_GET['project_id'])){
@@ -12,7 +14,7 @@ if(!isset($_GET['project_id'])){
     exit;
 }
 $project=  $db->query(
-    "SELECT 
+    "SELECT
         product_id AS id,
         product_name AS title,
         large_description AS description,
@@ -83,10 +85,6 @@ $gttt = [
 // echo "<pre> <br><br><br><br><br><br><br><br>";
 // print_r($gttt);
 // echo "<br><br><br>$productData<br><br></pre>";
-
-
-
-
 
 view('project/show.view.php', [
     'project' => $project,

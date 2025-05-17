@@ -425,21 +425,21 @@ require base_path('views/partials/header.php');
                 </div>
                 <div class="form-group">
                     <label for="months">Duration (months)</label>
-                    <input type="number" name="months" id="months" min="0">
+                    <input type="number" name="duration" id="months" min="0">
                 </div>
             </div>
             <div class="inline-group">
                 <div class="form-group">
-                    <label for="comments">Comments</label>
-                    <input type="number" name="comments" id="comments" min="0">
+                    <label for="comments">Lines of code</label>
+                    <input type="number" name="lines_of_code" id="comments" min="0">
                 </div>
                 <div class="form-group">
-                    <label for="rate">Rate</label>
-                    <input type="number" name="rate" id="rate" min="0">
+                    <label for="rate">Users imapacted</label>
+                    <input type="number" name="users_imapacted" id="rate" min="0">
                 </div>
                 <div class="form-group">
-                    <label for="roi">ROI</label>
-                    <input type="number" name="roi" id="roi" min="0">
+                    <label for="roi">Countries deployed</label>
+                    <input type="number" name="countries_deployed" id="roi" min="0">
                 </div>
                 <div class="form-group">
                     <label for="min_investment">Minimum Investment</label>
