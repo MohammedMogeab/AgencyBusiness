@@ -32,7 +32,7 @@ $errors = [];
             if($password == $password_confirm)
             {
                   
-        $query_run = $db->query('UPDATE users SET user_password =:pass WHERE email =:email  ', [
+        $query_run = $db->query('UPDATE users SET password =:pass WHERE email =:email  ', [
         ':pass'=> password_hash($password, PASSWORD_DEFAULT),
         ':email' => $email]);
         
@@ -162,7 +162,7 @@ try {
 
     $mail->send();
     
-    sleep(50);
+    //sleep(50);
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }

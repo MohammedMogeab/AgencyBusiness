@@ -360,7 +360,7 @@ require base_path('views/partials/header.php');
     <div class="bg-blob bg-blob3"></div>
     <div class="form-container">
         <h1>Create New Project</h1>
-        <form action="/project/create" method="POST" enctype="multipart/form-data">
+        <form action="/project/store" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" name="title" id="title" required>
@@ -425,21 +425,21 @@ require base_path('views/partials/header.php');
                 </div>
                 <div class="form-group">
                     <label for="months">Duration (months)</label>
-                    <input type="number" name="months" id="months" min="0">
+                    <input type="number" name="duration" id="months" min="0">
                 </div>
             </div>
             <div class="inline-group">
                 <div class="form-group">
-                    <label for="comments">Comments</label>
-                    <input type="number" name="comments" id="comments" min="0">
+                    <label for="comments">Lines of code</label>
+                    <input type="number" name="lines_of_code" id="comments" min="0">
                 </div>
                 <div class="form-group">
-                    <label for="rate">Rate</label>
-                    <input type="number" name="rate" id="rate" min="0">
+                    <label for="rate">Users imapacted</label>
+                    <input type="number" name="users_imapacted" id="rate" min="0">
                 </div>
                 <div class="form-group">
-                    <label for="roi">ROI</label>
-                    <input type="number" name="roi" id="roi" min="0">
+                    <label for="roi">Countries deployed</label>
+                    <input type="number" name="countries_deployed" id="roi" min="0">
                 </div>
                 <div class="form-group">
                     <label for="min_investment">Minimum Investment</label>
@@ -466,9 +466,9 @@ require base_path('views/partials/header.php');
                 preview.style.display = 'none';
             }
         });
-        document.querySelector('.file-upload-label').addEventListener('click', function() {
-            document.getElementById('image').click();
-        });
+        // document.querySelector('.file-upload-label').addEventListener('click', function() {
+        //     document.getElementById('image').click();
+        // });
         // Gallery
         function addGalleryItem() {
             const list = document.getElementById('gallery-list');
@@ -527,7 +527,7 @@ require base_path('views/partials/header.php');
                 <div class="team-fields">
                     <input type="text" name="team[${idx}][name]" placeholder="Name" required>
                     <input type="text" name="team[${idx}][role]" placeholder="Role" required>
-                    <input type="text" name="team[${idx}][avatar]" placeholder="Avatar URL" required>
+                    <input type="file" acept="image/*" name="team[${idx}][avatar]" placeholder="Avatar URL" required>
                 </div>
                 <div class="team-socials">
                     <input type="url" name="team[${idx}][twitter]" placeholder="Twitter URL">

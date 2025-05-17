@@ -23,9 +23,11 @@
 // $router->get('/login', 'Http/Controllers/AuthController.php');
 // $router->post('/login', 'Http/Controllers/AuthController.php');
 // $router->post('/logout', 'Http/Controllers/AuthController.php');
-$router->get('/', 'index.php');
+$router->get('/', 'home/index.php');
+$router->post('/', 'home/store.php');
 $router->get('/about', 'about.php');
-$router->get('/contact', 'contact.php');
+$router->get('/contact', 'contact/contact.php');
+$router->post('/contact', 'contact/send.php');
 $router->get('/blog', 'blogs/show.php');
 $router->get('/projects', 'projects/projects.php');
 $router->get('/signup', 'registration/create.php');
@@ -38,11 +40,9 @@ $router->post('/login', 'sessions/store.php');
 $router->get('/forget','ForgetPassword/create.php');
 $router->post('/forget', 'ForgetPassword/store.php');
 $router->get('/project/create', 'project/create.php');
-$router->get('/project_create', 'project/create.php');
-$router->post('/project_create', 'project/store.php');
-$router->get('/project_edit', 'project/edit.php');
-$router->post('/project_edit', 'project/update.php');
-$router->get('/project_delete', 'project/destroy.php');
+$router->post('/project/create', 'project/store.php');
+$router->post('/project/store', 'project/store.php');
+$router->get('/profile', 'profile/profile.php');
 $router->get('/aboutus', 'about.php');
 
 

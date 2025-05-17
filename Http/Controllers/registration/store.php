@@ -6,7 +6,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 require base_path('vendor/autoload.php');
-session_start();
+// session_start();
 $db = App::resolve(Database::class);
 $auth = new Authenticator(); 
 $errors = [];
@@ -132,7 +132,7 @@ try {
 
     $mail->send();
     
-    sleep(50);
+    //sleep(50);
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
@@ -176,10 +176,10 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
             $errors['password'] = 'the password do not match ';
             return view('registration/create.view.php', [
                 'errors' => $errors]);
-                echo $errors;
+                // echo $errors;
            }
        
-           $query_run = $db->query('INSERT INTO users(user_name,user_password,email,verfiy_token)
+           $query_run = $db->query('INSERT INTO users(user_name,password,email,verfiy_token)
             Values(:username,:pass,:email,:verfiy_token)', [
             ':username'=> $username,
             ':pass'=> password_hash($password, PASSWORD_DEFAULT),
@@ -191,8 +191,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
            {
               
             send_email_verfiy("$username","$verfiy_token","$email");
-            $auth->attempt($email,$password);
-            header("Location: localhost");
+            
+
+           // header("Location: localhost");
            
     
 

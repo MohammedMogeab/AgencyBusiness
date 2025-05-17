@@ -16,6 +16,7 @@ class Database
                $password = $config['password'];
           }
         $this->connection = new PDO($dsn, $username, $password, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
         ]);
     }
@@ -48,5 +49,22 @@ class Database
         }
 
         return $result;
+    }
+
+    public function lastInsertId(){
+        try {
+            return $this->connection->lastInsertId();
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+    public function creatTransaction(){
+        $this->connection->beginTransaction();
+    }
+    public function commit(){
+        $this->connection->commit();
+    }
+    public function rollBack(){
+        $this->connection->rollBack();
     }
 }

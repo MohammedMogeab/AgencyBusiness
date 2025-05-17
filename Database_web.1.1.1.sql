@@ -9,11 +9,18 @@ set foreign_key_checks=1;
 create table users(
 user_id int primary key auto_increment,
 user_name varchar(50),
-password varchar(15) not null default '1234567890',
-email varchar(25) not null,
+password varchar(255) not null default '1234567890',
+email varchar(255) not null,
 photo varchar(255),
 user_type varchar(25),
+verfiy_token varchar(255),
 role varchar(255)
+);
+create table developers(
+	id int primary key auto_increment,
+    name varchar(50),
+    role varchar(50),
+    avatar varchar(255)
 );
 
 create table blogs(
@@ -27,11 +34,11 @@ constraint bl_fk_im foreign key(blog_id) references blogs(blog_id)
 );
 
 create table developers_links(
-user_id int,
+link_id int primary key auto_increment,
+developer_id int,
 link_type varchar(30),
 link varchar(255),
-constraint dev_us_li_pk primary key(user_id,link_type),
-constraint dev_us_li_fk foreign key(user_id) references users(user_id)
+constraint dev_us_li_fk foreign key(developer_id) references developers(id)
 );
 
 create table categorys(
@@ -99,10 +106,12 @@ constraint foreign key (user_id) references users(user_id) on delete cascade ,
 constraint foreign key (product_id) references products(product_id) on delete cascade);
 
 create table product_likes(
-user_id int,
-product_id int,
-constraint foreign key (user_id) references users(user_id) on delete cascade ,
-constraint foreign key (product_id) references products(product_id) on delete cascade);
+	user_id int,
+	product_id int,
+	-- constraint primary key(developer_id,product_id),
+	constraint foreign key (user_id) references users(user_id) on delete cascade ,
+	constraint foreign key (product_id) references products(product_id) on delete cascade
+);
 
 create table blog_producs(
 blog_id int,
@@ -123,12 +132,11 @@ constraint check_rate_validate check(rate between 0 and 5)
 );
 
 create table product_developers(
-user_id int,
+developer_id int,
 product_id int,
-
-constraint pd_fk_us foreign key(user_id) references users(user_id) on delete cascade,
-constraint pd_fk_pr foreign key(product_id) references products(product_id) on delete cascade,
-constraint pduspr_pk primary key(user_id,product_id) 
+constraint pd_fk_us foreign key(developer_id) references developers(id) on delete cascade,
+constraint pd_fk_pr foreign key(product_id) references products(product_id) on delete cascade
+-- constraint pduspr_pk primary key(user_id,product_id) 
 );
 
 create table comments(
@@ -242,6 +250,58 @@ INSERT INTO users (user_name, password, email, photo, user_type, role) VALUES
 ('NancyWalker', 'nancy202', 'nancy@example.com', 'profile14.jpg', 'developer', 'editor'),
 ('KevinHall', 'kevin303', 'kevin@example.com', 'profile15.jpg', 'client', 'user');
 
+INSERT INTO developers (name, role, avatar) VALUES
+('John Smith', 'Frontend Developer', 'https://example.com/avatars/john-smith.jpg'),
+('Emily Johnson', 'Backend Developer', 'https://example.com/avatars/emily-johnson.jpg'),
+('Michael Williams', 'Full Stack Developer', 'https://example.com/avatars/michael-williams.jpg'),
+('Sarah Brown', 'UI/UX Designer', 'https://example.com/avatars/sarah-brown.jpg'),
+('David Jones', 'DevOps Engineer', 'https://example.com/avatars/david-jones.jpg'),
+('Jessica Garcia', 'Mobile Developer', 'https://example.com/avatars/jessica-garcia.jpg'),
+('Robert Miller', 'Data Scientist', 'https://example.com/avatars/robert-miller.jpg'),
+('Jennifer Davis', 'QA Engineer', 'https://example.com/avatars/jennifer-davis.jpg'),
+('Thomas Rodriguez', 'Security Specialist', 'https://example.com/avatars/thomas-rodriguez.jpg'),
+('Lisa Martinez', 'Technical Lead', 'https://example.com/avatars/lisa-martinez.jpg'),
+('Daniel Wilson', 'Frontend Developer', 'https://example.com/avatars/daniel-wilson.jpg'),
+('Nancy Anderson', 'Backend Developer', 'https://example.com/avatars/nancy-anderson.jpg'),
+('Kevin Taylor', 'Full Stack Developer', 'https://example.com/avatars/kevin-taylor.jpg'),
+('Amanda Thomas', 'UI/UX Designer', 'https://example.com/avatars/amanda-thomas.jpg'),
+('Steven Hernandez', 'DevOps Engineer', 'https://example.com/avatars/steven-hernandez.jpg'),
+('Ashley Moore', 'Mobile Developer', 'https://example.com/avatars/ashley-moore.jpg'),
+('Brian Martin', 'Data Scientist', 'https://example.com/avatars/brian-martin.jpg'),
+('Melissa Jackson', 'QA Engineer', 'https://example.com/avatars/melissa-jackson.jpg'),
+('Christopher Thompson', 'Security Specialist', 'https://example.com/avatars/christopher-thompson.jpg'),
+('Rebecca White', 'Technical Lead', 'https://example.com/avatars/rebecca-white.jpg'),
+('Joshua Lopez', 'Frontend Developer', 'https://example.com/avatars/joshua-lopez.jpg'),
+('Nicole Lee', 'Backend Developer', 'https://example.com/avatars/nicole-lee.jpg'),
+('Matthew Gonzalez', 'Full Stack Developer', 'https://example.com/avatars/matthew-gonzalez.jpg'),
+('Stephanie Harris', 'UI/UX Designer', 'https://example.com/avatars/stephanie-harris.jpg'),
+('Andrew Clark', 'DevOps Engineer', 'https://example.com/avatars/andrew-clark.jpg'),
+('Rachel Lewis', 'Mobile Developer', 'https://example.com/avatars/rachel-lewis.jpg'),
+('James Robinson', 'Data Scientist', 'https://example.com/avatars/james-robinson.jpg'),
+('Megan Walker', 'QA Engineer', 'https://example.com/avatars/megan-walker.jpg'),
+('Ryan Hall', 'Security Specialist', 'https://example.com/avatars/ryan-hall.jpg'),
+('Lauren Allen', 'Technical Lead', 'https://example.com/avatars/lauren-allen.jpg'),
+('Timothy Young', 'Frontend Developer', 'https://example.com/avatars/timothy-young.jpg'),
+('Heather King', 'Backend Developer', 'https://example.com/avatars/heather-king.jpg'),
+('Jason Wright', 'Full Stack Developer', 'https://example.com/avatars/jason-wright.jpg'),
+('Olivia Scott', 'UI/UX Designer', 'https://example.com/avatars/olivia-scott.jpg'),
+('Jeffrey Green', 'DevOps Engineer', 'https://example.com/avatars/jeffrey-green.jpg'),
+('Victoria Baker', 'Mobile Developer', 'https://example.com/avatars/victoria-baker.jpg'),
+('Richard Adams', 'Data Scientist', 'https://example.com/avatars/richard-adams.jpg'),
+('Samantha Nelson', 'QA Engineer', 'https://example.com/avatars/samantha-nelson.jpg'),
+('Charles Hill', 'Security Specialist', 'https://example.com/avatars/charles-hill.jpg'),
+('Christina Ramirez', 'Technical Lead', 'https://example.com/avatars/christina-ramirez.jpg'),
+('Patrick Campbell', 'Frontend Developer', 'https://example.com/avatars/patrick-campbell.jpg'),
+('Katherine Mitchell', 'Backend Developer', 'https://example.com/avatars/katherine-mitchell.jpg'),
+('Brandon Roberts', 'Full Stack Developer', 'https://example.com/avatars/brandon-roberts.jpg'),
+('Angela Carter', 'UI/UX Designer', 'https://example.com/avatars/angela-carter.jpg'),
+('Justin Phillips', 'DevOps Engineer', 'https://example.com/avatars/justin-phillips.jpg'),
+('Hannah Evans', 'Mobile Developer', 'https://example.com/avatars/hannah-evans.jpg'),
+('Gregory Turner', 'Data Scientist', 'https://example.com/avatars/gregory-turner.jpg'),
+('Danielle Torres', 'QA Engineer', 'https://example.com/avatars/danielle-torres.jpg'),
+('Benjamin Parker', 'Security Specialist', 'https://example.com/avatars/benjamin-parker.jpg');
+
+
 INSERT INTO blogs (content) VALUES
 ('The future of web development: Trends to watch in 2023'),
 ('How to optimize your React application for better performance'),
@@ -324,7 +384,7 @@ INSERT INTO blog_images (blog_id, image) VALUES
 (15, 'blog15_img1.jpg');
 
 -- Developer Links
-INSERT INTO developers_links (user_id, link_type, link) VALUES
+INSERT INTO developers_links (developer_id, link_type, link) VALUES
 (1, 'GitHub', 'https://github.com/johndoe'),
 (1, 'LinkedIn', 'https://linkedin.com/in/johndoe'),
 (2, 'GitHub', 'https://github.com/janesmith'),
@@ -426,7 +486,7 @@ INSERT INTO product_likes (user_id, product_id) VALUES
 (14, 13), -- Nancy likes Database Optimizer
 (15, 14); -- Kevin likes AI Chatbot
 
-INSERT INTO product_developers (user_id, product_id) VALUES
+INSERT INTO product_developers (developer_id, product_id) VALUES
 (1, 1),   -- John Doe worked on CodeMaster IDE
 (2, 1),   -- Jane Smith worked on CodeMaster IDE
 (4, 2),   -- Sarah Williams worked on DataAnalyzer Pro
@@ -895,3 +955,5 @@ INSERT INTO related_products (product_id, related_product_id) VALUES
 (14, 2),  -- AI Chatbot related to DataAnalyzer
 (15, 7),  -- IoT Monitor related to SmartHome Hub
 (1, 13);  -- CodeMaster IDE related to Database Optimizer
+
+
