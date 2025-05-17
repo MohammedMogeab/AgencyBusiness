@@ -82,7 +82,13 @@
                     </div>
                 </div>
       
-
+             <?php else:?>
+                <div class="header-cta">
+                <a href="/login" class="cta-button">
+                    <span>Get Started</span>
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                </a>
+            </div>
 
      
             <?php endif ?>
