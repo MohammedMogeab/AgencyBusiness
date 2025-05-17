@@ -608,6 +608,7 @@
           </div>
         </div>
       </div>
+      <h3>the Number of project now <span id="projectCount" style="font-size: 20px;">0</span></h3>
       <div class="projects-grid" id="projectsGrid">
         <?php if(isset($results) && is_array($results)):?>
         <?php  foreach($results as  $v):?>
@@ -648,6 +649,7 @@
         <?php else :?>
           <p>nnnnnnnnnnnnnnnnnnnn</p>
         <?php endif;?>
+        <div id ="load-more"></div>
 
         <!-- <div class="project-card" data-language="HTML" data-type="Website">
           <img src="../assets/images/blog-1.jpg" alt="Portfolio Website" class="project-image">
@@ -710,6 +712,7 @@
       </div>
     </section>
   </main>
+  <h3>the Number of project now <span id="projectCount" style="font-size: 20px;">0</span></h3>
   <?php require('partials/footer.php') ?>
   <script>
     // Simple search and filter functionality
@@ -862,6 +865,74 @@
     xhr.send();
   })
     */applyPriceBtn
+
+    // fetch Filter Project 
+
+    let page = 1;
+let isLoading = false;
+let hasMoreProjects = true;
+
+// نحتفظ بالنتائج الأصلية عند أول تحميل
+let defaultProjectsHTML = "";
+let defaultPage = 1;
+
+function fetchFilteredProjects(reset = true) {
+    const search = document.getElementById("search").value;
+    const type = document.getElementById("filter-type").value;
+    const language = document.getElementById("filter-language").value;
+    const status = document.getElementById("filter-status").value;
+    const sort = document.getElementById("sort-projects").value;
+    const priceMin = document.getElementById("price-min").value;
+    const priceMax = document.getElementById("price-max").value;
+
+    const filtersAreDefault = isFiltersDefault();
+
+    // إذا كانت الفلاتر افتراضية، نعيد الصفحة لحالتها السابقة
+    if (filtersAreDefault && defaultProjectsHTML !== "") {
+        document.getElementById("projectsGrid").innerHTML = defaultProjectsHTML;
+        page = defaultPage;
+        hasMoreProjects = true;
+        updateProjectCount();
+        return;
+    }
+
+    const params = new URLSearchParams({
+        ajax: "1",
+        page: 1,
+        search,
+        type,
+        language,
+        status,
+        sort,
+        price_min: priceMin,
+        price_max: priceMax
+    });
+
+    isLoading = true;
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "projects?" + params.toString(), true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            const grid = document.getElementById("projectsGrid");
+            grid.innerHTML = xhr.responseText;
+            page = 2;
+            hasMoreProjects = true;
+
+            // حفظ الصفحة الحالية كمحتوى افتراضي إذا كانت الفلاتر افتراضية
+            if (filtersAreDefault) {
+                defaultProjectsHTML = grid.innerHTML;
+                defaultPage = page;
+            }
+
+            updateProjectCount();
+        }
+        isLoading = false;
+    };
+    xhr.send();
+}
+
+    /*
     
 function fetchFilteredProjects() {
     const search = document.getElementById("search").value;
@@ -882,6 +953,7 @@ function fetchFilteredProjects() {
         price_min: priceMin,
         price_max: priceMax
     });
+   
 
     const xhr = new XMLHttpRequest();
     xhr.open("GET", "projects?" + params.toString(), true);
@@ -892,17 +964,161 @@ function fetchFilteredProjects() {
     };
     xhr.send();
 }
+    */
 
 // تفعيل على الفورمات
-document.getElementById("search").addEventListener("input", fetchFilteredProjects);
-document.getElementById("filter-type").addEventListener("change", fetchFilteredProjects);
-document.getElementById("filter-language").addEventListener("change", fetchFilteredProjects);
-document.getElementById("filter-status").addEventListener("change", fetchFilteredProjects);
-document.getElementById("sort-projects").addEventListener("change", fetchFilteredProjects);
+// document.getElementById("search").addEventListener("input", fetchFilteredProjects);
+// document.getElementById("filter-type").addEventListener("change", fetchFilteredProjects);
+// document.getElementById("filter-language").addEventListener("change", fetchFilteredProjects);
+// document.getElementById("filter-status").addEventListener("change", fetchFilteredProjects);
+// document.getElementById("sort-projects").addEventListener("change", fetchFilteredProjects);
+// document.getElementById("apply-price").addEventListener("click", function(e) {
+//     e.preventDefault(); // لا تجعل الفورم يعيد تحميل الصفحة
+//     fetchFilteredProjects();
+//   });
+
+document.getElementById("search").addEventListener("input",()=> fetchFilteredProjects(true));
+document.getElementById("filter-type").addEventListener("change",()=> fetchFilteredProjects(true));
+document.getElementById("filter-language").addEventListener("change",()=> fetchFilteredProjects(true));
+document.getElementById("filter-status").addEventListener("change",()=> fetchFilteredProjects(true));
+document.getElementById("sort-projects").addEventListener("change",()=> fetchFilteredProjects(true));
 document.getElementById("apply-price").addEventListener("click", function(e) {
     e.preventDefault(); // لا تجعل الفورم يعيد تحميل الصفحة
-    fetchFilteredProjects();
-});
+    fetchFilteredProjects(true);
+  });
+
+  // fetch the defaual filter
+
+
+
+function isFiltersDefault() {
+    const search = document.getElementById("search").value;
+    const type = document.getElementById("filter-type").value;
+    const language = document.getElementById("filter-language").value;
+    const status = document.getElementById("filter-status").value;
+    const sort = document.getElementById("sort-projects").value;
+    const priceMin = document.getElementById("price-min").value;
+    const priceMax = document.getElementById("price-max").value;
+
+    return (
+        search === "" &&
+        type === "" &&
+        language === "" &&
+        status === "" &&
+        sort === "" &&
+        priceMin === "" &&
+        priceMax === ""
+    );
+}
+
+  // update the projectCount
+  function updateProjectCount()
+  {
+    const CheckExist = 
+    setInterval(()=>{
+    const count = document.querySelectorAll('.project-card').length;
+    if(count >0 )
+    {
+    document.getElementById('projectCount').innerText=count;
+    clearInterval(CheckExist);
+    }
+  },100);
+  
+  }
+  window.onload= updateProjectCount;
+
+    // Scorll 
+
+
+    let lastScrollTrigger = 0; // آخر مرة تم فيها تنفيذ التحميل
+      const scrollStep = 600;
+    window.addEventListener('scroll',function(){
+
+    const currentScroll = window.scrollY;
+
+    if (!isLoading && currentScroll - lastScrollTrigger >= scrollStep) {
+    isLoading = true;
+    lastScrollTrigger = currentScroll; // حدّث آخر نقطة تم عندها التحميل
+    loadMoreProjects();
+
+    // إيقاف التحميل المؤقت لفترة لتجنّب التحميل المفرط
+    setTimeout(() => {
+      isLoading = false;
+    }, 1000);
+  }
+    });
+
+    // load More Projects
+    /*
+    function loadMoreProjects()
+    {
+      page++;
+      let params = new URLSearchParams(window.location.search);
+      params.set('page',page);
+      params.set('ajax',1)
+
+      fetch('projects?'+params.toString())
+      .then(response =>response.text())
+      .then(data =>{
+        if(data.trim() !=='')
+      {
+        document.getElementById("projectsGrid").innerHTML +=data;
+        updateProjectCount();
+        loading=false;
+      }}).catch(error =>{
+        console.error('Error',error);
+        loading=false;
+      });
+    }
+    */
+
+    function loadMoreProjects() {
+      if (!hasMoreProjects) return;
+    const search = document.getElementById("search").value;
+    const type = document.getElementById("filter-type").value;
+    const language = document.getElementById("filter-language").value;
+    const status = document.getElementById("filter-status").value;
+    const sort = document.getElementById("sort-projects").value;
+    const priceMin = document.getElementById("price-min").value;
+    const priceMax = document.getElementById("price-max").value;
+
+    const filtersAreDefault = isFiltersDefault();
+
+    const params = new URLSearchParams({
+        ajax: "1",
+        page: page,
+        search,
+        type,
+        language,
+        status,
+        sort,
+        price_min: priceMin,
+        price_max: priceMax
+    });
+
+    fetch('projects?' + params.toString())
+        .then(response => response.text())
+        .then(data => {
+            if (data.trim() !== '') {
+                document.getElementById("projectsGrid").innerHTML += data;
+                page++;
+
+                if (filtersAreDefault) {
+                    defaultProjectsHTML = document.getElementById("projectsGrid").innerHTML;
+                    defaultPage = page;
+                }
+
+                updateProjectCount();
+            } else {
+                hasMoreProjects = false;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+
   </script>
   <!-- Ionicons -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

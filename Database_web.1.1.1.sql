@@ -9,11 +9,11 @@ set foreign_key_checks=1;
 create table users(
 user_id int primary key auto_increment,
 user_name varchar(50),
-password varchar(15) not null default '1234567890',
+password varchar(255) not null default '1234567890',
 email varchar(25) not null,
 photo varchar(255),
 user_type varchar(25),
-verify_token varchar(255),
+verfiy_token varchar(255),
 role varchar(255)
 );
 create table developers(

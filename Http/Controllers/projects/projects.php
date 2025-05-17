@@ -113,6 +113,9 @@ use core\App;
 use core\Database;
 
 require base_path('vendor/autoload.php');
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 $db = App::resolve(Database::class);
 $results = [];
@@ -125,6 +128,9 @@ $language  = $_GET['language'] ?? '';
 $sort      = $_GET['sort'] ?? '';
 $priceMin  = $_GET['price_min'] ?? '';
 $priceMax  = $_GET['price_max'] ?? '';
+$page = isset($_GET['page']) ? (int)($_GET['page']) :1;
+$limit = 4;
+$offset = ($page-1) * $limit;
 
 $where = "1=1";
 $params = [];
@@ -182,7 +188,7 @@ $results = $db->query("
     LEFT JOIN product_languages pl ON p.product_id = pl.product_id
     LEFT JOIN languages l ON pl.language_id = l.language_id
     WHERE $where
-    $orderBy
+    $orderBy LIMIT $limit OFFSET $offset
 ", $params)->get();
 
 // طلب AJAX؟ اطبع النتائج فقط
