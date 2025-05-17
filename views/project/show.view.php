@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="md:w-1/2 relative">
-                    <img src="<?= './assets/images/' . $project['main_image'] ?>" alt="Project Preview" class="w-full h-[400px] object-cover rounded-2xl shadow-2xl">
+                    <img src='<?= "../uploads/". $project['main_image'] ?>' alt="Project Preview" class="w-full h-[400px] object-cover rounded-2xl shadow-2xl">
                 </div>
             </div>
         </div>
@@ -166,15 +166,16 @@
     </div>
 
     <!-- Video Demo Section -->
+     <?php if (isset($project['video'])): ?>
     <div class="container mx-auto px-6 py-12">
         <h2 class="text-3xl font-bold mb-6 text-gray-800">Project Video</h2>
         <div class="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden shadow-xl">
             <iframe src="<?= $project['video'] ?>" title="Project Video" allowfullscreen class="w-full h-full"></iframe>
         </div>
     </div>
-
+    <?php endif; ?>
     <!-- Downloadable Resources -->
-    <?php if (isset($project['resources'])): ?>
+    <?php if (isset($project['resources']) && count($project['resources']) > 0): ?>
     <div class="container mx-auto px-6 py-12">
         <h2 class="text-3xl font-bold mb-6 text-gray-800">Downloadable Resources</h2>
         <div class="flex flex-wrap gap-4">
@@ -328,7 +329,7 @@
         projectData.gallery.forEach(item => {
             const div = document.createElement('div');
             div.className = 'group relative rounded-xl overflow-hidden aspect-square cursor-pointer';
-            div.innerHTML = `<img src="${item.url}" alt="${item.caption}" class="w-full h-full object-cover"><div class="absolute bottom-0 left-0 right-0 p-2 bg-black bg-opacity-50 text-white text-xs">${item.caption}</div>`;
+            div.innerHTML = `<img src="../uploads/${ item.url}" alt="${item.caption}" class="w-full h-full object-cover"><div class="absolute bottom-0 left-0 right-0 p-2 bg-black bg-opacity-50 text-white text-xs">${item.caption}</div>`;
             gallery.appendChild(div);
             glry = false;
         });
@@ -355,7 +356,7 @@
         projectData.team.forEach(member => {
             const div = document.createElement('div');
             div.className = 'flex items-center space-x-4 p-3 rounded-xl hover:bg-gray-50 transition-colors duration-300';
-            div.innerHTML = `<img src="${member.avatar}" alt="${member.name}" class="w-14 h-14 rounded-xl object-cover ring-2 ring-blue-100"><div><h3 class="font-semibold text-gray-800">${member.name}</h3><p class="text-sm text-blue-600">${member.role}</p></div>`;
+            div.innerHTML = `<img src="../uploads/${member.avatar}" alt="${member.name}" class="w-14 h-14 rounded-xl object-cover ring-2 ring-blue-100"><div><h3 class="font-semibold text-gray-800">${member.name}</h3><p class="text-sm text-blue-600">${member.role}</p></div>`;
             team.appendChild(div);
             bbbt = false;
         });

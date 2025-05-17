@@ -174,9 +174,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
 
            {
             $errors['password'] = 'the password do not match ';
-            return view('registration/create.view.php', [
+             return view('registration/create.view.php', [
                 'errors' => $errors]);
-                echo $errors;
+                // echo $errors;
            }
        
            $query_run = $db->query('INSERT INTO users(user_name,password,email,verfiy_token)

@@ -58,9 +58,13 @@ class Database
             return null;
         }
     }
-
-    public function fetchColumn()
-{
-    return $this->statement->fetchColumn();
-}
+    public function creatTransaction(){
+        $this->connection->beginTransaction();
+    }
+    public function commit(){
+        $this->connection->commit();
+    }
+    public function rollBack(){
+        $this->connection->rollBack();
+    }
 }
