@@ -432,24 +432,26 @@
         <section class="projects-preview-section" id="projects">
             <h2>Featured Projects</h2>
             <div class="projects-preview-grid">
+                <?php foreach($resualt as $row): ?>
                 <div class="project-preview-card">
-                    <span class="project-badge">Featured</span>
+                    <span class="project-badge"><?= isset($row['status'])?$row['status']:'Not status' ?></span>
                     <div class="project-preview-img-wrapper">
-                        <img src="./assets/images/blog-1.jpg" alt="AI Chatting Desktop" class="project-preview-img">
+                        <img src='<?= isset($row['main_image'])?$row['main_image']:'' ?>' alt="AI Chatting Desktop" class="project-preview-img">
                         <div class="project-img-gradient"></div>
                     </div>
                     <div class="project-preview-content">
-                        <div class="project-preview-title">AI Chatting Desktop</div>
-                        <div class="project-preview-desc">A desktop app for chatting and moving, with fancy features and AI integration.</div>
+                        <div class="project-preview-title"><?= isset($row['product_name'])?$row['product_name']:'Not name' ?></div>
+                        <div class="project-preview-desc"><?= isset($row['short_description'])?$row['short_description']:'Not descrition' ?></div>
                         <div class="project-preview-footer">
-                            <button onclick="window.location.href='/project'" 
+                            <button  onclick="window.location.href='/project?project_id=<?=$row['product_id']?>'" 
                               class="btn btn-gradient">
                               View Project
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class="project-preview-card">
+                <?php endforeach;?>
+                <!-- <div class="project-preview-card">
                     <span class="project-badge">New</span>
                     <div class="project-preview-img-wrapper">
                         <img src="./assets/images/blog-1.jpg" alt="Portfolio Website" class="project-preview-img">
@@ -482,7 +484,7 @@
                             </button>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </section>
         <!-- Contact Preview Section -->

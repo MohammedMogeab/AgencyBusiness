@@ -22,6 +22,7 @@ $errors = [];
     if($user) {
         
         if(password_verify($password, $user['password'])) {
+        $auth->login($user);
         header('location: /');
         exit();
         }else{
