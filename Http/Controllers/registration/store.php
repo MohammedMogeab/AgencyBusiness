@@ -174,7 +174,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
 
            {
             $errors['password'] = 'the password do not match ';
-             return view('registration/create.view.php', [
+            return view('registration/create.view.php', [
                 'errors' => $errors]);
                 // echo $errors;
            }
