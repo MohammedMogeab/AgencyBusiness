@@ -162,7 +162,7 @@ try {
 
     $mail->send();
     
-    sleep(50);
+    //sleep(50);
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }

@@ -132,7 +132,7 @@ try {
 
     $mail->send();
     
-    sleep(50);
+    //sleep(50);
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
@@ -191,8 +191,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
            {
               
             send_email_verfiy("$username","$verfiy_token","$email");
-            $auth->attempt($email,$password);
-            header("Location: localhost");
+            
+
+           // header("Location: localhost");
            
     
 
