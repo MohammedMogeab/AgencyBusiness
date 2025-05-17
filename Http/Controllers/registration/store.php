@@ -164,7 +164,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
         //dd("hhhhy");
         $errors['email'] = 'User with this email already exists';
         return view('registration/create.view.php', [
-            'errors' => $errors['email']
+            'errors' => $errors
         ]);
        
           
@@ -191,7 +191,10 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
            {
               
             send_email_verfiy("$username","$verfiy_token","$email");
-            
+            $success = "Send Email , Please Check the Email";
+            return view('registration/create.view.php', [
+                'success' => $success
+            ]);
 
            // header("Location: localhost");
            
