@@ -37,7 +37,7 @@ $router->get('/project', 'project/show.php');
 $router->get('/login','sessions/create.php')->only('guest');
 $router->post('/login', 'sessions/store.php')->only('guest');
 
-$router->get('/forget','ForgetPassword/create.php')->only("guest");
+$router->get('/forget','ForgetPassword/create.php');
 $router->post('/forget', 'ForgetPassword/store.php');
 $router->get('/project/create', 'project/create.php')->only("auth");
 $router->post('/project/create', 'project/store.php');
