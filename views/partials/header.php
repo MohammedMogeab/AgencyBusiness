@@ -46,18 +46,19 @@
                     </li>
                 </ul>
             </nav>
-          
+            <?php if($_SESSION['user']?? false) :?>
+
                 <div class="profile-dropdown">
                     <button class="profile-button">
                         <div class="profile-avatar">
                             <?php 
-                            $avatarPath = $_SESSION['user']['avatar'] ?? '/assets/images/blog-1.jpg';
-                            // Debug output
-                            // echo "<!-- Debug: Avatar path is: " . $avatarPath . " -->";
+                            $avatarPath = $_SESSION['user']['photo'] ?? '/assets/images/blog-1.jpg';
+                          
+                            echo "<!-- Debug: Avatar path is: " . $avatarPath . " -->";
                             ?>
-                            <img src="<?php echo $avatarPath; ?>" alt="Profile" onerror="this.src='./assets/images/default-avatar.png'">
+                            <img src="<?php echo $avatarPath; ?>" alt="Profile" >
                         </div>
-                        <span class="profile-name"><?php echo $_SESSION['user']['name'] ?? 'User'; ?></span>
+                        <span class="profile-name"><?php echo $_SESSION['user']['user_name'] ?? 'User'; ?></span>
                         <ion-icon name="chevron-down-outline"></ion-icon>
                     </button>
                     <div class="dropdown-menu">
@@ -81,6 +82,10 @@
                     </div>
                 </div>
       
+
+
+     
+            <?php endif ?>
 
             <!-- Mobile Menu Button -->
             <button class="mobile-menu-btn" aria-label="Toggle Menu">
@@ -319,7 +324,6 @@
         }
     }
 
-    /* Profile Dropdown Styles */
     .profile-dropdown {
         position: relative;
         margin-left: 20px;
@@ -373,6 +377,7 @@
         visibility: hidden;
         transform: translateY(-10px);
         transition: all 0.3s ease;
+        z-index: 1001;
     }
 
     .profile-dropdown.active .dropdown-menu {
@@ -394,34 +399,6 @@
 
     .dropdown-item:hover {
         background: rgba(43, 45, 66, 0.05);
-    }
-
-    .dropdown-item ion-icon {
-        font-size: 1.2rem;
-    }
-
-    .dropdown-divider {
-        height: 1px;
-        background: rgba(43, 45, 66, 0.1);
-        margin: 8px 0;
-    }
-
-    .text-danger {
-        color: #dc3545;
-    }
-
-    .text-danger:hover {
-        background: rgba(220, 53, 69, 0.1);
-    }
-
-    @media (max-width: 768px) {
-        .profile-dropdown {
-            margin-left: 0;
-        }
-        
-        .profile-name {
-            display: none;
-        }
     }
     </style>
 
