@@ -5,11 +5,11 @@ use core\Database;
 require base_path('vendor/autoload.php');
 $db = App::resolve(Database::class);
 
-echo "<pre><br><br><br><br><br><br><br><br>";
-print_r($_POST);
-echo "</pre><br><br><br>";
-print_r($_FILES);
-echo "<br><br><br><br><br>";
+// echo "<pre><br><br><br><br><br><br><br><br>";
+// print_r($_POST);
+// echo "</pre><br><br><br>";
+// print_r($_FILES);
+// echo "<br><br><br><br><br>";
 
 // Validate POST data
 function validateData($data) {
