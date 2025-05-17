@@ -10,7 +10,7 @@ create table users(
 user_id int primary key auto_increment,
 user_name varchar(50),
 password varchar(255) not null default '1234567890',
-email varchar(25) not null,
+email varchar(255) not null,
 photo varchar(255),
 user_type varchar(25),
 verfiy_token varchar(255),
