@@ -48,3 +48,9 @@ $router->get('/aboutus', 'about.php');
 
 $router->get('/manage', 'manage/dashboard.php');
 $router->get('/blog', 'blogs/blog.php');
+$router->get('/mohammed', 'mohammed.php');
+$router->get('/invest', 'Invest/invest.php');
+$router->post( '/createorder','Invest/createorder.php');
+$router->get('/thankyou', 'Invest/thankyou.php');
+$router->get('/cancel', 'Invest/cancel.php');
+$router->get('/captureorder', 'Invest/captureorder.php');

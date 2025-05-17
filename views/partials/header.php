@@ -46,14 +46,41 @@
                     </li>
                 </ul>
             </nav>
-
-            <!-- CTA Button -->
-            <div class="header-cta">
-                <a href="/login" class="cta-button">
-                    <span>Get Started</span>
-                    <ion-icon name="arrow-forward-outline"></ion-icon>
-                </a>
-            </div>
+          
+                <div class="profile-dropdown">
+                    <button class="profile-button">
+                        <div class="profile-avatar">
+                            <?php 
+                            $avatarPath = $_SESSION['user']['avatar'] ?? '/assets/images/blog-1.jpg';
+                            // Debug output
+                            // echo "<!-- Debug: Avatar path is: " . $avatarPath . " -->";
+                            ?>
+                            <img src="<?php echo $avatarPath; ?>" alt="Profile" onerror="this.src='./assets/images/default-avatar.png'">
+                        </div>
+                        <span class="profile-name"><?php echo $_SESSION['user']['name'] ?? 'User'; ?></span>
+                        <ion-icon name="chevron-down-outline"></ion-icon>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="/dashboard" class="dropdown-item">
+                            <ion-icon name="grid-outline"></ion-icon>
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="/profile" class="dropdown-item">
+                            <ion-icon name="person-outline"></ion-icon>
+                            <span>Profile</span>
+                        </a>
+                        <a href="/settings" class="dropdown-item">
+                            <ion-icon name="settings-outline"></ion-icon>
+                            <span>Settings</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/logout" class="dropdown-item text-danger">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+      
 
             <!-- Mobile Menu Button -->
             <button class="mobile-menu-btn" aria-label="Toggle Menu">
@@ -291,6 +318,111 @@
             height: 32px;
         }
     }
+
+    /* Profile Dropdown Styles */
+    .profile-dropdown {
+        position: relative;
+        margin-left: 20px;
+    }
+
+    .profile-button {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: none;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .profile-button:hover {
+        background: rgba(43, 45, 66, 0.05);
+    }
+
+    .profile-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 2px solid var(--primary-color);
+    }
+
+    .profile-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .profile-name {
+        font-weight: 500;
+        color: var(--primary-color);
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: 0;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(43, 45, 66, 0.1);
+        padding: 8px;
+        min-width: 200px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+    }
+
+    .profile-dropdown.active .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        color: var(--primary-color);
+        text-decoration: none;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .dropdown-item:hover {
+        background: rgba(43, 45, 66, 0.05);
+    }
+
+    .dropdown-item ion-icon {
+        font-size: 1.2rem;
+    }
+
+    .dropdown-divider {
+        height: 1px;
+        background: rgba(43, 45, 66, 0.1);
+        margin: 8px 0;
+    }
+
+    .text-danger {
+        color: #dc3545;
+    }
+
+    .text-danger:hover {
+        background: rgba(220, 53, 69, 0.1);
+    }
+
+    @media (max-width: 768px) {
+        .profile-dropdown {
+            margin-left: 0;
+        }
+        
+        .profile-name {
+            display: none;
+        }
+    }
     </style>
 
     <script>
@@ -311,6 +443,21 @@
     mobileMenuBtn.addEventListener('click', function() {
         this.classList.toggle('active');
         headerNav.classList.toggle('active');
+    });
+
+    // Profile Dropdown Functionality
+    const profileDropdown = document.querySelector('.profile-dropdown');
+    const profileButton = document.querySelector('.profile-button');
+
+    profileButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        profileDropdown.classList.toggle('active');
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!profileDropdown.contains(e.target)) {
+            profileDropdown.classList.remove('active');
+        }
     });
     </script>
 
