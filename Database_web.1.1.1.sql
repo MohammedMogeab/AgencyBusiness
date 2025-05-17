@@ -9,7 +9,7 @@ set foreign_key_checks=1;
 create table users(
 user_id int primary key auto_increment,
 user_name varchar(50),
-password varchar(255) not null default '1234567890',
+password varchar(255) not null default '$2y$10$YD3BNdW7o2mrcsGfY/7bE.KjbIgnJ8ZNpaMJNjo89/stcOLLHAGba',
 email varchar(255) not null,
 photo varchar(255),
 user_type varchar(25),
@@ -234,21 +234,21 @@ CREATE TABLE `product_faq`(
 );
 
 INSERT INTO users (user_name, password, email, photo, user_type, role) VALUES
-('JohnDoe', 'secure123', 'john@example.com', 'profile1.jpg', 'developer', 'admin'),
-('JaneSmith', 'jane456', 'jane@example.com', 'profile2.jpg', 'developer', 'editor'),
-('MikeJohnson', 'mike789', 'mike@example.com', 'profile3.jpg', 'client', 'user'),
-('SarahWilliams', 'sarah101', 'sarah@example.com', 'profile4.jpg', 'developer', 'admin'),
-('DavidBrown', 'david202', 'david@example.com', 'profile5.jpg', 'client', 'user'),
-('EmilyDavis', 'emily303', 'emily@example.com', 'profile6.jpg', 'developer', 'editor'),
-('RobertWilson', 'robert404', 'robert@example.com', 'profile7.jpg', 'client', 'user'),
-('JenniferLee', 'jenn505', 'jenn@example.com', 'profile8.jpg', 'developer', 'admin'),
-('ThomasTaylor', 'thomas606', 'thomas@example.com', 'profile9.jpg', 'client', 'user'),
-('LisaAnderson', 'lisa707', 'lisa@example.com', 'profile10.jpg', 'developer', 'editor'),
-('JamesMartin', 'james808', 'james@example.com', 'profile11.jpg', 'client', 'user'),
-('PatriciaClark', 'pat909', 'pat@example.com', 'profile12.jpg', 'developer', 'admin'),
-('DanielLewis', 'dan101', 'dan@example.com', 'profile13.jpg', 'client', 'user'),
-('NancyWalker', 'nancy202', 'nancy@example.com', 'profile14.jpg', 'developer', 'editor'),
-('KevinHall', 'kevin303', 'kevin@example.com', 'profile15.jpg', 'client', 'user');
+('JohnDoe', '$2y$10$YD3BNdW7o2mrcsGfY/7bE.KjbIgnJ8ZNpaMJNjo89/stcOLLHAGba', 'john@example.com', 'profile1.jpg', 'developer', 'admin'),
+('JaneSmith', '$2y$10$YD3BNdW7o2mrcsGfY/7bE.KjbIgnJ8ZNpaMJNjo89/stcOLLHAGba', 'jane@example.com', 'profile2.jpg', 'developer', 'editor'),
+('MikeJohnson', '$2y$10$YD3BNdW7o2mrcsGfY/7bE.KjbIgnJ8ZNpaMJNjo89/stcOLLHAGba', 'mike@example.com', 'profile3.jpg', 'client', 'user'),
+('SarahWilliams', '$2y$10$YD3BNdW7o2mrcsGfY/7bE.KjbIgnJ8ZNpaMJNjo89/stcOLLHAGba', 'sarah@example.com', 'profile4.jpg', 'developer', 'admin'),
+('DavidBrown', '$2y$10$YD3BNdW7o2mrcsGfY/7bE.KjbIgnJ8ZNpaMJNjo89/stcOLLHAGba', 'david@example.com', 'profile5.jpg', 'client', 'user'),
+('EmilyDavis', '$2y$10$YD3BNdW7o2mrcsGfY/7bE.KjbIgnJ8ZNpaMJNjo89/stcOLLHAGba', 'emily@example.com', 'profile6.jpg', 'developer', 'editor'),
+('RobertWilson', '$2y$10$YD3BNdW7o2mrcsGfY/7bE.KjbIgnJ8ZNpaMJNjo89/stcOLLHAGba', 'robert@example.com', 'profile7.jpg', 'client', 'user'),
+('JenniferLee', '$2y$10$YD3BNdW7o2mrcsGfY/7bE.KjbIgnJ8ZNpaMJNjo89/stcOLLHAGba', 'jenn@example.com', 'profile8.jpg', 'developer', 'admin'),
+('ThomasTaylor', '$2y$10$YD3BNdW7o2mrcsGfY/7bE.KjbIgnJ8ZNpaMJNjo89/stcOLLHAGba', 'thomas@example.com', 'profile9.jpg', 'client', 'user'),
+('LisaAnderson', '$2y$10$YD3BNdW7o2mrcsGfY/7bE.KjbIgnJ8ZNpaMJNjo89/stcOLLHAGba', 'lisa@example.com', 'profile10.jpg', 'developer', 'editor'),
+('JamesMartin', '$2y$10$YD3BNdW7o2mrcsGfY/7bE.KjbIgnJ8ZNpaMJNjo89/stcOLLHAGba', 'james@example.com', 'profile11.jpg', 'client', 'user'),
+('PatriciaClark', '$2y$10$YD3BNdW7o2mrcsGfY/7bE.KjbIgnJ8ZNpaMJNjo89/stcOLLHAGba', 'pat@example.com', 'profile12.jpg', 'developer', 'admin'),
+('DanielLewis', '$2y$10$YD3BNdW7o2mrcsGfY/7bE.KjbIgnJ8ZNpaMJNjo89/stcOLLHAGba', 'dan@example.com', 'profile13.jpg', 'client', 'user'),
+('NancyWalker', '$2y$10$YD3BNdW7o2mrcsGfY/7bE.KjbIgnJ8ZNpaMJNjo89/stcOLLHAGba', 'nancy@example.com', 'profile14.jpg', 'developer', 'editor'),
+('KevinHall', '$2y$10$YD3BNdW7o2mrcsGfY/7bE.KjbIgnJ8ZNpaMJNjo89/stcOLLHAGba', 'kevin@example.com', 'profile15.jpg', 'client', 'user');
 
 INSERT INTO developers (name, role, avatar) VALUES
 ('John Smith', 'Frontend Developer', 'https://example.com/avatars/john-smith.jpg'),

@@ -32,12 +32,9 @@ $errors = [];
             if($password == $password_confirm)
             {
                   
-        $query_run = $db->query('UPDATE users SET password =:pass WHERE email =:email  ', [
-        ':pass'=> password_hash($password, PASSWORD_DEFAULT),
-        ':email' => $email]);
-        
-       
-      
+                $query_run = $db->query('UPDATE users SET password =:pass WHERE email =:email  ', [
+                ':pass'=> password_hash($password, PASSWORD_DEFAULT),
+                ':email' => $email]);
        if($query_run)
        {
           
@@ -81,10 +78,8 @@ $errors = [];
 
 function send_email_verfiy($username,$verfiy_token,$email )
 {
-    
         $mail = new PHPMailer(true);
 try {
-    
     //Server settings
                           //Enable verbose debug output
     $mail->isSMTP();
