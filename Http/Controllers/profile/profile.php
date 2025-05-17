@@ -5,11 +5,10 @@ use core\Database;
 require base_path('vendor/autoload.php');
 $db = App::resolve(Database::class);
 
-// $db->query("update users set password = :password where user_id = 16", ['password' => password_hash("123456789", PASSWORD_DEFAULT)]);
-// if(!isset($_SESSION['user'])) {
-//     abort(403);
-//     header("location: /login");
-// }
+if(!isset($_SESSION['user'])) {
+    abort(403);
+    header( "location: /login");
+}
 
 //    '/forget'  to edit passwrod
 
@@ -24,13 +23,6 @@ $db = App::resolve(Database::class);
  * verfiy_token varchar(255),
  * role varchar(255)
  */
-echo "<pre><br>";
-print_r($_SESSION);
-echo "</pre><br>";
-
-
-
-$user = $_SESSION['user'];
 
 view("profile/profile.php", [
     'user' => $_SESSION['user']

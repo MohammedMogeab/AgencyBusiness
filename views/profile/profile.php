@@ -3,29 +3,47 @@
 <main class="auth-main">
   <section class="auth-section">
     <div class="auth-card glass">
-      <h2 class="auth-title">User Profile</h2>
+      <div class="profile-header">
+        <button class="btn-back" onclick="window.history.back()">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </button>
+        <h2 class="auth-title">User Profile</h2>
+        <div class="header-actions">
+          <button class="btn-change-password" onclick="window.location.href='/forget'">
+            <ion-icon name="key-outline"></ion-icon>
+          </button>
+          <button class="btn-signout" onclick="window.location.href='/logout'">
+            <ion-icon name="log-out-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
+      
       <!-- Profile Photo Section -->
       <div class="profile-photo-container">
-        <div class="profile-photo">
-          <?php if(!empty($user['photo'])): ?>
-            <img src="/uploads/<?php echo htmlspecialchars($user['photo']); ?>" alt="Profile Photo" id="profile-image">
-          <?php else: ?>
-            <div class="profile-initials"><?php echo strtoupper(substr($user['user_name'], 0, 2)); ?></div>
-          <?php endif; ?>
-          <input type="file" id="photo-upload" accept="image/*" style="display: none;">
-          <button class="edit-photo-btn" onclick="document.getElementById('photo-upload').click()">
-            <ion-icon name="camera-outline"></ion-icon>
+        <div class="profile-photo-wrapper">
+          <div class="profile-photo">
+            <?php if(!empty($user['photo'])): ?>
+              <img src="/uploads/<?php echo htmlspecialchars($user['photo']); ?>" alt="Profile Photo" id="profile-image">
+            <?php else: ?>
+              <div class="profile-initials" style="color: blue; text-align: center; text-overflow: hidden; text-shadow: yellow;"><?php echo strtoupper(substr($user['user_name'], 0, 2)); ?></div>
+            <?php endif; ?>
+          </div>
+          <button type="button" class="edit-photo-btn" onclick="image_changed()" style="position: absolute; bottom: 10px; right: 10px;">
+              <ion-icon name="camera-outline"></ion-icon>
           </button>
         </div>
       </div>
       
       <!-- Profile Form -->
-      <form class="auth-form" autocomplete="off" method="POST" action="/update-profile">
+      <form class="auth-form" autocomplete="off" method="POST" action="/profile/update" enctype="multipart/form-data">
+        <input type="file" id="photo-upload" name="photo" accept="image/*" style="display: none;">
+        <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['user_id']); ?>">
+        <!-- <input type="file" accept="image/*" name="photo" id="photo" style="display: none;"> -->
         <div class="form-group">
           <label for="username">Username</label>
           <div class="input-icon">
             <ion-icon name="person-outline"></ion-icon>
-            <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user['user_name']); ?>" required>
+            <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user['user_name']); ?>" required oninput="enableSaveButton()">
           </div>
         </div>
         
@@ -38,33 +56,22 @@
         </div>
         
         <div class="form-group">
-          <label for="user_type">User Type</label>
-          <div class="input-icon">
-            <ion-icon name="person-circle-outline"></ion-icon>
-            <select id="user_type" name="user_type" class="form-control">
-              <option value="regular" <?php echo ($user['user_type'] == 'regular') ? 'selected' : ''; ?>>Regular User</option>
-              <option value="premium" <?php echo ($user['user_type'] == 'premium') ? 'selected' : ''; ?>>Premium User</option>
-              <option value="admin" <?php echo ($user['user_type'] == 'admin') ? 'selected' : ''; ?>>Admin</option>
-            </select>
-          </div>
-        </div>
-        
-        <div class="form-group">
           <label for="role">Role</label>
           <div class="input-icon">
             <ion-icon name="ribbon-outline"></ion-icon>
-            <input type="text" id="role" name="role" value="<?php echo htmlspecialchars($user['role']); ?>">
+            <input type="text" id="role" name="role" value="<?php echo htmlspecialchars($user['role']); ?>" oninput="enableSaveButton()">
           </div>
         </div>
-        
-        <button type="submit" class="btn btn-primary auth-btn" name="update_profile">Update Profile</button>
+        <?php if(isset($error)|| isset($success)):?>
+        <div class="message" style="color: <?= isset($error) ? 'red' : 'yellow';?>;">
+            <?php 
+                if(isset($error)) echo $error;
+                if(isset($success)) echo $success;
+            ?>
+        </div>
+        <?php endif;?>
+        <input type="submit" class="btn btn-primary auth-btn" name="update_profile" id="save-button" disabled placeholder="Save Changs">
       </form>
-      
-      <div class="profile-actions">
-        <button class="btn btn-secondary" onclick="window.location.href='/forget'">
-          <ion-icon name="key-outline"></ion-icon> Change Password
-        </button>
-      </div>
     </div>
   </section>
 </main>
@@ -108,18 +115,40 @@
   border: 1.5px solid rgba(255,255,255,0.25);
 }
 
-.auth-logo img {
-  margin-bottom: 188px;
-  display: inline-block;
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
 }
 
 .auth-title {
   font-size: 2.1rem;
   font-weight: 800;
   color: var(--primary-color);
-  margin-bottom: 28px;
   font-family: 'Manrope', sans-serif;
   letter-spacing: 1px;
+  margin: 0;
+}
+
+.btn-back, .btn-change-password, .btn-signout {
+  background: transparent;
+  border: none;
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.btn-back:hover, .btn-change-password:hover, .btn-signout:hover {
+  background-color: rgba(43,45,66,0.1);
 }
 
 .auth-form {
@@ -193,25 +222,39 @@
   box-shadow: 0 4px 16px rgba(239,35,60,0.10);
 }
 
-.auth-btn:hover {
+.auth-btn:hover:not(:disabled) {
   background: var(--primary-color);
   color: var(--white);
   transform: translateY(-3px);
 }
 
+.auth-btn:disabled {
+  background: var(--secondary-color);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
 .profile-photo-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.profile-photo-wrapper {
+  position: relative;
+  width: 180px;
+  height: 180px;
 }
 
 .profile-photo {
-  position: relative;
-  width: 120px;
-  height: 120px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   background-color: var(--secondary-color);
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .profile-photo img {
@@ -226,7 +269,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
+  font-size: 3.5rem;
   font-weight: bold;
   color: var(--white);
   background-color: var(--primary-color);
@@ -234,10 +277,10 @@
 
 .edit-photo-btn {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 36px;
-  height: 36px;
+  bottom: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background-color: var(--accent-color);
   color: white;
@@ -246,68 +289,71 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-}
-
-.profile-actions {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.btn-secondary {
-  width: 100%;
-  padding: 13px 0;
-  font-size: 1rem;
-  border-radius: 30px;
-  font-weight: 600;
-  background: var(--primary-color);
-  color: var(--white);
-  border: none;
-  transition: background 0.2s, transform 0.2s;
-  font-family: 'Manrope', sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.btn-secondary:hover {
-  background: var(--secondary-color);
-  transform: translateY(-3px);
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 @media (max-width: 500px) {
-  .auth-card.glass {
-    padding: 28px 6px 20px 6px;
+  .auth-section {
+    width: 95%;
+    min-width: unset;
   }
+  
+  .auth-card.glass {
+    padding: 28px 20px 20px 20px;
+  }
+  
   .auth-title {
-    font-size: 1.3rem;
+    font-size: 1.8rem;
+  }
+  
+  .profile-photo-wrapper {
+    width: 150px;
+    height: 150px;
   }
 }
 </style>
 
 <script>
+// Track original values
+const originalValues = {
+  username: "<?php echo htmlspecialchars($user['user_name']); ?>",
+  role: "<?php echo htmlspecialchars($user['role']); ?>"
+};
+
 // Handle photo upload preview
 document.getElementById('photo-upload').addEventListener('change', function(e) {
-  const file = e.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function(event) {
-      const img = document.getElementById('profile-image');
-      if (img) {
-        img.src = event.target.result;
-      } else {
-        const initialsDiv = document.querySelector('.profile-initials');
-        initialsDiv.style.display = 'none';
-        const profilePhoto = document.querySelector('.profile-photo');
-        profilePhoto.innerHTML = `<img src="${event.target.result}" alt="Profile Photo" id="profile-image">`;
-        profilePhoto.innerHTML += `<button class="edit-photo-btn" onclick="document.getElementById('photo-upload').click()">
-          <ion-icon name="camera-outline"></ion-icon>
-        </button>`;
-      }
-    };
-    reader.readAsDataURL(file);
-  }
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const img = document.getElementById('profile-image');
+            if (img) {
+                img.src = event.target.result;
+            } else {
+                const initialsDiv = document.querySelector('.profile-initials');
+                initialsDiv.style.display = 'none';
+                const profilePhoto = document.querySelector('.profile-photo');
+                profilePhoto.innerHTML = `<img src="${event.target.result}" alt="Profile Photo" id="profile-image">`;
+            }
+            enableSaveButton();
+        };
+        reader.readAsDataURL(file);
+    }
 });
+function image_changed(){
+    document.getElementById('photo-upload').click();
+}
+// Enable save button when changes are detected
+function enableSaveButton() {
+  const saveButton = document.getElementById('save-button');
+  const currentUsername = document.getElementById('username').value;
+  const currentRole = document.getElementById('role').value;
+  const photoChanged = document.getElementById('photo-upload').files.length > 0;
+  
+  const usernameChanged = currentUsername !== originalValues.username;
+  const roleChanged = currentRole !== originalValues.role;
+  
+  saveButton.disabled = !(usernameChanged || roleChanged || photoChanged);
+}
 </script>

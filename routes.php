@@ -34,17 +34,25 @@ $router->get('/signup', 'registration/create.php');
 $router->post('/signup', 'registration/store.php')->only('guest');
 $router->get('/logout', 'logout.php');
 $router->get('/project', 'project/show.php');
-$router->get('/login','sessions/create.php');
-$router->post('/login', 'sessions/store.php');
+$router->get('/login','sessions/create.php')->only('guest');
+$router->post('/login', 'sessions/store.php')->only('guest');
 
 $router->get('/forget','ForgetPassword/create.php');
 $router->post('/forget', 'ForgetPassword/store.php');
-$router->get('/project/create', 'project/create.php');
+$router->get('/project/create', 'project/create.php')->only("auth");
 $router->post('/project/create', 'project/store.php');
 $router->post('/project/store', 'project/store.php');
-$router->get('/profile', 'profile/profile.php');
+$router->get('/profile', 'profile/profile.php')->only("auth");
+$router->post('/profile/update', 'profile/update.php')->only("auth");
 $router->get('/aboutus', 'about.php');
+$router->get('/logout', 'logout.php');
 
 
-$router->get('/manage', 'manage/dashboard.php');
+$router->get('/manage', 'manage/dashboard.php')->only("auth");
 $router->get('/blog', 'blogs/blog.php');
+$router->get('/mohammed', 'mohammed.php');
+$router->get('/invest', 'Invest/invest.php')->only("auth");
+$router->post( '/createorder','Invest/createorder.php');
+$router->get('/thankyou', 'Invest/thankyou.php');
+$router->get('/cancel', 'Invest/cancel.php');
+$router->get('/captureorder', 'Invest/captureorder.php');
