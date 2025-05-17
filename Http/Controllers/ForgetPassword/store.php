@@ -42,7 +42,10 @@ $errors = [];
        {
           
         send_email_verfiy($check_email_quuery_run['user_name'],$check_email_quuery_run['verfiy_token'],"$email");
-        $auth->attempt($email,$password);
+        $success = "Send Emil ,Please Check the Email!";
+        return view('ForgetPassword/create.view.php', [
+            'success' => $success
+        ]);
         //header("Location: localhost");
        
 
@@ -72,7 +75,7 @@ $errors = [];
 
         $errors['email'] = 'Email Not found';
         return view('ForgetPassword/create.view.php', [
-            'errors' => $errors['email']
+            'errors' => $errors
         ]);
         }
 
@@ -108,7 +111,7 @@ try {
                     //    <h2>Hello  ". $username." </h2> 
                     //    <h5>Verify youer email address login with the below</h5>
                     //    <br/><br/>
-                    //    <a href = 'http://localhost/project/index.php?token=$verfiy_token'>Click here transform to page </a>
+                    //    <a href = 'http://localhost/login?token=$verfiy_token'>Click here transform to page </a>
                     ";
 
                     $message = "

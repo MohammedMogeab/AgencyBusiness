@@ -26,7 +26,7 @@
           <div style="color:red"><?php if (isset($errors['password'])) echo $errors['password']; ?></div>
           
         </div>
-        <button type="submit" class="btn btn-primary auth-btn" name="login">Logi</button>
+        <button type="submit" class="btn btn-primary auth-btn" name="login">Login</button>
       </form>
       <p class="auth-switch">Don't have an account? <a href="/signup">Sign Up</a></p>
       <p class="auth-switch">Forget Password <a href="/forget">Change Password</a></p>

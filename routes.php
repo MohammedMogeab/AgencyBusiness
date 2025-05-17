@@ -43,7 +43,9 @@ $router->get('/project/create', 'project/create.php');
 $router->post('/project/create', 'project/store.php');
 $router->post('/project/store', 'project/store.php');
 $router->get('/profile', 'profile/profile.php');
+$router->post('/profile/update', 'profile/update.php');
 $router->get('/aboutus', 'about.php');
+$router->get('/logout', 'logout.php');
 
 
 $router->get('/manage', 'manage/dashboard.php');

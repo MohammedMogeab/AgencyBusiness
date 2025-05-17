@@ -1,0 +1,51 @@
+<?php
+
+use core\App;
+use core\Database;
+require base_path('vendor/autoload.php');
+$db = App::resolve(Database::class);
+
+if(!(isset($_SESSION['user']) && $_SESSION['user']['email'] == $_POST['email'])){
+    abort(403);
+    header('/login');
+}
+$useremain = $db->query('select email, user_id from users where user_id = :user_id', [
+    'user_id' => $_SESSION['user']['user_id']
+])->findOrFail();
+
+if($useremain['email'] != $_POST['email'] || $useremain['email'] != $_SESSION['user']['email']){
+    abort(403);
+    header('/login');
+}
+
+
+$user_id = $_POST['user_id'];
+$username = $_POST['username'];
+$email = $_POST['email'];
+$role = $_POST['role'];
+try{
+
+    $db->query("update users set user_name = :username, role = :role where user_id = :user_id", [
+        'user_id' => $user_id,
+        'username' => $username,
+        'role' => $role
+    ]);
+    $_SESSION['user']['user_name'] = $username;
+    $_SESSION['user']['role'] = $role;
+    if($_FILES['photo']['name'] != null && move_uploaded_file($_FILES['photo']['tmp_name'], base_path('views/uploads/') . $_FILES['photo']['name'])){
+        $db->query("update users set photo = :photo where user_id = :user_id", [
+            'user_id' => $user_id,
+            'photo' => $_FILES['photo']['name']
+        ]);
+        $_SESSION['user']['photo'] = $_FILES['photo']['name'];
+    }
+    view("profile/profile.php", [
+        'user' => $_SESSION['user'],
+        'success' => 'Profile updated successfully'
+    ]);
+}catch(Exception $e){
+    view("profile/profile.php", [
+        'user' => $_SESSION['user'],
+        'error' => 'Failed to update profile'
+    ]);
+}

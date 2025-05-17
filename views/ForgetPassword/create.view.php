@@ -1,8 +1,6 @@
 
 <?php require base_path('views/partials/header.php') ?>
 
-
-
 <main class="auth-main">
   <section class="auth-section">
     <div class="auth-card glass">
@@ -11,6 +9,12 @@
       </a>
       <h2 class="auth-title">Forget Password</h2>
       <form class="auth-form" autocomplete="off" method="POST" action="/forget" >
+        
+<?php if (!empty($success)) : ?>
+    <div class="custom-alert success-alert">
+        <strong>✅ Succfull!</strong> <?= htmlspecialchars($success) ?>
+    </div>
+<?php endif; ?>
         <div class="form-group">
           <label for="email">Email Address</label>
           <div class="input-icon">
@@ -53,6 +57,28 @@
 </style>
 
 <style>
+  .custom-alert {
+    padding: 15px 20px;
+    margin: 15px 0;
+    border-radius: 12px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.success-alert {
+    background-color: #e6f9ec;
+    color: #256029;
+    border-left: 6px solid #2ecc71;
+}
+
+.success-alert strong {
+    margin-right: 10px;
+    color: #2ecc71;
+}
 :root {
   --primary-color: #2B2D42;
   --secondary-color: #8D99AE;

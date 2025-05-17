@@ -14,6 +14,28 @@
     <!-- Page Specific CSS -->
     <link rel="stylesheet" href="../assets/css/pages/contact.css">
     <style>
+        .custom-alert {
+    padding: 15px 20px;
+    margin: 15px 0;
+    border-radius: 12px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.success-alert {
+    background-color: #e6f9ec;
+    color: #256029;
+    border-left: 6px solid #2ecc71;
+}
+
+.success-alert strong {
+    margin-right: 10px;
+    color: #2ecc71;
+}
         .contact-header {
             background: linear-gradient(120deg, var(--primary-color) 60%, var(--accent-color) 100%);
             color: var(--white);
@@ -265,6 +287,11 @@
                     <div class="contact-form">
                         <form id="contactForm"
                         method="POST"  action="/contact">
+                        <?php if (!empty($success)) : ?>
+                                <div class="custom-alert success-alert">
+                                    <strong>✅ Sucssuful!</strong> <?= htmlspecialchars($success) ?>
+                                </div>
+                            <?php endif; ?>
                             <div class="form-group">
                                 <label for="email" class="form-label">Your email</label>
                                 <input type="email" id="email" name='email' class="form-control" placeholder="name@example.com" required>
@@ -281,7 +308,6 @@
                             </div>
                             <button type="submit" class="submit-btn">Send message</button>
                             <p id="formMessage" style="margin-top:10px;color:var(--accent-color);"></p>
-                            <div style="color:green;"><?php if(isset($errors['send'])) echo $errors['send'];?></div>
                         </form>
                     </div>
                 </div>
