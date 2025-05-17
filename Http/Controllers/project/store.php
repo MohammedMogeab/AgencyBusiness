@@ -81,7 +81,7 @@ $db->query("INSERT INTO products (product_name, overview, large_description, sta
 $productId = $db->lastInsertId();
 
 foreach($_POST['team'] as $team) {
-    $db->query("INSERT INTO product_developers (product_id, user_id, role) VALUES ( :productId, :user_id, :role )", [
+    $db->query("INSERT INTO product_developers (product_id, developer_id, role) VALUES ( :productId, :user_id, :role )", [
         'productId' => $productId, 'user_id' => $team['id'], 'role' => $team['role']
     ]);
 }

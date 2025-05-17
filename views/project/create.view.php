@@ -527,7 +527,7 @@ require base_path('views/partials/header.php');
                 <div class="team-fields">
                     <input type="text" name="team[${idx}][name]" placeholder="Name" required>
                     <input type="text" name="team[${idx}][role]" placeholder="Role" required>
-                    <input type="text" name="team[${idx}][avatar]" placeholder="Avatar URL" required>
+                    <input type="file" acept="image/*" name="team[${idx}][avatar]" placeholder="Avatar URL" required>
                 </div>
                 <div class="team-socials">
                     <input type="url" name="team[${idx}][twitter]" placeholder="Twitter URL">
