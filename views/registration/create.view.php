@@ -1,11 +1,4 @@
-
 <?php require base_path('views/partials/header.php') ?>
-<?php if (!empty($success)) : ?>
-    <div class="custom-alert success-alert">
-        <strong>✅ نجاح!</strong> <?= htmlspecialchars($success) ?>
-    </div>
-<?php endif; ?>
-
 <main class="auth-main">
   <section class="auth-section">
     <div class="auth-card glass">
@@ -14,6 +7,11 @@
       </a>
       <h2 class="auth-title">Create Your Zetrix Account</h2>
       <form class="auth-form" autocomplete="off"method="POST" action="/signup" >
+<?php if (!empty($success)) : ?>
+    <div class="custom-alert success-alert">
+        <strong>✅ Sucssuful!</strong> <?= htmlspecialchars($success) ?>
+    </div>
+<?php endif; ?>
         <div class="form-group">
           <label for="name">Full Name</label>
           <div class="input-icon">
@@ -27,7 +25,7 @@
             <ion-icon name="mail-outline"></ion-icon>
             <input type="email" id="email" name="email" placeholder="Enter your email" required>
           </div>
-          <div  style="color:red"><?php if(isset($errors)) echo $errors;?></div>
+          <div  style="color:red"><?php if(isset($errors['email'])) echo $errors['email'];?></div>
         </div>
         <div class="form-group">
           <label for="password">Password</label>
@@ -42,11 +40,11 @@
             <ion-icon name="lock-closed-outline"></ion-icon>
             <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
           </div>
-          <div  style="color:red"><?php if(isset($errors)) echo $errors;?></div>
+          <div  style="color:red"><?php if(isset($errors['password'])) echo $errors['password'];?></div>
         </div>
         <button type="submit" class="btn btn-primary auth-btn">Sign Up</button>
       </form>
-      <p class="auth-switch">Already have an account? <a href="login.php">Login</a></p>
+      <p class="auth-switch">Already have an account? <a href="/login">Login</a></p>
     </div>
   </section>
 </main>

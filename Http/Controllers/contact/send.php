@@ -128,9 +128,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
         send_email_verfiy($email,$subject,$message);
         
         
-        $errors['send'] = 'Sucssuful Email';
-        return view('contact/contact.php', [
-            'errors' => $errors['send']
+        $success = "Send Email  , please wait Reply";
+        return view('contact.view.php', [
+            'success' => $success
         ]);
        
           
