@@ -6,8 +6,8 @@ $db = App::resolve(Database::class);
 $auth = new Authenticator(); 
 $errors = [];
 
-$totlie = $db->query("SELECT COUNT(*) FROM products ")->fetchColumn();
-$randomOffSet = rand(0,$totlie-3);
+$totlie = $db->query("SELECT COUNT(*) as count FROM products ")->find();
+$randomOffSet = rand(0,$totlie['count']-3);
 try {
 
     $sql = "

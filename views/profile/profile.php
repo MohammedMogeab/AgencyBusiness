@@ -3,9 +3,6 @@
 <main class="auth-main">
   <section class="auth-section">
     <div class="auth-card glass">
-      <a href="index.php" class="auth-logo">
-        <!-- <img src="./assets/images/logo-light.svg" alt="Logo" width="80" height="30"> -->
-      </a>
       <h2 class="auth-title">User Profile</h2>
       <!-- Profile Photo Section -->
       <div class="profile-photo-container">
@@ -112,7 +109,7 @@
 }
 
 .auth-logo img {
-  margin-bottom: 18px;
+  margin-bottom: 188px;
   display: inline-block;
 }
 

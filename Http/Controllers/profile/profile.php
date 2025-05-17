@@ -32,4 +32,6 @@ echo "</pre><br>";
 
 $user = $_SESSION['user'];
 
-view("profile/profile.php");
+view("profile/profile.php", [
+    'user' => $_SESSION['user']
+]);
