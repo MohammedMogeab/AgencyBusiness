@@ -1,6 +1,10 @@
 
 <?php require base_path('views/partials/header.php') ?>
-
+<?php if (!empty($success)) : ?>
+    <div class="custom-alert success-alert">
+        <strong>✅ نجاح!</strong> <?= htmlspecialchars($success) ?>
+    </div>
+<?php endif; ?>
 
 <main class="auth-main">
   <section class="auth-section">
@@ -179,6 +183,29 @@
   .auth-title {
     font-size: 1.3rem;
   }
+}
+
+.custom-alert {
+    padding: 15px 20px;
+    margin: 15px 0;
+    border-radius: 12px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.success-alert {
+    background-color: #e6f9ec;
+    color: #256029;
+    border-left: 6px solid #2ecc71;
+}
+
+.success-alert strong {
+    margin-right: 10px;
+    color: #2ecc71;
 }
 </style>
 

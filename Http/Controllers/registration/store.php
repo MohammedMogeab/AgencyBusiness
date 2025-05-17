@@ -191,7 +191,10 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
            {
               
             send_email_verfiy("$username","$verfiy_token","$email");
-            
+            $success = "تم إرسال رسالة تحقق إلى بريدك الإلكتروني. الرجاء التحقق.";
+            return view('registration/create.view.php', [
+                'success' => $success
+            ]);
 
            // header("Location: localhost");
            
