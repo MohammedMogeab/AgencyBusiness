@@ -21,7 +21,7 @@ $errors = [];
   
     if($user) {
         
-        if(password_verify($password, $user['user_password'])) {
+        if(password_verify($password, $user['password'])) {
         header('location: /');
         exit();
         }else{
