@@ -4,7 +4,6 @@ use core\Database;
 
 $project_id = $_GET['project_id'] ?? null;
 $db = App::resolve(Database::class);
-
 if(!$project_id){
     abort(404);
 }

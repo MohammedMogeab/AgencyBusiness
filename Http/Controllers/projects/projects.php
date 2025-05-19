@@ -218,7 +218,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] === '1') {
                     <div class="footer-divider"></div>
                     <div class="button-group">
                         <button class="btn-quick-view"><ion-icon name="eye-outline"></ion-icon> Quick View</button>
-                        <button onclick="window.location.href='/project?project_id=<?=$v['product_id']?>'">View Investment</button>
+                        <button onclick="window.location.href='/project'">View Investment</button>
                     </div>
                 </div>
             </div>

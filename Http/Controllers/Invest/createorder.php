@@ -21,8 +21,8 @@ if (!$amount || !is_numeric($amount) || $amount <= 0) {
 Investment::create($userId, $amount);
 
 // PayPal sandbox credentials
-$clientId = 'AY79nsNNRpxd12yPlHnvrCP-nCfP1IoQbHSs-RDN0EFqzUBv983lU7cvN9o0zY95szbUZybc_o0E1_jR';
-$secret   = 'EIAeCC2UPWRROzasD3Gh2cShP7hPC1NYTFpWUpD-SfxT2PrG7NBguErMRB_l5CNh1q52Q7rMnMkJvdmf';
+$clientId = 'ASX3_SGI8nSp7oGKJz5q3VFduB6To_FUSVH7rdeePRitKXwJp_Y9I1OfDFFt4jP4xkn1Vh6gudBTwmdp';
+$secret   = 'EFo_8VlmAqC4D0izjhImwYOsxHArjlsVo361Qz84PM3ghJWiLZBehaDBx1D6kLRHEJ7ZC1nw9l49PmmW';
 
 $http = new Client();
 
