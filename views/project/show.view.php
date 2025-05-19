@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="md:w-1/2 relative">
-                    <img src='<?= "../uploads/". $project['main_image'] ?>' alt="Project Preview" class="w-full h-[400px] object-cover rounded-2xl shadow-2xl">
+                    <img src='<?= "/assets/uploads/". $project['main_image'] ?>' alt="Project Preview" class="w-full h-[400px] object-cover rounded-2xl shadow-2xl">
                 </div>
             </div>
         </div>

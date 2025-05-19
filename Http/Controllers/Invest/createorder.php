@@ -62,7 +62,7 @@ try {
     ]);
 
     $orderData = json_decode($orderResponse->getBody(), true);
-    dd($orderData);
+   
     foreach ($orderData['links'] as $link) {
         if ($link['rel'] === 'approve') {
             header("Location: " . $link['href']);
