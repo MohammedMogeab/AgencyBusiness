@@ -156,7 +156,15 @@ content text,
 constraint re_fk_us foreign key(user_id) references users(user_id) on delete cascade,
 constraint re_fk_co foreign key(comment_id) references comments(comment_id)
 );
-
+CREATE TABLE investments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    amount DECIMAL(10,2),
+    transaction_id VARCHAR(255),
+    status ENUM('pending', 'completed', 'cancelled') DEFAULT 'pending',
+    created_at DATETIME,
+    updated_at DATETIME
+);
 create table comments_likes(
 user_id int,
 comment_id int,

@@ -614,7 +614,7 @@
         <?php  foreach($results as  $v):?>
           
           <div class="project-card" data-language="JavaScript" data-type="Desktop">
-                          <img src="<?= isset($v['main_image'])?$v['main_image']:''?>" alt="AI Chatting Desktop" class="project-image">
+                          <img src="/assets/uploads/<?= isset($v['main_image']) && $v['main_image'] ? $v['main_image'] : 'default-avatar.jpeg' ?>" alt="AI Chatting Desktop" class="project-image" onerror="this.src='/assets/images/default-avatar.jpeg'">
                           <div class="project-content">
                         
                             <div class="tags">
@@ -765,8 +765,14 @@
                 </ul>
               </div>
               <div class="modal-actions">
-                <button class="btn-invest">Invest Now</button>
-                <button class="btn-details">View Full Details</button>
+                <button class="btn-invest"> 
+                <a  class="btn-invest" href="/invest?project_id=<?=$v['product_id']?>">
+                invest now
+                </a>
+                </button>
+                <button class="btn-details">
+                <a class="btn-details" href="/project?project_id=<?=$v['product_id']?>">View Full Details</a>
+                </button>
               </div>
             </div>
           </div>
@@ -780,14 +786,13 @@
       };
     }
 
-    // Attach event listeners to all .btn-quick-view buttons in the HTML
-    document.querySelectorAll('.btn-quick-view').forEach(btn => {
-      btn.addEventListener('click', function(e) {
+    document.getElementById('projectsGrid').addEventListener('click', function(e) {
+      const btn = e.target.closest('.btn-quick-view');
+      if (btn) {
         e.preventDefault();
-        // Find the closest project card
         const card = btn.closest('.project-card');
         if (card) createQuickViewModal(card);
-      });
+      }
     });
   
     /*
@@ -1036,6 +1041,15 @@ function isFiltersDefault() {
                 }
 
                 updateProjectCount();
+                // Re-attach listeners for new buttons
+                document.getElementById('projectsGrid').addEventListener('click', function(e) {
+                  const btn = e.target.closest('.btn-quick-view');
+                  if (btn) {
+                    e.preventDefault();
+                    const card = btn.closest('.project-card');
+                    if (card) createQuickViewModal(card);
+                  }
+                });
             } else {
                 hasMoreProjects = false;
             }
