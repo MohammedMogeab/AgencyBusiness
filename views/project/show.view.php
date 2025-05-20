@@ -276,7 +276,13 @@
 
     <!-- Invest in this Project Button -->
     <div class="container mx-auto px-6 mt-8 flex justify-center">
-        <button onclick="toggleInvestModal()" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-xl shadow-lg text-lg transition">Invest in this Project</button>
+        <button  class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-xl shadow-lg text-lg transition">
+        <a href="/invest">
+        Invest
+        </a>
+       
+        
+        </button>
     </div>
 
 

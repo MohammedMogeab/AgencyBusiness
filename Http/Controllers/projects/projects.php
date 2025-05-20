@@ -173,7 +173,7 @@ switch ($sort) {
 
 // الاستعلام النهائي مع كل العلاقات
 $results = $db->query("
-    SELECT 
+    SELECT DISTINCT
         p.*,
         c.category_name,
         l.language_name,
