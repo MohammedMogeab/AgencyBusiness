@@ -264,7 +264,7 @@ require base_path('views/partials/header.php');
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-title">Total Projects</div>
-                <div class="stat-value">24</div>
+                <div class="stat-value"><?= $totalProduct['totalPro'] ?? 1 ?></div>
                 <div class="stat-change positive">
                     <span>↑</span>
                     <span>12% from last month</span>
@@ -272,7 +272,7 @@ require base_path('views/partials/header.php');
             </div>
             <div class="stat-card">
                 <div class="stat-title">Active Investments</div>
-                <div class="stat-value">$1.2M</div>
+                <div class="stat-value">$<?= $activeInvestments['sum_mount'] ?? 1 ?></div>
                 <div class="stat-change positive">
                     <span>↑</span>
                     <span>8% from last month</span>
@@ -280,7 +280,7 @@ require base_path('views/partials/header.php');
             </div>
             <div class="stat-card">
                 <div class="stat-title">Total ROI</div>
-                <div class="stat-value">18.5%</div>
+                <div class="stat-value"><?= $getRol['roi_calc'] ?? 1 ?>%</div>
                 <div class="stat-change positive">
                     <span>↑</span>
                     <span>2.3% from last month</span>
@@ -288,7 +288,7 @@ require base_path('views/partials/header.php');
             </div>
             <div class="stat-card">
                 <div class="stat-title">Active Investors</div>
-                <div class="stat-value">156</div>
+                <div class="stat-value"><?= $active_investors['active_investors'] ?? 1 ?></div>
                 <div class="stat-change positive">
                     <span>↑</span>
                     <span>23% from last month</span>

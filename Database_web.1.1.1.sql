@@ -205,15 +205,6 @@ CREATE TABLE `product_resources`(
     `type` VARCHAR(50) NULL,
     constraint product_resource_product_fk foreign key(product_id) references products(product_id)
 );
-create table investments(
-id int auto_increment primary key,
-user_id Int not null,
-amount decimal(10,2),
-transcation_id varchar(255),
-status enum('pending','completed','cancelled') default 'pending',
-created_at datetime,
-updated_at datetime
-);
 CREATE TABLE `related_products`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `product_id` INT NULL,
