@@ -318,20 +318,22 @@ require base_path('views/partials/header.php');
                         </tr>
                     </thead>
                     <tbody>
+                        <?php foreach($productAndInvstment as $row): ?>
                         <tr>
                             <td>
-                                <div style="font-weight: 600;">AI-Powered Analytics Platform</div>
-                                <div style="color: #64748b; font-size: 0.75rem;">Started 2 days ago</div>
+                                <div style="font-weight: 600;"><?= $row['name'] ?? '' ?></div>
+                                <div style="color: #64748b; font-size: 0.75rem;"><?= $row['start_date'] ?? '' ?></div>
                             </td>
-                            <td><span class="status-badge active">Active</span></td>
-                            <td>$250,000</td>
-                            <td>15%</td>    
+                            <td><span class="status-badge active"><?= $row['status'] ?? '' ?></span></td>
+                            <td>$<?= $row['amount'] ?? 0?></td>
+                            <td><?= $row['avg_roi'] ?? 0 ?>%</td>    
                             <td>
                                 <button class="action-btn edit">Edit</button>
                                 <button class="action-btn delete">Delete</button>
                             </td>
                         </tr>
-                        <tr>
+                        <?php endforeach;?>
+                        <!-- <tr>
                             <td>
                                 <div style="font-weight: 600;">Blockchain Payment System</div>
                                 <div style="color: #64748b; font-size: 0.75rem;">Started 5 days ago</div>
@@ -356,7 +358,7 @@ require base_path('views/partials/header.php');
                                 <button class="action-btn edit">Edit</button>
                                 <button class="action-btn delete">Delete</button>
                             </td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
             </div>
@@ -369,15 +371,15 @@ require base_path('views/partials/header.php');
                 </div>
                 <div class="status-distribution">
                     <div class="status-item">
-                        <div class="status-value">12</div>
+                        <div class="status-value"><?= $totalProductActive['pro_active'] ?? 0 ?></div>
                         <div class="status-label">Active</div>
                     </div>
                     <div class="status-item">
-                        <div class="status-value">8</div>
+                        <div class="status-value"><?= $totalProductCompleted ['pro_completed '] ?? 0 ?></div>
                         <div class="status-label">Completed</div>
                     </div>
                     <div class="status-item">
-                        <div class="status-value">4</div>
+                        <div class="status-value"><?= $totalProductBeta['pro_Beta'] ?? 0 ?></div>
                         <div class="status-label">Upcoming</div>
                     </div>
                 </div>
