@@ -301,10 +301,13 @@ require base_path('views/partials/header.php');
                 <div class="table-header">
                     <h2 class="table-title">Recent Projects</h2>
                     <div class="table-actions">
-                        <div class="search-box">
-                            <input type="text" placeholder="Search projects...">
-                        </div>
-                        <button class="filter-btn">Filter</button>
+                        <form action="/manage" method="$_GET">
+
+                            <div class="search-box">
+                                <input type="text" id= "inputSearch"placeholder="Search projects..." name="search">
+                            </div>
+                            <!-- <button class="filter-btn" name="btnSearch">Filter</button> -->
+                        </form>
                     </div>
                 </div>
                 <table>
@@ -317,7 +320,7 @@ require base_path('views/partials/header.php');
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tableBody">
                         <?php foreach($productAndInvstment as $row): ?>
                         <tr>
                             <td>
@@ -428,21 +431,40 @@ require base_path('views/partials/header.php');
         });
 
         // Search functionality
-        document.querySelector('.search-box input').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const rows = document.querySelectorAll('tbody tr');
+        // document.querySelector('.search-box input').addEventListener('input', function(e) {
+        //     const searchTerm = e.target.value.toLowerCase();
+        //     const rows = document.querySelectorAll('tbody tr');
             
-            rows.forEach(row => {
-                const projectName = row.querySelector('td:first-child').textContent.toLowerCase();
-                row.style.display = projectName.includes(searchTerm) ? '' : 'none';
-            });
-        });
+        //     rows.forEach(row => {
+        //         const projectName = row.querySelector('td:first-child').textContent.toLowerCase();
+        //         row.style.display = projectName.includes(searchTerm) ? '' : 'none';
+        //     });
+        // });
 
         // Filter button functionality
         document.querySelector('.filter-btn').addEventListener('click', function() {
             // Add your filter logic here
             alert('Filter functionality to be implemented');
         });
+
+        // Working the filter 
+        let debounceTimer;
+     document.getElementById('inputSearch').addEventListener('input', function () {
+    clearTimeout(debounceTimer);
+    let keyword = this.value;
+
+    debounceTimer = setTimeout(() => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "manage?ajax=1&search=" + encodeURIComponent(keyword), true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                document.getElementById('tableBody').innerHTML = xhr.responseText;
+            }
+        };
+        xhr.send();
+    }, 300);
+});
+
     </script>
 </body>
 </html>

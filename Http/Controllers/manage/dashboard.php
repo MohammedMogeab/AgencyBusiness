@@ -5,6 +5,19 @@ use core\Database;
 $db = App::resolve(Database::class);
 $auth = new Authenticator(); 
 $errors = [];
+$where = "1=1";
+$param = [];
+
+$search = isset($_GET["search"]) ? $_GET["search"] :"";
+// if(!empty($search)) {
+//     $where .= " AND MATCH(p.product_name, p.short_description) AGAINST (:search IN NATURAL LANGUAGE MODE)";
+//     $param["search"] = $search;
+// }
+
+if(!empty($search)) {
+    $where .= " AND (LOWER(p.product_name) LIKE :search)";
+    $param["search"] ="%".strtolower($search)."%";
+}
 
 $totalProduct = $db->query("SELECT count(*) as totalPro FROM products")->find();
 
@@ -38,13 +51,13 @@ $getRol =$db->query('
 
 
 
-$productAndInvstment = $db->query(' SELECT 
+$productAndInvstment = $db->query("SELECT 
     p.product_name AS name,
     p.start_date AS start_date,
     p.status AS status,
     inv.amount AS amount,  ROUND((inv.amount / p.budget) * 100 ,2)avg_roi
 FROM products p
-JOIN investments inv ON inv.product_id = p.product_id')->get();
+JOIN investments inv ON inv.product_id = p.product_id where $where",$param)->get();
 
 $active_investors  = $db->query(' SELECT COUNT(DISTINCT user_id) as active_investors 
         FROM investments 
@@ -61,6 +74,27 @@ foreach($sql as $row)
 {
     $investmentData[(int)$row['month']] = (float)$row['totalPrice'];
 }
+
+
+if(isset($_GET['ajax'])&&$_GET['ajax']==1)
+{
+    foreach($productAndInvstment as $row): ?>
+        <tr>
+            <td>
+                <div style="font-weight: 600;"><?= $row['name'] ?? '' ?></div>
+                <div style="color: #64748b; font-size: 0.75rem;"><?= $row['start_date'] ?? '' ?></div>
+            </td>
+            <td><span class="status-badge active"><?= $row['status'] ?? '' ?></span></td>
+            <td>$<?= $row['amount'] ?? 0?></td>
+            <td><?= $row['avg_roi'] ?? 0 ?>%</td>    
+            <td>
+                <button class="action-btn edit">Edit</button>
+                <button class="action-btn delete">Delete</button>
+            </td>
+        </tr>
+        <?php endforeach;
+        exit;
+    }
 
 
 
