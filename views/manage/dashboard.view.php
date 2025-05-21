@@ -388,14 +388,16 @@ require base_path('views/partials/header.php');
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Investment Chart
+        const investmentData = <?php echo json_encode(array_values($investmentData));?>
         const ctx = document.getElementById('investmentChart').getContext('2d');
+        const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
         new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                labels: month ,
                 datasets: [{
                     label: 'Investment Amount',
-                    data: [300000, 450000, 380000, 520000, 480000, 650000],
+                    data: investmentData,
                     borderColor: '#4f46e5',
                     backgroundColor: 'rgba(79, 70, 229, 0.1)',
                     tension: 0.4,

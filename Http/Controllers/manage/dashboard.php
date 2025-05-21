@@ -28,8 +28,18 @@ $active_investors  = $db->query(' SELECT COUNT(DISTINCT user_id) as active_inves
     ':status'=>'complete'
 ])->find();
 
+
+$sql = $db->query("SELECT MONTH(created_at) as month,SUM(amount) as totalPrice FROM investments GROUP BY MONTH(created_at)
+ORDER BY month")->get();
+$investmentData = array_fill(1,12,0);
+foreach($sql as $row)
+{
+    $investmentData[(int)$row['month']] = (float)$row['totalPrice'];
+}
+
 view('manage/dashboard.view.php',['totalProduct'=> $totalProduct,
                                    'activeInvestments'=>$activeInvestments,
                                   'getRol'=>$getRol,
-                                  'active_investors'=>$active_investors]
+                                  'active_investors'=>$active_investors,
+                                  'investmentData'=>$investmentData]
                                 );
