@@ -175,8 +175,8 @@ CREATE TABLE investments (
     status ENUM('pending', 'completed', 'cancelled') DEFAULT 'pending',
     created_at DATETIME,
     updated_at DATETIME,
-    constraint inv_fk_us foreign key(user_id) references users(user_id) on delete cascade,
-    constraint inv_fk_pro foreign key(product_id) references products(product_id) on delete cascade
+    constraint re_fk_user foreign key(user_id) references users(user_id) on delete cascade,
+    constraint re_fk_pro foreign key(product_id) references products(product_id) on delete cascade
 );
 
 create table comments_likes(
@@ -390,21 +390,21 @@ INSERT INTO languages (language_name) VALUES
 
 
 INSERT INTO products (product_name, large_description, short_description, product_version, product_video, price, discount, category_id, status, client_name, start_date, main_image, progress, budget, vidio, overview, users_imapacted, lines_of_code, countries_deployed, duration) VALUES
-('CodeMaster IDE', 'A comprehensive integrated development environment supporting multiple languages with advanced debugging tools.', 'Powerful IDE for modern developers', '2.5', 'video1.mp4', 199.99, 10.00, 1, 'Active', 'TechSolutions Inc.', '2022-01-15', 'ide.jpg', 100, 500000, 'overview1.mp4', 'Complete development solution', 50000, 250000, 30, 12),
-('DataAnalyzer Pro', 'Advanced data analysis tool with machine learning capabilities for business intelligence.', 'AI-powered data analysis platform', '1.8', 'video2.mp4', 299.99, 15.00, 6, 'Active', 'Analytics Corp', '2021-11-20', 'data.jpg', 95, 750000, 'overview2.mp4', 'Transform your data into insights', 35000, 180000, 25, 18),
-('SecureVault', 'Enterprise-grade security solution with end-to-end encryption for sensitive data protection.', 'Military-grade encryption software', '3.2', 'video3.mp4', 499.99, 0.00, 9, 'Active', 'Global Bank', '2020-05-10', 'secure.jpg', 100, 1200000, 'overview3.mp4', 'Protect your digital assets', 80000, 320000, 50, 24),
-('MobilePay', 'Mobile payment solution with seamless integration for e-commerce platforms.', 'Contactless payment app', '2.0', 'video4.mp4', 149.99, 20.00, 2, 'Active', 'Retail Systems', '2022-03-05', 'mobile.jpg', 90, 300000, 'overview4.mp4', 'Revolutionize mobile transactions', 200000, 150000, 40, 9),
-('GameEngine 3D', 'Next-generation 3D game development engine with physics simulation and VR support.', 'Cutting-edge game development', '5.1', 'video5.mp4', 799.99, 25.00, 7, 'Active', 'Game Studios', '2019-08-12', 'game.jpg', 100, 2000000, 'overview5.mp4', 'Create immersive gaming experiences', 15000, 500000, 35, 36),
-('CloudManager', 'Comprehensive cloud infrastructure management tool with multi-platform support.', 'Unified cloud management', '1.5', 'video6.mp4', 349.99, 10.00, 4, 'Beta', 'Enterprise IT', '2022-06-18', 'cloud.jpg', 80, 900000, 'overview6.mp4', 'Simplify cloud operations', 45000, 220000, 28, 15),
-('SmartHome Hub', 'Centralized control system for IoT devices in modern smart homes.', 'Home automation platform', '2.3', 'video7.mp4', 249.99, 0.00, 11, 'Active', 'HomeTech', '2021-04-22', 'smart.jpg', 100, 400000, 'overview7.mp4', 'Connect and control your home', 120000, 190000, 22, 12),
-('AR Designer', 'Augmented reality design tool for architects and interior designers.', 'Visualize designs in AR', '1.2', 'video8.mp4', 599.99, 15.00, 12, 'Active', 'DesignWorks', '2022-02-14', 'ar.jpg', 85, 600000, 'overview8.mp4', 'Bring designs to life', 25000, 170000, 15, 18),
-('HealthTracker', 'Comprehensive health monitoring system with AI-based diagnostics.', 'Personal health assistant', '3.0', 'video9.mp4', 199.99, 10.00, 2, 'Active', 'MediCare', '2020-09-30', 'health.jpg', 100, 350000, 'overview9.mp4', 'Monitor your wellbeing', 300000, 210000, 45, 24),
-('BlockChain Suite', 'Enterprise blockchain solution for secure transactions and smart contracts.', 'Business blockchain platform', '4.5', 'video10.mp4', 999.99, 0.00, 10, 'Active', 'Finance Corp', '2018-12-05', 'block.jpg', 100, 1500000, 'overview10.mp4', 'Secure decentralized solutions', 50000, 400000, 30, 48),
-('VR Classroom', 'Virtual reality education platform for immersive learning experiences.', 'Educational VR system', '1.0', 'video11.mp4', 449.99, 20.00, 13, 'Active', 'EduTech', '2022-05-20', 'vr.jpg', 75, 550000, 'overview11.mp4', 'Revolutionize education', 10000, 160000, 18, 12),
-('DevOps Pipeline', 'Automated CI/CD pipeline solution for agile software development teams.', 'Streamline your DevOps', '2.8', 'video12.mp4', 399.99, 10.00, 14, 'Active', 'Software Co', '2021-07-15', 'devops.jpg', 100, 800000, 'overview12.mp4', 'Accelerate software delivery', 30000, 230000, 25, 18),
-('Database Optimizer', 'Performance tuning tool for relational and NoSQL database systems.', 'Database performance booster', '3.1', 'video13.mp4', 299.99, 0.00, 15, 'Active', 'DataSystems', '2020-03-10', 'db.jpg', 100, 450000, 'overview13.mp4', 'Maximize database efficiency', 40000, 195000, 30, 24),
-('AI Chatbot', 'Enterprise-grade conversational AI platform for customer service automation.', 'Smart chatbot solution', '2.2', 'video14.mp4', 499.99, 15.00, 5, 'Active', 'Service Corp', '2021-10-12', 'ai.jpg', 95, 700000, 'overview14.mp4', 'Enhance customer interactions', 60000, 270000, 35, 18),
-('IoT Monitor', 'Comprehensive monitoring solution for industrial IoT devices and sensors.', 'Industrial IoT platform', '1.7', 'video15.mp4', 599.99, 10.00, 11, 'Beta', 'Industrial Tech', '2022-04-05', 'iot.jpg', 70, 950000, 'overview15.mp4', 'Monitor and analyze IoT data', 25000, 210000, 20, 15);
+('CodeMaster IDE', 'A comprehensive integrated development environment supporting multiple languages with advanced debugging tools.', 'Powerful IDE for modern developers', '2.5', 'video1.mp4', 199.99, 10.00, 1, 'Active', 'TechSolutions Inc.', '2022-01-15', '1694899218554.jpg', 100, 500000, 'overview1.mp4', 'Complete development solution', 50000, 250000, 30, 12),
+('DataAnalyzer Pro', 'Advanced data analysis tool with machine learning capabilities for business intelligence.', 'AI-powered data analysis platform', '1.8', 'video2.mp4', 299.99, 15.00, 6, 'Active', 'Analytics Corp', '2021-11-20', '1694899218577.jpg', 95, 750000, 'overview2.mp4', 'Transform your data into insights', 35000, 180000, 25, 18),
+('SecureVault', 'Enterprise-grade security solution with end-to-end encryption for sensitive data protection.', 'Military-grade encryption software', '3.2', 'video3.mp4', 499.99, 0.00, 9, 'Active', 'Global Bank', '2020-05-10', '1694899218599.jpg', 100, 1200000, 'overview3.mp4', 'Protect your digital assets', 80000, 320000, 50, 24),
+('MobilePay', 'Mobile payment solution with seamless integration for e-commerce platforms.', 'Contactless payment app', '2.0', 'video4.mp4', 149.99, 20.00, 2, 'Active', 'Retail Systems', '2022-03-05', '1694899218620.jpg', 90, 300000, 'overview4.mp4', 'Revolutionize mobile transactions', 200000, 150000, 40, 9),
+('GameEngine 3D', 'Next-generation 3D game development engine with physics simulation and VR support.', 'Cutting-edge game development', '5.1', 'video5.mp4', 799.99, 25.00, 7, 'Active', 'Game Studios', '2019-08-12', '1694899218641.jpg', 100, 2000000, 'overview5.mp4', 'Create immersive gaming experiences', 15000, 500000, 35, 36),
+('CloudManager', 'Comprehensive cloud infrastructure management tool with multi-platform support.', 'Unified cloud management', '1.5', 'video6.mp4', 349.99, 10.00, 4, 'Beta', 'Enterprise IT', '2022-06-18', '1694899218663.jpg', 80, 900000, 'overview6.mp4', 'Simplify cloud operations', 45000, 220000, 28, 15),
+('SmartHome Hub', 'Centralized control system for IoT devices in modern smart homes.', 'Home automation platform', '2.3', 'video7.mp4', 249.99, 0.00, 11, 'Active', 'HomeTech', '2021-04-22', 'photo_2025-05-23_17-17-22.jpg', 100, 400000, 'overview7.mp4', 'Connect and control your home', 120000, 190000, 22, 12),
+('AR Designer', 'Augmented reality design tool for architects and interior designers.', 'Visualize designs in AR', '1.2', 'video8.mp4', 599.99, 15.00, 12, 'Active', 'DesignWorks', '2022-02-14', 'photo_2025-05-23_17-17-57.jpg', 85, 600000, 'overview8.mp4', 'Bring designs to life', 25000, 170000, 15, 18),
+('HealthTracker', 'Comprehensive health monitoring system with AI-based diagnostics.', 'Personal health assistant', '3.0', 'video9.mp4', 199.99, 10.00, 2, 'Active', 'MediCare', '2020-09-30', 'photo_2025-05-23_17-18-03.jpg', 100, 350000, 'overview9.mp4', 'Monitor your wellbeing', 300000, 210000, 45, 24),
+('BlockChain Suite', 'Enterprise blockchain solution for secure transactions and smart contracts.', 'Business blockchain platform', '4.5', 'video10.mp4', 999.99, 0.00, 10, 'Active', 'Finance Corp', '2018-12-05', 'photo_2025-05-23_17-18-10.jpg', 100, 1500000, 'overview10.mp4', 'Secure decentralized solutions', 50000, 400000, 30, 48),
+('VR Classroom', 'Virtual reality education platform for immersive learning experiences.', 'Educational VR system', '1.0', 'video11.mp4', 449.99, 20.00, 13, 'Active', 'EduTech', '2022-05-20', 'photo_2025-05-23_17-18-16.jpg', 75, 550000, 'overview11.mp4', 'Revolutionize education', 10000, 160000, 18, 12),
+('DevOps Pipeline', 'Automated CI/CD pipeline solution for agile software development teams.', 'Streamline your DevOps', '2.8', 'video12.mp4', 399.99, 10.00, 14, 'Active', 'Software Co', '2021-07-15', 'photo_2025-05-23_17-18-29.jpg', 100, 800000, 'overview12.mp4', 'Accelerate software delivery', 30000, 230000, 25, 18),
+('Database Optimizer', 'Performance tuning tool for relational and NoSQL database systems.', 'Database performance booster', '3.1', 'video13.mp4', 299.99, 0.00, 15, 'Active', 'DataSystems', '2020-03-10', 'photo_2025-05-23_17-18-50.jpg', 100, 450000, 'overview13.mp4', 'Maximize database efficiency', 40000, 195000, 30, 24),
+('AI Chatbot', 'Enterprise-grade conversational AI platform for customer service automation.', 'Smart chatbot solution', '2.2', 'video14.mp4', 499.99, 15.00, 5, 'Active', 'Service Corp', '2021-10-12', 'photo_2025-05-23_17-17-22.jpg', 95, 700000, 'overview14.mp4', 'Enhance customer interactions', 60000, 270000, 35, 18),
+('IoT Monitor', 'Comprehensive monitoring solution for industrial IoT devices and sensors.', 'Industrial IoT platform', '1.7', 'video15.mp4', 599.99, 10.00, 11, 'Beta', 'Industrial Tech', '2022-04-05', 'photo_2025-05-23_17-17-22.jpg', 70, 950000, 'overview15.mp4', 'Monitor and analyze IoT data', 25000, 210000, 20, 15);
 
 -- Blog Images
 INSERT INTO blog_images (blog_id, image) VALUES
@@ -797,160 +797,20 @@ VALUES
 
 INSERT INTO blog_comments (blog_id, user_id, dates, content) VALUES
 (1, 3, '2023-01-15', 'Great insights on upcoming web technologies!'),
-(1, 5, '2023-01-16', 'Would love more details about WASM integration.'),
-(2, 7, '2023-02-01', 'These React optimizations saved us 30% load time!'),
-(3, 9, '2023-02-15', 'Clear explanation of ML concepts for beginners.'),
-(4, 2, '2023-03-01', 'Microservices architecture transformed our cloud deployment.'),
-(5, 4, '2023-03-15', 'This is exactly the skill set we look for in hires.'),
-(6, 6, '2023-04-01', 'Security should never be an afterthought - great reminders.'),
-(7, 8, '2023-04-15', 'Comprehensive framework comparison, very helpful!'),
-(8, 10, '2023-05-01', 'Database patterns saved us during peak traffic.'),
-(9, 12, '2023-05-15', 'Hybrid approach worked perfectly for our use case.'),
-(10, 1, '2023-06-01', 'Serverless reduced our costs by 40%.'),
-(11, 11, '2023-06-15', 'AI is transforming our customer interactions.'),
-(12, 13, '2023-07-01', 'Blockchain applications go far beyond crypto.'),
-(13, 15, '2023-07-15', 'DevOps practices doubled our deployment frequency.'),
-(14, 3, '2023-08-01', 'UX is critical yet often overlooked in dev tools.');
-
-INSERT INTO blog_replays (user_id, comment_id, Dates, content) VALUES
-(1, 1, '2023-01-16', 'Thanks Mike! We\'re excited about these emerging technologies.'),
-(2, 2, '2023-01-17', 'We\'ll cover WASM in-depth in next month\'s post David.'),
-(4, 3, '2023-02-02', 'Those are impressive results Robert!'),
-(6, 4, '2023-02-16', 'Glad you found it helpful Thomas!'),
-(1, 5, '2023-03-02', 'Microservices can be transformative when implemented well Jane.'),
-(3, 6, '2023-03-16', 'Thanks Sarah! We surveyed dozens of companies.'),
-(5, 7, '2023-04-02', 'Absolutely Emily! Security first.'),
-(7, 8, '2023-04-16', 'Thanks Jennifer! We aim to be comprehensive.'),
-(9, 9, '2023-05-02', 'That\'s great to hear Lisa!'),
-(11, 10, '2023-05-16', 'Hybrid gives the best of both worlds Patricia.'),
-(2, 11, '2023-06-02', 'Those savings are impressive John!'),
-(4, 12, '2023-06-16', 'AI applications keep expanding James.'),
-(6, 13, '2023-07-02', 'Exactly Daniel! The tech has so much potential.'),
-(8, 14, '2023-07-16', 'That\'s fantastic velocity Kevin!'),
-(10, 15, '2023-08-02', 'Well said Mike! Developer experience matters.');
-
-
-INSERT INTO blog_images (blog_id, image) VALUES
-(1, 'web-dev-trends-2023.jpg'),
-(1, 'wasm-integration.png'),
-(2, 'react-optimization-chart.jpg'),
-(3, 'ml-algorithms-diagram.png'),
-(4, 'microservices-architecture.jpg'),
-(5, 'fullstack-skills.png'),
-(6, 'cybersecurity-shield.jpg'),
-(7, 'framework-comparison.jpg'),
-(8, 'database-design-patterns.png'),
-(9, 'mobile-app-types.jpg'),
-(10, 'serverless-architecture.png'),
-(11, 'ai-applications.jpg'),
-(12, 'blockchain-uses.jpg'),
-(13, 'devops-pipeline.png'),
-(14, 'ux-design-principles.jpg'),
-(15, 'startup-growth.jpg');
-
--- INSERT INTO developers_links (user_id, link_type, link) VALUES
--- (1, 'GitHub', 'https://github.com/johndoe-dev'),
--- (1, 'Portfolio', 'https://johndoe.dev'),
--- (2, 'GitHub', 'https://github.com/janesmith-code'),
--- (2, 'LinkedIn', 'https://linkedin.com/in/janesmith'),
--- (4, 'GitHub', 'https://github.com/sarahwilliams'),
--- (4, 'Twitter', 'https://twitter.com/sarah_dev'),
--- (6, 'GitHub', 'https://github.com/emilydavis'),
--- (6, 'Blog', 'https://emilydavis.tech'),
--- (8, 'GitHub', 'https://github.com/jenniferlee'),
--- (8, 'Dribbble', 'https://dribbble.com/jenniferlee'),
--- (10, 'GitHub', 'https://github.com/lisaanderson'),
--- (10, 'Medium', 'https://medium.com/@lisaanderson'),
--- (12, 'GitHub', 'https://github.com/patriciaclark'),
--- (12, 'Website', 'https://patriciaclark.dev'),
--- (14, 'GitHub', 'https://github.com/nancywalker');
-
-INSERT INTO product_languages (product_id, language_id) VALUES
-(6, 3),   -- CloudManager supports Java
-(7, 5),   -- SmartHome Hub supports PHP
-(8, 7),   -- AR Designer supports Swift
-(9, 9),   -- HealthTracker supports Go
-(10, 10), -- BlockChain Suite supports Ruby
-(11, 11), -- VR Classroom supports Rust
-(12, 12), -- DevOps Pipeline supports TypeScript
-(13, 13), -- Database Optimizer supports Dart
-(14, 14), -- AI Chatbot supports Scala
-(15, 15), -- IoT Monitor supports R
-(3, 5),   -- SecureVault supports PHP
-(4, 6),   -- MobilePay supports C++
-(5, 8),   -- GameEngine supports Kotlin
-(6, 10),  -- CloudManager supports Ruby
-(7, 12);  -- SmartHome Hub supports TypeScript
-
-INSERT INTO product_featuers (product_id, feature) VALUES
-(6, 'Multi-cloud dashboard'),
-(6, 'Cost optimization tools'),
-(7, 'Voice control integration'),
-(7, 'Energy usage monitoring'),
-(8, 'Real-time 3D rendering'),
-(8, 'Collaboration tools'),
-(9, 'Wearable device sync'),
-(9, 'Health risk alerts'),
-(10, 'Smart contract templates'),
-(10, 'Permission management'),
-(11, 'Classroom management'),
-(11, 'Interactive whiteboard'),
-(12, 'Automated testing'),
-(12, 'Deployment rollback'),
-(13, 'Query optimization'),
-(13, 'Index suggestions');
-
-INSERT INTO product_likes (user_id, product_id) VALUES
-(1, 6),   -- John likes CloudManager
-(2, 7),   -- Jane likes SmartHome Hub
-(3, 8),   -- Mike likes AR Designer
-(4, 9),   -- Sarah likes HealthTracker
-(5, 10),  -- David likes BlockChain Suite
-(6, 11),  -- Emily likes VR Classroom
-(7, 12),  -- Robert likes DevOps Pipeline
-(8, 13),  -- Jennifer likes Database Optimizer
-(9, 14),  -- Thomas likes AI Chatbot
-(10, 15), -- Lisa likes IoT Monitor
-(11, 1),  -- James likes CodeMaster IDE
-(12, 2),  -- Patricia likes DataAnalyzer Pro
-(13, 3),  -- Daniel likes SecureVault
-(14, 4),  -- Nancy likes MobilePay
-(15, 5);  -- Kevin likes GameEngine 3D
-
-INSERT INTO blog_producs (blog_id, product_id) VALUES
-(1, 12),  -- Web dev trends related to DevOps Pipeline
-(2, 13),  -- React optimization related to Database Optimizer
-(3, 14),  -- Machine learning related to AI Chatbot
-(4, 15),  -- Microservices related to IoT Monitor
-(5, 2),   -- Full-stack developer related to DataAnalyzer
-(6, 4),   -- Cybersecurity related to MobilePay
-(7, 5),   -- Frontend frameworks related to GameEngine
-(8, 7),   -- Database design related to SmartHome Hub
-(9, 8),   -- Mobile app development related to AR Designer
-(10, 9),  -- Serverless architecture related to HealthTracker
-(11, 10), -- AI applications related to BlockChain Suite
-(12, 11), -- Blockchain related to VR Classroom
-(13, 3),  -- DevOps related to SecureVault
-(14, 6),  -- UX design related to CloudManager
-(15, 1);  -- Tech startup related to CodeMaster IDE
-
-
-INSERT INTO blog_comments (blog_id, user_id, dates, content) VALUES
-(1, 5, '2023-01-20', 'How does this compare to last year\'s trends?'),
-(2, 7, '2023-02-05', 'Would love to see Vue.js included in the comparison.'),
-(3, 9, '2023-02-20', 'What about ethical considerations in ML?'),
-(4, 11, '2023-03-05', 'How do you handle service discovery?'),
-(5, 13, '2023-03-20', 'What about DevOps skills for full-stack?'),
-(6, 15, '2023-04-05', 'Any thoughts on quantum encryption?'),
-(7, 2, '2023-04-20', 'Svelte should be in this conversation too.'),
-(8, 4, '2023-05-05', 'How do these patterns apply to NoSQL?'),
-(9, 6, '2023-05-20', 'What about Flutter for cross-platform?'),
-(10, 8, '2023-06-05', 'Cold start problem solutions?'),
-(11, 10, '2023-06-20', 'How to prevent AI bias?'),
-(12, 12, '2023-07-05', 'Energy consumption of blockchain?'),
-(13, 14, '2023-07-20', 'Security implications of CI/CD?'),
-(14, 1, '2023-08-05', 'Dark mode considerations?'),
-(15, 3, '2023-08-20', 'Bootstrapping vs funding?');
+(2, 5, '2023-01-16', 'Would love more details about WASM integration.'),
+(3, 7, '2023-02-01', 'These React optimizations saved us 30% load time!'),
+(4, 9, '2023-02-15', 'Clear explanation of ML concepts for beginners.'),
+(5, 2, '2023-03-01', 'Microservices architecture transformed our cloud deployment.'),
+(6, 4, '2023-03-15', 'This is exactly the skill set we look for in hires.'),
+(7, 6, '2023-04-01', 'Security should never be an afterthought - great reminders.'),
+(8, 8, '2023-04-15', 'Comprehensive framework comparison, very helpful!'),
+(9, 10, '2023-05-01', 'Database patterns saved us during peak traffic.'),
+(10, 12, '2023-05-15', 'Hybrid approach worked perfectly for our use case.'),
+(11, 14, '2023-06-01', 'Serverless reduced our costs by 40%.'),
+(12, 1, '2023-06-15', 'AI is transforming our customer interactions.'),
+(13, 11, '2023-07-01', 'Blockchain applications go far beyond crypto.'),
+(14, 13, '2023-07-15', 'DevOps practices doubled our deployment frequency.'),
+(15, 3, '2023-08-01', 'UX is critical yet often overlooked in dev tools.');
 
 INSERT INTO blog_replays (user_id, comment_id, Dates, content) VALUES
 (1, 16, '2023-01-21', 'Great question David! We\'ll publish a comparison next week.'),
@@ -1004,3 +864,83 @@ INSERT INTO related_products (product_id, related_product_id) VALUES
 (1, 13);  -- CodeMaster IDE related to Database Optimizer
 
 
+CREATE TABLE investment_returns (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    investment_id INT NOT NULL,
+    return_amount DECIMAL(10,2) NOT NULL,
+    return_date DATE NOT NULL,
+    return_type ENUM('dividend', 'interest', 'capital_gain') NOT NULL,
+    notes TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (investment_id) REFERENCES investments(id) ON DELETE CASCADE
+);
+
+CREATE TABLE investment_portfolio (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    total_invested DECIMAL(10,2) DEFAULT 0,
+    total_returns DECIMAL(10,2) DEFAULT 0,
+    current_value DECIMAL(10,2) DEFAULT 0,
+    last_updated DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE investment_portfolio_history (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    total_invested DECIMAL(10,2) NOT NULL,
+    total_returns DECIMAL(10,2) NOT NULL,
+    current_value DECIMAL(10,2) NOT NULL,
+    last_updated DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE investment_notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    investment_id INT,
+    notification_type ENUM('return', 'maturity', 'milestone', 'alert') NOT NULL,
+    message TEXT NOT NULL,
+    is_read BOOLEAN DEFAULT FALSE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (investment_id) REFERENCES investments(id) ON DELETE SET NULL
+);
+
+CREATE TABLE investment_goals (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    goal_name VARCHAR(255) NOT NULL,
+    target_amount DECIMAL(10,2) NOT NULL,
+    current_amount DECIMAL(10,2) DEFAULT 0,
+    target_date DATE,
+    status ENUM('active', 'completed', 'cancelled') DEFAULT 'active',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE investment_analytics (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    period_start DATE NOT NULL,
+    period_end DATE NOT NULL,
+    total_invested DECIMAL(10,2) NOT NULL,
+    total_returns DECIMAL(10,2) NOT NULL,
+    roi_percentage DECIMAL(10,2) NOT NULL,
+    risk_score DECIMAL(5,2),
+    diversification_score DECIMAL(5,2),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE IF NOT EXISTS remember_tokens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    token VARCHAR(64) NOT NULL,
+    expires_at DATETIME NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    UNIQUE KEY unique_token (token)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci; 

@@ -21,11 +21,18 @@
           <div class="input-icon">
             <ion-icon name="lock-closed-outline"></ion-icon>
             <input type="password" id="password" name="password" placeholder="Enter your password" required>
-            
           </div>
           <div style="color:red"><?php if (isset($errors['password'])) echo $errors['password']; ?></div>
-          
         </div>
+
+        <div class="form-group remember-me">
+          <label class="checkbox-container">
+            <input type="checkbox" name="remember" id="remember">
+            <span class="checkmark"></span>
+            Remember me
+          </label>
+        </div>
+
         <button type="submit" class="btn btn-primary auth-btn" name="login">Login</button>
       </form>
       <p class="auth-switch">Don't have an account? <a href="/signup">Sign Up</a></p>
@@ -172,6 +179,65 @@
   .auth-title {
     font-size: 1.3rem;
   }
+}
+.remember-me {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: relative;
+  height: 20px;
+  width: 20px;
+  background-color: #fff;
+  border: 2px solid var(--secondary-color);
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.checkbox-container:hover input ~ .checkmark {
+  border-color: var(--accent-color);
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox-container .checkmark:after {
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
 </style>
 

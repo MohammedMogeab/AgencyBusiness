@@ -51,7 +51,7 @@ $router->get('/aboutus', 'about.php');
 $router->get('/logout', 'logout.php');
 
 
-$router->get('/manage', 'manage/dashboard.php')->only("auth");
+$router->get('/manage', 'manage/dashboard.php')->only("admin");
 $router->get('/blog', 'blogs/blog.php');
 $router->get('/mohammed', 'mohammed.php');
 $router->get('/invest', 'Invest/invest.php')->only("auth");
@@ -59,3 +59,4 @@ $router->post( '/createorder','Invest/createorder.php');
 $router->get('/thankyou', 'Invest/thankyou.php');
 $router->get('/cancel', 'Invest/cancel.php');
 $router->get('/captureorder', 'Invest/captureorder.php');
+$router->get('/usermanage', 'user/usermanage.php')->only("auth");   
