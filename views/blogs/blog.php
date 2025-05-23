@@ -15,19 +15,23 @@
       <!-- Blog Posts Grid -->
       <div class="blog-posts">
         <div class="blog-grid">
-          <a href="blog-post.php?id=1" class="blog-card">
-            <div class="blog-img-wrapper">
-              <img src="./assets/images/blog-1.jpg" alt="Blog Post" class="blog-img">
-            </div>
-            <div class="blog-card-content">
-              <h2 class="blog-title">The Future of AI in Business</h2>
-              <p class="blog-excerpt">Discover how artificial intelligence is transforming industries and what it means for your business in 2024 and beyond.</p>
-              <div class="blog-meta">
-                <span class="blog-author">By Alex Morgan</span>
-                <span class="blog-date">May 1, 2024</span>
+          <?php foreach($blogs as $blog): ?>
+
+            <a href="blog-post.php?id=1" class="blog-card">
+              <div class="blog-img-wrapper">
+                <img src="./assets/images/blog-1.jpg" alt="Blog Post" class="blog-img">
               </div>
-            </div>
-          </a>
+              <div class="blog-card-content">
+                <h2 class="blog-title"><?= $blog['blog_title']?></h2>
+                <p class="blog-excerpt"><?= $blog['content']?></p>
+                <div class="blog-meta">
+                  <span class="blog-author"><?= $blog['author']?></span>
+                  <span class="blog-date"><?php  echo (new DateTime($blog['date'])->format('F j, Y')); ?></span>
+                </div>
+              </div>
+            </a>
+
+          <?php endforeach; ?>
           <a href="blog-post.php?id=2" class="blog-card">
             <div class="blog-img-wrapper">
               <img src="./assets/images/blog-2.jpg" alt="Blog Post" class="blog-img">
