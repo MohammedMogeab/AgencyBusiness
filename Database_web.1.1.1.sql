@@ -67,7 +67,8 @@ blog_id int primary key auto_increment,
 blog_title varchar(255), -- the title of blog
 content text,
 user_id int,  -- author of blog
-date date, -- the date of blog creation
+date date default current_timestamp, -- the date of blog creation
+image varchar(255),
 constraint bl_fk_us foreign key(user_id) references users(user_id) on delete cascade
 );
 
@@ -174,8 +175,8 @@ CREATE TABLE investments (
     status ENUM('pending', 'completed', 'cancelled') DEFAULT 'pending',
     created_at DATETIME,
     updated_at DATETIME,
-    constraint inv_fk_us foreign key(user_id) references users(user_id) on delete cascade,
-    constraint inv_fk_pro foreign key(product_id) references products(product_id) on delete cascade
+    constraint re_fk_user foreign key(user_id) references users(user_id) on delete cascade,
+    constraint re_fk_pro foreign key(product_id) references products(product_id) on delete cascade
 );
 
 create table comments_likes(
@@ -336,22 +337,22 @@ INSERT INTO developers (name, role, avatar) VALUES
 ('Benjamin Parker', 'Security Specialist', 'https://example.com/avatars/benjamin-parker.jpg');
 
 
-INSERT INTO blogs (content) VALUES
-('The future of web development: Trends to watch in 2023'),
-('How to optimize your React application for better performance'),
-('Introduction to machine learning with Python'),
-('Building scalable microservices with Docker and Kubernetes'),
-('The complete guide to becoming a full-stack developer'),
-('Cybersecurity best practices for modern web applications'),
-('Comparing frontend frameworks: React vs Vue vs Angular'),
-('Database design patterns for high-traffic applications'),
-('Mobile app development: Native vs Hybrid approaches'),
-('The rise of serverless architecture and its benefits'),
-('Artificial intelligence in everyday applications'),
-('Blockchain technology beyond cryptocurrencies'),
-('DevOps practices that accelerate software delivery'),
-('User experience design principles for developers'),
-('How to build a successful tech startup in 2023');
+INSERT INTO blogs (content,user_id,blog_title,date, image) VALUES
+('The future of web development: Trends to watch in 2023',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('How to optimize your React application for better performance',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('Introduction to machine learning with Python',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('Building scalable microservices with Docker and Kubernetes',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('The complete guide to becoming a full-stack developer',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('Cybersecurity best practices for modern web applications',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('Comparing frontend frameworks: React vs Vue vs Angular',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('Database design patterns for high-traffic applications',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('Mobile app development: Native vs Hybrid approaches',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('The rise of serverless architecture and its benefits',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('Artificial intelligence in everyday applications',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('Blockchain technology beyond cryptocurrencies',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('DevOps practices that accelerate software delivery',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('User experience design principles for developers',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('How to build a successful tech startup in 2023',1,'this is a blog titile',current_timestamp,'blog-1.jpg');
 
 INSERT INTO categorys (category_name) VALUES
 ('Web Development'),
@@ -389,21 +390,21 @@ INSERT INTO languages (language_name) VALUES
 
 
 INSERT INTO products (product_name, large_description, short_description, product_version, product_video, price, discount, category_id, status, client_name, start_date, main_image, progress, budget, vidio, overview, users_imapacted, lines_of_code, countries_deployed, duration) VALUES
-('CodeMaster IDE', 'A comprehensive integrated development environment supporting multiple languages with advanced debugging tools.', 'Powerful IDE for modern developers', '2.5', 'video1.mp4', 199.99, 10.00, 1, 'Active', 'TechSolutions Inc.', '2022-01-15', 'ide.jpg', 100, 500000, 'overview1.mp4', 'Complete development solution', 50000, 250000, 30, 12),
-('DataAnalyzer Pro', 'Advanced data analysis tool with machine learning capabilities for business intelligence.', 'AI-powered data analysis platform', '1.8', 'video2.mp4', 299.99, 15.00, 6, 'Active', 'Analytics Corp', '2021-11-20', 'data.jpg', 95, 750000, 'overview2.mp4', 'Transform your data into insights', 35000, 180000, 25, 18),
-('SecureVault', 'Enterprise-grade security solution with end-to-end encryption for sensitive data protection.', 'Military-grade encryption software', '3.2', 'video3.mp4', 499.99, 0.00, 9, 'Active', 'Global Bank', '2020-05-10', 'secure.jpg', 100, 1200000, 'overview3.mp4', 'Protect your digital assets', 80000, 320000, 50, 24),
-('MobilePay', 'Mobile payment solution with seamless integration for e-commerce platforms.', 'Contactless payment app', '2.0', 'video4.mp4', 149.99, 20.00, 2, 'Active', 'Retail Systems', '2022-03-05', 'mobile.jpg', 90, 300000, 'overview4.mp4', 'Revolutionize mobile transactions', 200000, 150000, 40, 9),
-('GameEngine 3D', 'Next-generation 3D game development engine with physics simulation and VR support.', 'Cutting-edge game development', '5.1', 'video5.mp4', 799.99, 25.00, 7, 'Active', 'Game Studios', '2019-08-12', 'game.jpg', 100, 2000000, 'overview5.mp4', 'Create immersive gaming experiences', 15000, 500000, 35, 36),
-('CloudManager', 'Comprehensive cloud infrastructure management tool with multi-platform support.', 'Unified cloud management', '1.5', 'video6.mp4', 349.99, 10.00, 4, 'Beta', 'Enterprise IT', '2022-06-18', 'cloud.jpg', 80, 900000, 'overview6.mp4', 'Simplify cloud operations', 45000, 220000, 28, 15),
-('SmartHome Hub', 'Centralized control system for IoT devices in modern smart homes.', 'Home automation platform', '2.3', 'video7.mp4', 249.99, 0.00, 11, 'Active', 'HomeTech', '2021-04-22', 'smart.jpg', 100, 400000, 'overview7.mp4', 'Connect and control your home', 120000, 190000, 22, 12),
-('AR Designer', 'Augmented reality design tool for architects and interior designers.', 'Visualize designs in AR', '1.2', 'video8.mp4', 599.99, 15.00, 12, 'Active', 'DesignWorks', '2022-02-14', 'ar.jpg', 85, 600000, 'overview8.mp4', 'Bring designs to life', 25000, 170000, 15, 18),
-('HealthTracker', 'Comprehensive health monitoring system with AI-based diagnostics.', 'Personal health assistant', '3.0', 'video9.mp4', 199.99, 10.00, 2, 'Active', 'MediCare', '2020-09-30', 'health.jpg', 100, 350000, 'overview9.mp4', 'Monitor your wellbeing', 300000, 210000, 45, 24),
-('BlockChain Suite', 'Enterprise blockchain solution for secure transactions and smart contracts.', 'Business blockchain platform', '4.5', 'video10.mp4', 999.99, 0.00, 10, 'Active', 'Finance Corp', '2018-12-05', 'block.jpg', 100, 1500000, 'overview10.mp4', 'Secure decentralized solutions', 50000, 400000, 30, 48),
-('VR Classroom', 'Virtual reality education platform for immersive learning experiences.', 'Educational VR system', '1.0', 'video11.mp4', 449.99, 20.00, 13, 'Active', 'EduTech', '2022-05-20', 'vr.jpg', 75, 550000, 'overview11.mp4', 'Revolutionize education', 10000, 160000, 18, 12),
-('DevOps Pipeline', 'Automated CI/CD pipeline solution for agile software development teams.', 'Streamline your DevOps', '2.8', 'video12.mp4', 399.99, 10.00, 14, 'Active', 'Software Co', '2021-07-15', 'devops.jpg', 100, 800000, 'overview12.mp4', 'Accelerate software delivery', 30000, 230000, 25, 18),
-('Database Optimizer', 'Performance tuning tool for relational and NoSQL database systems.', 'Database performance booster', '3.1', 'video13.mp4', 299.99, 0.00, 15, 'Active', 'DataSystems', '2020-03-10', 'db.jpg', 100, 450000, 'overview13.mp4', 'Maximize database efficiency', 40000, 195000, 30, 24),
-('AI Chatbot', 'Enterprise-grade conversational AI platform for customer service automation.', 'Smart chatbot solution', '2.2', 'video14.mp4', 499.99, 15.00, 5, 'Active', 'Service Corp', '2021-10-12', 'ai.jpg', 95, 700000, 'overview14.mp4', 'Enhance customer interactions', 60000, 270000, 35, 18),
-('IoT Monitor', 'Comprehensive monitoring solution for industrial IoT devices and sensors.', 'Industrial IoT platform', '1.7', 'video15.mp4', 599.99, 10.00, 11, 'Beta', 'Industrial Tech', '2022-04-05', 'iot.jpg', 70, 950000, 'overview15.mp4', 'Monitor and analyze IoT data', 25000, 210000, 20, 15);
+('CodeMaster IDE', 'A comprehensive integrated development environment supporting multiple languages with advanced debugging tools.', 'Powerful IDE for modern developers', '2.5', 'video1.mp4', 199.99, 10.00, 1, 'Active', 'TechSolutions Inc.', '2022-01-15', '1694899218554.jpg', 100, 500000, 'overview1.mp4', 'Complete development solution', 50000, 250000, 30, 12),
+('DataAnalyzer Pro', 'Advanced data analysis tool with machine learning capabilities for business intelligence.', 'AI-powered data analysis platform', '1.8', 'video2.mp4', 299.99, 15.00, 6, 'Active', 'Analytics Corp', '2021-11-20', '1694899218577.jpg', 95, 750000, 'overview2.mp4', 'Transform your data into insights', 35000, 180000, 25, 18),
+('SecureVault', 'Enterprise-grade security solution with end-to-end encryption for sensitive data protection.', 'Military-grade encryption software', '3.2', 'video3.mp4', 499.99, 0.00, 9, 'Active', 'Global Bank', '2020-05-10', '1694899218599.jpg', 100, 1200000, 'overview3.mp4', 'Protect your digital assets', 80000, 320000, 50, 24),
+('MobilePay', 'Mobile payment solution with seamless integration for e-commerce platforms.', 'Contactless payment app', '2.0', 'video4.mp4', 149.99, 20.00, 2, 'Active', 'Retail Systems', '2022-03-05', '1694899218620.jpg', 90, 300000, 'overview4.mp4', 'Revolutionize mobile transactions', 200000, 150000, 40, 9),
+('GameEngine 3D', 'Next-generation 3D game development engine with physics simulation and VR support.', 'Cutting-edge game development', '5.1', 'video5.mp4', 799.99, 25.00, 7, 'Active', 'Game Studios', '2019-08-12', '1694899218641.jpg', 100, 2000000, 'overview5.mp4', 'Create immersive gaming experiences', 15000, 500000, 35, 36),
+('CloudManager', 'Comprehensive cloud infrastructure management tool with multi-platform support.', 'Unified cloud management', '1.5', 'video6.mp4', 349.99, 10.00, 4, 'Beta', 'Enterprise IT', '2022-06-18', '1694899218663.jpg', 80, 900000, 'overview6.mp4', 'Simplify cloud operations', 45000, 220000, 28, 15),
+('SmartHome Hub', 'Centralized control system for IoT devices in modern smart homes.', 'Home automation platform', '2.3', 'video7.mp4', 249.99, 0.00, 11, 'Active', 'HomeTech', '2021-04-22', 'photo_2025-05-23_17-17-22.jpg', 100, 400000, 'overview7.mp4', 'Connect and control your home', 120000, 190000, 22, 12),
+('AR Designer', 'Augmented reality design tool for architects and interior designers.', 'Visualize designs in AR', '1.2', 'video8.mp4', 599.99, 15.00, 12, 'Active', 'DesignWorks', '2022-02-14', 'photo_2025-05-23_17-17-57.jpg', 85, 600000, 'overview8.mp4', 'Bring designs to life', 25000, 170000, 15, 18),
+('HealthTracker', 'Comprehensive health monitoring system with AI-based diagnostics.', 'Personal health assistant', '3.0', 'video9.mp4', 199.99, 10.00, 2, 'Active', 'MediCare', '2020-09-30', 'photo_2025-05-23_17-18-03.jpg', 100, 350000, 'overview9.mp4', 'Monitor your wellbeing', 300000, 210000, 45, 24),
+('BlockChain Suite', 'Enterprise blockchain solution for secure transactions and smart contracts.', 'Business blockchain platform', '4.5', 'video10.mp4', 999.99, 0.00, 10, 'Active', 'Finance Corp', '2018-12-05', 'photo_2025-05-23_17-18-10.jpg', 100, 1500000, 'overview10.mp4', 'Secure decentralized solutions', 50000, 400000, 30, 48),
+('VR Classroom', 'Virtual reality education platform for immersive learning experiences.', 'Educational VR system', '1.0', 'video11.mp4', 449.99, 20.00, 13, 'Active', 'EduTech', '2022-05-20', 'photo_2025-05-23_17-18-16.jpg', 75, 550000, 'overview11.mp4', 'Revolutionize education', 10000, 160000, 18, 12),
+('DevOps Pipeline', 'Automated CI/CD pipeline solution for agile software development teams.', 'Streamline your DevOps', '2.8', 'video12.mp4', 399.99, 10.00, 14, 'Active', 'Software Co', '2021-07-15', 'photo_2025-05-23_17-18-29.jpg', 100, 800000, 'overview12.mp4', 'Accelerate software delivery', 30000, 230000, 25, 18),
+('Database Optimizer', 'Performance tuning tool for relational and NoSQL database systems.', 'Database performance booster', '3.1', 'video13.mp4', 299.99, 0.00, 15, 'Active', 'DataSystems', '2020-03-10', 'photo_2025-05-23_17-18-50.jpg', 100, 450000, 'overview13.mp4', 'Maximize database efficiency', 40000, 195000, 30, 24),
+('AI Chatbot', 'Enterprise-grade conversational AI platform for customer service automation.', 'Smart chatbot solution', '2.2', 'video14.mp4', 499.99, 15.00, 5, 'Active', 'Service Corp', '2021-10-12', 'photo_2025-05-23_17-17-22.jpg', 95, 700000, 'overview14.mp4', 'Enhance customer interactions', 60000, 270000, 35, 18),
+('IoT Monitor', 'Comprehensive monitoring solution for industrial IoT devices and sensors.', 'Industrial IoT platform', '1.7', 'video15.mp4', 599.99, 10.00, 11, 'Beta', 'Industrial Tech', '2022-04-05', 'photo_2025-05-23_17-17-22.jpg', 70, 950000, 'overview15.mp4', 'Monitor and analyze IoT data', 25000, 210000, 20, 15);
 
 -- Blog Images
 INSERT INTO blog_images (blog_id, image) VALUES

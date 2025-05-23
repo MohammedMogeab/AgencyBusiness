@@ -281,7 +281,7 @@ require base_path('views/partials/header.php');
             </div>
             <div class="stat-card">
                 <div class="stat-title">Total ROI</div>
-                <div class="stat-value"><?= $getRol['total_roi_percentage'] ?? 1 ?>%</div>
+                <div class="stat-value"><?= $getRol['total_roi_percentage'] == 0 ?? 0 ?>%</div>
                 <div class="stat-change positive">
                     <span>↑</span>
                     <span><?= $roiChange ?>% from last month</span>

@@ -619,7 +619,7 @@
                         
                             <div class="tags">
                               <span class="tag blue">Development</span>
-                              <span class="tag red"><?= isset($v['caregory_name'])?$v['category_name']:'oooo'?></span>
+                              <span class="tag red"><?= isset($v['category_name'])?$v['category_name']:'oooo'?></span>
                               <span class="tag green">Project</span>
                             </div>
                             <h2 class="project-title"><?= isset($v['product_name'])?$v['product_name']:'oooooo'?></h2>
@@ -632,7 +632,7 @@
                             </div>
                             <div class="project-footer">
                               <div class="investment-info">
-                                <span class="investment-amount"><?= isset($v['price'])?$v['price']:'888'?></span>
+                              <span class="investment-amount"><?= isset($v['price']) ? '$' . number_format($v['price'], 2) : '$0.00' ?></span>
                                 <span class="investment-label">Minimum Investment</span>
                               </div>
                               <div class="footer-divider"></div>
