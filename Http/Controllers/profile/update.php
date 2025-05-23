@@ -32,6 +32,7 @@ try{
     ]);
     $_SESSION['user']['user_name'] = $username;
     $_SESSION['user']['role'] = $role;
+
     if($_FILES['photo']['name'] != null && saveUpload($_FILES['photo']['tmp_name'],$_FILES['photo']['name'])){
         $db->query("update users set photo = :photo where user_id = :user_id", [
             'user_id' => $user_id,
@@ -39,9 +40,13 @@ try{
         ]);
         $_SESSION['user']['photo'] = $_FILES['photo']['name'];
     }
+    else{
+        $errors['error save photo'] = 'Failed to update profile photo';
+    }
     view("profile/profile.php", [
         'user' => $_SESSION['user'],
-        'success' => 'Profile updated successfully'
+        'success' => 'Profile updated successfully',
+        'errors' => $errors
     ]);
 }catch(Exception $e){
     view("profile/profile.php", [

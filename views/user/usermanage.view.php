@@ -5,7 +5,7 @@
     <div class="dashboard-sidebar">
         <div class="user-profile">
             <div class="profile-image">
-                <img src="<?= $user['photo'] ?? '/assets/images/default-avatar.png' ?>" alt="Profile">
+                <img src="<?= isset($user['photo']) ?getUpload($user['photo']) : 'assets/images/default-avatar.png' ?>" alt="Profile">
             </div>
             <div class="profile-info">
                 <h4><?= htmlspecialchars($user['user_name']) ?></h4>

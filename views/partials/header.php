@@ -52,11 +52,11 @@
                     <button class="profile-button">
                         <div class="profile-avatar">
                             <?php 
-                            $avatarPath = $_SESSION['user']['photo'] ?? '/assets/images/blog-1.jpg';
+                            $avatarPath = $_SESSION['user']['photo'] ?? 'blog-1.jpg';
                           
                             echo "<!-- Debug: Avatar path is: " . $avatarPath . " -->";
                             ?>
-                            <img src="<?php echo $avatarPath; ?>" alt="Profile" >
+                            <img src="<?php echo getUpload($avatarPath); ?>" alt="Profile" >
                         </div>
                         <span class="profile-name"><?php echo $_SESSION['user']['user_name'] ?? 'User'; ?></span>
                         <ion-icon name="chevron-down-outline"></ion-icon>

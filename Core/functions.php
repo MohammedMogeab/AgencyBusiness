@@ -42,7 +42,6 @@ function base_path($path)
 function view($path, $attributes = [])
 {
     extract($attributes);
-
     require base_path('views/' . $path);
 }
 
@@ -67,6 +66,12 @@ function old($key, $default = '')
 function saveUpload($file , $name){
     return move_uploaded_file($file, base_path('public/assets/uploads/') . $name);
 }
+/**
+ * Returns the path to an uploaded file.
+ *
+ * @param string $file_name The name of the file as it was saved.
+ * @return string The path to the uploaded file.
+ */
 function getUpload($file_name){
     return 'assets/uploads/'. $file_name;
 }

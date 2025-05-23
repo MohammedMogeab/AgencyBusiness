@@ -7,7 +7,7 @@
                 <div class="profile-photo-section">
                     <div class="profile-photo-wrapper">
                         <?php if(!empty($user['photo'])): ?>
-                            <img src="/uploads/<?php echo htmlspecialchars($user['photo']); ?>" alt="Profile Photo" id="profile-image">
+                            <img src="<?php echo htmlspecialchars(getUpload($user['photo'])); ?>" alt="Profile Photo" id="profile-image">
                         <?php else: ?>
                             <div class="profile-initials"><?php echo strtoupper(substr($user['user_name'], 0, 2)); ?></div>
                         <?php endif; ?>
