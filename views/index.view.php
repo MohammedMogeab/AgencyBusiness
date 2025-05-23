@@ -436,7 +436,7 @@
                 <div class="project-preview-card">
                     <span class="project-badge"><?= isset($row['status'])?$row['status']:'Not status' ?></span>
                     <div class="project-preview-img-wrapper">
-                        <img src='<?= isset($row['main_image'])?$row['main_image']:'' ?>' alt="AI Chatting Desktop" class="project-preview-img">
+                        <img src="/assets/uploads/<?= isset($row['main_image'])?$row['main_image']:'' ?>" alt="AI Chatting Desktop" class="project-preview-img">
                         <div class="project-img-gradient"></div>
                     </div>
                     <div class="project-preview-content">
