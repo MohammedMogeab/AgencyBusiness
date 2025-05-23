@@ -89,7 +89,7 @@ try{
         'overview' => $_POST['overview'],
         'description' => $_POST['description'],
         'status' => $_POST['status'],
-        'main_image' => (move_uploaded_file($_FILES['image']['tmp_name'], $uploadDir . $_FILES['image']['name'])) ? $_FILES['image']['name'] : null,
+        'main_image' => (saveUpload($_FILES['image']['tmp_name'], $_FILES['image']['name'])) ? $_FILES['image']['name'] : null,
         'company' => $_POST['company'],
         'start_date' => $_POST['start_date'],
         'budget' => $_POST['budget'],
@@ -175,7 +175,7 @@ try{
         ]);
     }
     foreach ($_FILES['gallery']['name'] as $key => $name) {
-        if (move_uploaded_file($_FILES['gallery']['tmp_name'][$key]['file'], $uploadDir . $name['file'])) 
+        if (saveUpload($_FILES['gallery']['tmp_name'][$key]['file'], $name['file'])) 
         {
             // Insert into product_photoes table
             $db->query("INSERT INTO products_photoes (product_id, photo, caption) VALUES ( :productId,  :name, :caption )", [
