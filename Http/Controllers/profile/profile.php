@@ -6,7 +6,7 @@ require base_path('vendor/autoload.php');
 $db = App::resolve(Database::class);
 
 if(!isset($_SESSION['user'])) {
-    abort(403);
+    abort( 403);
     header( "location: /login");
 }
 

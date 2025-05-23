@@ -47,7 +47,7 @@ if (!empty($errors)) {
     exit;
 }
 
-$uploadDir=base_path('views/uploads/');
+$uploadDir=base_path('public/uploads/');
 // product_id AS id,
 // product_name AS title,
 // large_description AS description,
@@ -89,7 +89,8 @@ try{
         'overview' => $_POST['overview'],
         'description' => $_POST['description'],
         'status' => $_POST['status'],
-        'main_image' => (move_uploaded_file($_FILES['image']['tmp_name'], $uploadDir . $_FILES['image']['name'])) ? $_FILES['image']['name'] : null,
+
+        'main_image' => (saveUpload($_FILES['image']['tmp_name'], $_FILES['image']['name'])) ? $_FILES['image']['name'] : null,
         'company' => $_POST['company'],
         'start_date' => $_POST['start_date'],
         'budget' => $_POST['budget'],
@@ -151,7 +152,7 @@ try{
         $db->query("INSERT INTO developers (name,  role, avatar) VALUES ( :name, :role , :avatar )", [
             'name' => $team['name'],
             'role' => $team['role'],
-            'avatar' => ((isset($_FILES['team']) && isset($_FILES['team']['name'][$key])) && move_uploaded_file( from: $_FILES['team']['tmp_name'][$key]['avatar'],  to: $uploadDir . $_FILES['team']['name'][$key]['avatar']))?$_FILES['team']['name'][$key]['avatar']:null
+            'avatar' => ((isset($_FILES['team']) && isset($_FILES['team']['name'][$key])) && saveUpload( $_FILES['team']['tmp_name'][$key]['avatar'],$_FILES['team']['name'][$key]['avatar']))?$_FILES['team']['name'][$key]['avatar']:null
         ]);
         $developer_id = $db->lastInsertId();
         $db->query("INSERT INTO developers_links (developer_id, link, link_type) VALUES ( :developer_id, :link, :link_type )", [
@@ -175,7 +176,7 @@ try{
         ]);
     }
     foreach ($_FILES['gallery']['name'] as $key => $name) {
-        if (move_uploaded_file($_FILES['gallery']['tmp_name'][$key]['file'], $uploadDir . $name['file'])) 
+        if (saveUpload($_FILES['gallery']['tmp_name'][$key]['file'], $name['file'])) 
         {
             // Insert into product_photoes table
             $db->query("INSERT INTO products_photoes (product_id, photo, caption) VALUES ( :productId,  :name, :caption )", [

@@ -56,3 +56,14 @@ function old($key, $default = '')
 {
     return core\session::get('old')[$key] ?? $default;
 }
+
+/**
+ * Saves an uploaded file to the specified uploads directory.
+ *
+ * @param string $file The temporary file path of the uploaded file.
+ * @param string $name The desired name for the saved file.
+ * @return bool Returns true on success, or false on failure.
+ */
+function saveUpload($file , $name){
+    return move_uploaded_file($file, base_path('public/uploads/') . $name);
+}

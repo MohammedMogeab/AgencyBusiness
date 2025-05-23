@@ -195,6 +195,7 @@ require base_path('views/partials/header.php');
             border-radius: 16px;
             padding: 1.5rem;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            max-height: 550px;
         }
         .analytics-title {
             font-size: 1.25rem;
@@ -267,7 +268,7 @@ require base_path('views/partials/header.php');
                 <div class="stat-value"><?= $totalProduct['totalPro'] ?? 1 ?></div>
                 <div class="stat-change positive">
                     <span>↑</span>
-                    <span>12% from last month</span>
+                    <span><?= $projectChange ?>% from last month</span>
                 </div>
             </div>
             <div class="stat-card">
@@ -275,15 +276,15 @@ require base_path('views/partials/header.php');
                 <div class="stat-value">$<?= $activeInvestments['sum_mount'] ?? 1 ?></div>
                 <div class="stat-change positive">
                     <span>↑</span>
-                    <span>8% from last month</span>
+                    <span><?= $investmentChange ?>% from last month</span>
                 </div>
             </div>
             <div class="stat-card">
                 <div class="stat-title">Total ROI</div>
-                <div class="stat-value"><?= $getRol['roi_calc'] ?? 1 ?>%</div>
+                <div class="stat-value"><?= $getRol['total_roi_percentage'] ?? 1 ?>%</div>
                 <div class="stat-change positive">
                     <span>↑</span>
-                    <span>2.3% from last month</span>
+                    <span><?= $roiChange ?>% from last month</span>
                 </div>
             </div>
             <div class="stat-card">
@@ -291,7 +292,7 @@ require base_path('views/partials/header.php');
                 <div class="stat-value"><?= $active_investors['active_investors'] ?? 1 ?></div>
                 <div class="stat-change positive">
                     <span>↑</span>
-                    <span>23% from last month</span>
+                    <span><?= $investorChange ?>% from last month</span>
                 </div>
             </div>
         </div>
@@ -393,7 +394,7 @@ require base_path('views/partials/header.php');
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Investment Chart
-        const investmentData = <?php echo json_encode(array_values($investmentData));?>
+        const investmentData = <?php echo json_encode(array_values($investmentData));?>;
         const ctx = document.getElementById('investmentChart').getContext('2d');
         const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
         new Chart(ctx, {
