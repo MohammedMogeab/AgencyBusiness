@@ -34,19 +34,18 @@ $totalProductBeta = $db->query('SELECT COUNT(status) as pro_Beta FROM products W
 ])->find();
 
 
-$activeInvestments = $db->query('SELECT SUM(amount) as sum_mount FROM investments where status =:status',  [
-    ':status'=>'compeleted'
+$activeInvestments = $db->query('SELECT SUM(amount) as sum_mount FROM  investments where status =:status',  [
+    ':status'=>'completed'
 ])->find();
 
-$getRol =$db->query('
-        SELECT AVG(roi) as avg_roi 
-        FROM (
-            SELECT (p.budget * 0.15) as roi 
-            FROM products p
-            WHERE p.status = :status
-        ) as roi_calc
-',[
-    ':status'=>'pending'
+$getRol =$db->query('SELECT 
+  ROUND(((SUM(p.price) - SUM(i.amount)) / SUM(i.amount)) * 100, 2) AS total_roi_percentage
+FROM investments i
+JOIN products p ON i.product_id = p.product_id
+WHERE i.status =:status'
+
+,[
+    ':status'=>'completed'
 ])->find();
 
 
@@ -62,7 +61,7 @@ JOIN investments inv ON inv.product_id = p.product_id where $where",$param)->get
 $active_investors  = $db->query(' SELECT COUNT(DISTINCT user_id) as active_investors 
         FROM investments 
         WHERE status =:status',[
-    ':status'=>'complete'
+    ':status'=>'completed'
 ])->find();
 
 
@@ -97,6 +96,34 @@ if(isset($_GET['ajax'])&&$_GET['ajax']==1)
     }
 
 
+    // إعداد السنة والشهر الحالي والماضي
+$currentMonth = date('m');
+$currentYear = date('Y');
+$lastMonth = date('m', strtotime('first day of last month'));
+$lastYear = date('Y', strtotime('first day of last month'));
+
+//  Total Projects: النسبة المئوية للتغير
+$currentProjects = $db->query("SELECT COUNT(*) AS c FROM products WHERE MONTH(start_date) = $currentMonth AND YEAR(start_date) = $currentYear")->find()['c'];
+$lastProjects = $db->query("SELECT COUNT(*) AS c FROM products WHERE MONTH(start_date) = $lastMonth AND YEAR(start_date) = $lastYear")->find()['c'];
+$projectChange = ($lastProjects > 0) ? round((($currentProjects - $lastProjects) / $lastProjects) * 100, 2) : 0;
+
+//  Active Investments: النسبة المئوية للتغير
+$currentInvest = $db->query("SELECT SUM(amount) AS s FROM investments WHERE status = 'completed' AND MONTH(created_at) = $currentMonth AND YEAR(created_at) = $currentYear")->find()['s'];
+$lastInvest = $db->query("SELECT SUM(amount) AS s FROM investments WHERE status = 'completed' AND MONTH(created_at) = $lastMonth AND YEAR(created_at) = $lastYear")->find()['s'];
+$investmentChange = ($lastInvest > 0) ? round((($currentInvest - $lastInvest) / $lastInvest) * 100, 2) : 0;
+
+//  ROI: النسبة المئوية للتغير
+$currentROI = $db->query("SELECT ROUND(((SUM(p.price) - SUM(i.amount)) / SUM(i.amount)) * 100, 2) AS r FROM investments i JOIN products p ON i.product_id = p.product_id WHERE i.status = 'completed' AND MONTH(i.created_at) = $currentMonth AND YEAR(i.created_at) = $currentYear")->find()['r'];
+$lastROI = $db->query("SELECT ROUND(((SUM(p.price) - SUM(i.amount)) / SUM(i.amount)) * 100, 2) AS r FROM investments i JOIN products p ON i.product_id = p.product_id WHERE i.status = 'completed' AND MONTH(i.created_at) = $lastMonth AND YEAR(i.created_at) = $lastYear")->find()['r'];
+$roiChange = ($lastROI != 0) ? round((($currentROI - $lastROI) / abs($lastROI)) * 100, 2) : 0;
+
+//  Active Investors: النسبة المئوية للتغير
+$currentInvestors = $db->query("SELECT COUNT(DISTINCT user_id) AS c FROM investments WHERE status = 'completed' AND MONTH(created_at) = $currentMonth AND YEAR(created_at) = $currentYear")->find()['c'];
+$lastInvestors = $db->query("SELECT COUNT(DISTINCT user_id) AS c FROM investments WHERE status = 'completed' AND MONTH(created_at) = $lastMonth AND YEAR(created_at) = $lastYear")->find()['c'];
+$investorChange = ($lastInvestors > 0) ? round((($currentInvestors - $lastInvestors) / $lastInvestors) * 100, 2) : 0;
+
+
+
 
 view('manage/dashboard.view.php',['totalProduct'=> $totalProduct,
                                    'activeInvestments'=>$activeInvestments,
@@ -106,5 +133,9 @@ view('manage/dashboard.view.php',['totalProduct'=> $totalProduct,
                                   'totalProductCompleted ',$totalProductCompleted ,
                                   'totalProductBeta'=>$totalProductBeta,
                                   'productAndInvstment'=>$productAndInvstment,
-                                  'investmentData'=>$investmentData]
+                                 'investmentData'=>$investmentData,
+                                  'projectChange' => $projectChange,
+                                  'investmentChange' => $investmentChange,
+                                  'roiChange' => $roiChange,
+                                  'investorChange' => $investorChange]
                                 );
