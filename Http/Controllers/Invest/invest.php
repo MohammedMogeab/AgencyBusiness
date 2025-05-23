@@ -8,7 +8,7 @@ if(!$project_id){
     abort(404);
 }
 
-$project = $db->query('SELECT product_name FROM products WHERE product_id = :id', [
+$project = $db->query('SELECT product_name,product_id FROM products WHERE product_id = :id', [
     'id' => $project_id
 ])->get();
 

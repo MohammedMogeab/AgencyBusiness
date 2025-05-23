@@ -12,13 +12,14 @@ $auth = new Authenticator();
 
 $userId = 12; // Example user
 $amount = $_POST['amount'] ?? null;
+$projectId= $_POST['project_id'] ?? null;
 
 if (!$amount || !is_numeric($amount) || $amount <= 0) {
     die("Invalid amount.");
 }
 
 // Save investment (optional here, can wait until capture)
-Investment::create($userId, $amount);
+Investment::create($userId, $amount,$projectId);
 
 // PayPal sandbox credentials
 $clientId = 'ASX3_SGI8nSp7oGKJz5q3VFduB6To_FUSVH7rdeePRitKXwJp_Y9I1OfDFFt4jP4xkn1Vh6gudBTwmdp';
@@ -62,7 +63,7 @@ try {
     ]);
 
     $orderData = json_decode($orderResponse->getBody(), true);
-    dd($orderData);
+    
     foreach ($orderData['links'] as $link) {
         if ($link['rel'] === 'approve') {
             header("Location: " . $link['href']);
