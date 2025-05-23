@@ -74,12 +74,12 @@ try {
     $mail->isHTML(true);                                  //Set email format to HTML
     $mail->Subject = 'YOR Linke the website';
     
-    $email_tempelet = "
-                       <h2>Hello  ". $username." </h2> 
-                       <h5>Verify youer email address login with the below</h5>
-                       <br/><br/>
-                       <a href = 'http://localhost/project/index.php?token=$verfiy_token'>Click here transform to page </a>
-                    ";
+    // $email_tempelet = "
+    //                    <h2>Hello  ". $username." </h2> 
+    //                    <h5>Verify youer email address login with the below</h5>
+    //                    <br/><br/>
+    //                    <a href = 'http://localhost/project/index.php?token=$verfiy_token'>Click here transform to page </a>
+    //                 ";
 
                     $message = "
                     <!DOCTYPE html>

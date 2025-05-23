@@ -608,7 +608,7 @@
           </div>
         </div>
       </div>
-      <h3>the Number of project now <span id="projectCount" style="font-size: 20px;">0</span></h3>
+      <!-- <h3>the Number of project now <s pan id="projectCount" style="font-size: 20px;">0</span></h3> -->
       <div class="projects-grid" id="projectsGrid">
         <?php if(isset($results) && is_array($results)):?>
         <?php  foreach($results as  $v):?>
@@ -622,7 +622,7 @@
                               <span class="tag red"><?= isset($v['caregory_name'])?$v['category_name']:'oooo'?></span>
                               <span class="tag green">Project</span>
                             </div>
-                            <h2 class="project-title"><?= isset($v['product_name'])?$v['product_name']:'oooooo'?></h2>
+                            <h2 class="project-title"><?= isset($v['product_name'])?$v['product_Zname']:'oooooo'?></h2>
                             <p class="project-desc"><?= isset($v['short_description'])?$v['short_description']:'pppp'?></p>
                             <div class="project-stats">
                               <span><ion-icon name="chatbubble-ellipses-outline"></ion-icon>  <?= isset($v['number_comments'])?$v['number_comments']:'1'?><span>Comments</span></span>
@@ -637,7 +637,7 @@
                               </div>
                               <div class="footer-divider"></div>
                               <div class="button-group">
-                                <button class="btn-quick-view"><ion-icon name="eye-outline"></ion-icon> Quick View</button>
+                                <button class="btn-quick-view" ><ion-icon name="eye-outline"></ion-icon> Quick View</button>
                                 <button onclick="window.location.href='/project?project_id=<?=$v['product_id']?>'">View Investment</button>
                               </div>
                             </div>
@@ -652,7 +652,7 @@
       </div>
     </section>
   </main>
-  <h3>the Number of project now <span id="projectCount" style="font-size: 20px;">0</span></h3>
+  <!-- <h3>the Number of project now <span id="projectCount" style="font-size: 20px;">0</span></h3> -->
   <?php require('partials/footer.php') ?>
   <script>
     // Simple search and filter functionality
@@ -670,7 +670,7 @@
       const maxPrice = parseFloat(document.getElementById('price-max').value) || Infinity;
 
       cards.forEach(card => {
-        const title = card.querySelector('.project-title').textContent.toLowerCase();
+        const title = card.querySelector('.project-title')?.textContent.toLowerCase() || 'not foud';
         const desc = card.querySelector('.project-desc').textContent.toLowerCase();
         const cardLang = card.getAttribute('data-language');
         const cardType = card.getAttribute('data-type');
@@ -747,9 +747,9 @@
         <div class="modal-content">
           <span class="close-modal">&times;</span>
           <div class="modal-body">
-            <img src="${card.querySelector('.project-image').src}" alt="${card.querySelector('.project-title').textContent}">
+            <img src="${card.querySelector('.project-image').src}" alt="${card.querySelector('.project-title')?.textContent || 'not found'}">
             <div class="modal-details">
-              <h2>${card.querySelector('.project-title').textContent}</h2>
+              <h2>${card.querySelector('.project-title')?.textContent||'not found'}</h2>
               <p>${card.querySelector('.project-desc').textContent}</p>
               <div class="modal-stats">
                 ${card.querySelector('.project-stats').innerHTML}
@@ -794,6 +794,23 @@
         if (card) createQuickViewModal(card);
       }
     });
+  
+    /*
+
+    document.getElementById("search").addEventListener('input',function()
+  {
+    let keyword=this.value;
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET","projects?ajax=1&search="+encodeURIComponent(keyword,true));
+    xhr.onload=function(){
+      if(xhr.status===200)
+    {
+      document.getElementById('projectsGrides').innerHTML=xhr.responseText;
+    }
+    };
+    xhr.send();
+  })
+    */applyPriceBtn
 
     // fetch Filter Project 
 
@@ -821,7 +838,7 @@ function fetchFilteredProjects(reset = true) {
         document.getElementById("projectsGrid").innerHTML = defaultProjectsHTML;
         page = defaultPage;
         hasMoreProjects = true;
-        updateProjectCount();
+        
         return;
     }
 
@@ -852,9 +869,7 @@ function fetchFilteredProjects(reset = true) {
             if (filtersAreDefault) {
                 defaultProjectsHTML = grid.innerHTML;
                 defaultPage = page;
-            }
-
-            updateProjectCount();
+            }      
         }
         isLoading = false;
     };
@@ -941,20 +956,8 @@ function isFiltersDefault() {
 }
 
   // update the projectCount
-  function updateProjectCount()
-  {
-    const CheckExist = 
-    setInterval(()=>{
-    const count = document.querySelectorAll('.project-card').length;
-    if(count >0 )
-    {
-    document.getElementById('projectCount').innerText=count;
-    clearInterval(CheckExist);
-    }
-  },100);
-  
-  }
-  window.onload= updateProjectCount;
+
+
 
     // Scorll 
 

@@ -159,18 +159,14 @@ constraint re_fk_co foreign key(comment_id) references comments(comment_id)
 CREATE TABLE investments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
+    product_id INT NOT NULL,
     amount DECIMAL(10,2),
     transaction_id VARCHAR(255),
     status ENUM('pending', 'completed', 'cancelled') DEFAULT 'pending',
     created_at DATETIME,
     updated_at DATETIME,
-    product_id INT,
-    roi_percentage DECIMAL(10,2),
-    expected_return DECIMAL(10,2),
-    actual_return DECIMAL(10,2),
-    investment_date DATE,
-    maturity_date DATE,
-    FOREIGN KEY (product_id) REFERENCES products(product_id)
+    constraint re_fk_us foreign key(user_id) references users(user_id) on delete cascade,
+    constraint re_fk_pro foreign key(product_id) references products(product_id) on delete cascade
 );
 create table comments_likes(
 user_id int,
@@ -692,6 +688,88 @@ INSERT INTO blog_producs (blog_id, product_id) VALUES
 (13, 12), -- DevOps blog related to DevOps Pipeline
 (14, 1),  -- UX design blog related to CodeMaster IDE
 (15, 15); -- Tech startup blog related to IoT Monitor
+
+INSERT INTO blog_comments (blog_id, user_id, dates, content) VALUES
+(1, 3, '2022-03-01', 'Great overview of upcoming trends! Especially interested in WASM integration.'),
+(2, 5, '2022-02-15', 'Your performance tips cut our bundle size by 40%. Amazing!'),
+(3, 7, '2022-01-20', 'Clear explanation of ML concepts. More examples would be helpful.'),
+(4, 9, '2022-04-10', 'We implemented this architecture and saw 3x throughput improvement.'),
+(5, 2, '2022-03-15', 'As a hiring manager, this is exactly the skill set we look for.'),
+(6, 4, '2022-02-28', 'Important reminders about security that many teams overlook.'),
+(7, 6, '2022-01-25', 'Would love to see a deeper comparison of state management solutions.'),
+(8, 8, '2022-03-05', 'These patterns saved us during Black Friday traffic spikes.'),
+(9, 10, '2022-04-01', 'The hybrid approach worked perfectly for our cross-platform app.'),
+(10, 12, '2022-03-20', 'Serverless reduced our infra costs by 60% as you predicted.'),
+(11, 14, '2022-02-10', 'AI is transforming our customer service - great case studies!'),
+(12, 1, '2022-01-15', 'Blockchain has so many uses beyond crypto - thanks for highlighting.'),
+(13, 11, '2022-03-25', 'Our deployment frequency increased 5x after these changes.'),
+(14, 13, '2022-02-20', 'UX is so critical yet often neglected in developer tools.'),
+(15, 15, '2022-04-05', 'Spot-on advice about finding product-market fit first.');
+
+INSERT INTO blog_replays (user_id, comment_id, Dates, content) VALUES
+(1, 1, '2022-03-02', 'Thanks Mike! WASM is definitely a game-changer we''re excited about.'),
+(2, 2, '2022-02-16', 'That''s fantastic to hear David! Optimization can have huge impacts.'),
+(4, 3, '2022-01-21', 'Appreciate the feedback Robert! We''ll add more examples in part 2.'),
+(6, 4, '2022-04-11', 'Those are impressive results Thomas! Microservices scale beautifully.'),
+(1, 5, '2022-03-16', 'Thanks Jane! We surveyed 50 companies to build this profile.'),
+(3, 6, '2022-03-01', 'Absolutely Sarah! Security should never be an afterthought.'),
+(5, 7, '2022-01-26', 'Great suggestion Emily! We''ll do a follow-up on state management.'),
+(7, 8, '2022-03-06', 'That''s wonderful Jennifer! Proper database design pays off.'),
+(9, 9, '2022-04-02', 'Glad it helped Lisa! Hybrid gives the best of both worlds.'),
+(11, 10, '2022-03-21', 'Those savings are impressive Patricia! Serverless is transformative.'),
+(13, 11, '2022-02-11', 'Thanks Nancy! AI applications keep expanding daily.'),
+(2, 12, '2022-01-16', 'Exactly John! The underlying tech has so much potential.'),
+(4, 13, '2022-03-26', 'That''s amazing velocity James! DevOps practices really deliver.'),
+(6, 14, '2022-02-21', 'Well said Daniel! Developer experience matters tremendously.'),
+(8, 15, '2022-04-06', 'Thanks Kevin! Too many startups build before validating.');
+
+INSERT INTO blog_comments_likes (user_id, comment_id) VALUES
+(2, 1),   -- Jane liked Mike's comment on web development trends
+(4, 2),   -- Sarah liked David's comment on performance tips
+(6, 3),   -- Emily liked Robert's comment on ML examples
+(8, 4),   -- Jennifer liked Thomas' comment on microservices
+(10, 5),  -- Lisa liked Jane's comment on hiring skills
+(12, 6),  -- Patricia liked Sarah's comment on security
+(14, 7),  -- Nancy liked Emily's comment on state management
+(1, 8),   -- John liked Jennifer's comment on database patterns
+(3, 9),   -- Mike liked Lisa's comment on hybrid apps
+(5, 10),  -- David liked Patricia's comment on serverless
+(7, 11),  -- Robert liked Nancy's comment on AI
+(9, 12),  -- Thomas liked John's comment on blockchain
+(11, 13), -- James liked James' comment on DevOps
+(13, 14), -- Daniel liked Daniel's comment on UX
+(15, 15); -- Kevin liked Kevin's comment on startups
+
+INSERT INTO related_products (product_id, related_product_id) VALUES
+(1, 12),   -- CodeMaster IDE related to DevOps Pipeline
+(1, 13),   -- CodeMaster IDE related to Database Optimizer
+(2, 14),   -- DataAnalyzer related to AI Chatbot
+(3, 9),    -- SecureVault related to HealthTracker (both handle sensitive data)
+(4, 7),    -- MobilePay related to SmartHome (both mobile-focused)
+(5, 11),   -- GameEngine related to VR Classroom (both use 3D/VR)
+(6, 1),    -- CloudManager related to CodeMaster (cloud development)
+(7, 15),   -- SmartHome related to IoT Monitor (both IoT)
+(8, 5),    -- AR Designer related to GameEngine (both 3D)
+(9, 3),    -- HealthTracker related to SecureVault (data security)
+(10, 2),   -- BlockChain related to DataAnalyzer (data applications)
+(11, 8),   -- VR Classroom related to AR Designer (immersive tech)
+(12, 6),   -- DevOps Pipeline related to CloudManager
+(13, 1),   -- Database Optimizer related to CodeMaster
+(14, 10),  -- AI Chatbot related to BlockChain (emerging tech)
+(15, 4);   -- IoT Monitor related to MobilePay (mobile connectivity)
+
+INSERT INTO investments(user_id,product_id,amount,status,created_at,updated_at)
+VALUES
+(1,1,20000,'completed','2023-01-10 11:30:00','2023-03-10 11:30:00'),
+(2,9,40000,'completed','2023-02-10 11:30:00','2023-03-10 11:30:00'),
+(3,8,15000,'completed','2023-03-10 11:30:00','2023-04-10 11:30:00'),
+(2,7,25000,'completed','2023-04-10 11:30:00','2023-05-10 11:30:00'),
+(2,3,28000,'completed','2023-06-10 11:30:00','2023-07-10 11:30:00'),
+(4,6,30000,'completed','2023-07-10 11:30:00','2023-08-10 11:30:00'),
+(3,5,20000,'completed','2023-08-10 11:30:00','2023-09-10 11:30:00'),
+(7,6,35000,'completed','2023-09-10 11:30:00','2023-10-10 11:30:00'),
+(2,3,45000,'completed','2023-10-10 11:30:00','2023-11-10 11:30:00'),
+(8,4,23000,'completed','2023-11-10 11:30:00','2023-12-10 11:30:00');
 
 INSERT INTO blog_comments (blog_id, user_id, dates, content) VALUES
 (1, 3, '2023-01-15', 'Great insights on upcoming web technologies!'),
