@@ -491,7 +491,7 @@
         <section class="contact-section" id="contact">
             <h2>Get in Touch</h2>
             <p>Have a question, feedback, or need support? Reach out to us and our team will get back to you as soon as possible.</p>
-            <a href="contact.php" class="contact-cta">
+            <a href="/contact" class="contact-cta">
                 <ion-icon name="mail-outline"></ion-icon>
                 Contact Us
             </a>
