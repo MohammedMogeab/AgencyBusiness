@@ -133,9 +133,9 @@ create table rates(
 user_id int,
 product_id int,
 rate int(1),
+constraint primary key(user_id,product_id),
 constraint foreign key (user_id) references users(user_id) on delete cascade ,
 constraint foreign key (product_id) references products(product_id) on delete cascade,
-constraint pk_us_ra_pr primary key(user_id,product_id,rate),
 constraint check_rate_validate check(rate between 0 and 5)
 );
 
@@ -164,6 +164,7 @@ content text,
 constraint re_fk_us foreign key(user_id) references users(user_id) on delete cascade,
 constraint re_fk_co foreign key(comment_id) references comments(comment_id)
 );
+
 CREATE TABLE investments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -173,9 +174,10 @@ CREATE TABLE investments (
     status ENUM('pending', 'completed', 'cancelled') DEFAULT 'pending',
     created_at DATETIME,
     updated_at DATETIME,
-    constraint re_fk_us foreign key(user_id) references users(user_id) on delete cascade,
-    constraint re_fk_pro foreign key(product_id) references products(product_id) on delete cascade
+    constraint inv_fk_us foreign key(user_id) references users(user_id) on delete cascade,
+    constraint inv_fk_pro foreign key(product_id) references products(product_id) on delete cascade
 );
+
 create table comments_likes(
 user_id int,
 comment_id int,
