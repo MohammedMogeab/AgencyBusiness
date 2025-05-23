@@ -23,23 +23,7 @@ create table developers(
     avatar varchar(255)
 );
 
-create table blogs(
-blog_id int primary key auto_increment,
-content text);
 
-create table blog_images(
-blog_id int ,
-image varchar(255) not null,
-constraint bl_fk_im foreign key(blog_id) references blogs(blog_id)
-);
-
-create table developers_links(
-link_id int primary key auto_increment,
-developer_id int,
-link_type varchar(30),
-link varchar(255),
-constraint dev_us_li_fk foreign key(developer_id) references developers(id)
-);
 
 create table categorys(
 category_id int primary key auto_increment,
@@ -78,6 +62,37 @@ constraint pr_fk_ca foreign key(category_id) references categorys(category_id),
 fulltext(product_name,short_description)
 );
 
+create table blogs(
+blog_id int primary key auto_increment,
+blog_title varchar(255), -- the title of blog
+content text,
+user_id int,  -- author of blog
+date date, -- the date of blog creation
+constraint bl_fk_us foreign key(user_id) references users(user_id) on delete cascade
+);
+
+create table blog_images(
+blog_id int ,
+image varchar(255) not null,
+constraint bl_fk_im foreign key(blog_id) references blogs(blog_id)
+);
+
+create table blog_producs(
+blog_id int,
+product_id int,
+-- constraint pk_bl_pr primary key(blog_id,product_id),
+constraint blpr_fk_bl foreign key(blog_id) references blogs(blog_id) on delete cascade,
+constraint blpr_fk_pr foreign key(product_id) references products(product_id) on delete cascade
+);
+
+create table developers_links(
+link_id int primary key auto_increment,
+developer_id int,
+link_type varchar(30),
+link varchar(255),
+constraint dev_us_li_fk foreign key(developer_id) references developers(id)
+);
+
 create table products_photoes(
 id int primary key auto_increment,
 product_id int ,
@@ -113,21 +128,14 @@ create table product_likes(
 	constraint foreign key (product_id) references products(product_id) on delete cascade
 );
 
-create table blog_producs(
-blog_id int,
-product_id int,
--- constraint pk_bl_pr primary key(blog_id,product_id),
-constraint blpr_fk_bl foreign key(blog_id) references blogs(blog_id) on delete cascade,
-constraint blpr_fk_pr foreign key(product_id) references products(product_id) on delete cascade
-);
 
 create table rates(
 user_id int,
 product_id int,
 rate int(1),
+constraint primary key(user_id,product_id),
 constraint foreign key (user_id) references users(user_id) on delete cascade ,
 constraint foreign key (product_id) references products(product_id) on delete cascade,
-constraint pk_us_ra_pr primary key(user_id,product_id,rate),
 constraint check_rate_validate check(rate between 0 and 5)
 );
 
@@ -156,6 +164,7 @@ content text,
 constraint re_fk_us foreign key(user_id) references users(user_id) on delete cascade,
 constraint re_fk_co foreign key(comment_id) references comments(comment_id)
 );
+
 CREATE TABLE investments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -168,6 +177,7 @@ CREATE TABLE investments (
     constraint re_fk_user foreign key(user_id) references users(user_id) on delete cascade,
     constraint re_fk_pro foreign key(product_id) references products(product_id) on delete cascade
 );
+
 create table comments_likes(
 user_id int,
 comment_id int,
@@ -200,48 +210,61 @@ comment_id int,
 constraint blcoli_fk_us foreign key(user_id) references users(user_id) on delete cascade,
 constraint blcoli_fk_co foreign key(comment_id) references blog_comments(comment_id) on delete cascade
 );
-CREATE TABLE `product_resources`(
-    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `product_id` INT NULL,
-    `resource_name` VARCHAR(255) NULL,
-    `resource_url` VARCHAR(255) NULL,
-    `type` VARCHAR(50) NULL,
+CREATE TABLE product_resources(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NULL,
+    resource_name VARCHAR(255) NULL,
+    resource_url VARCHAR(255) NULL,
+    type VARCHAR(50) NULL,
     constraint product_resource_product_fk foreign key(product_id) references products(product_id)
 );
-CREATE TABLE `related_products`(
-    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `product_id` INT NULL,
-    `related_product_id` INT NULL,
+CREATE TABLE related_products(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NULL,
+    related_product_id INT NULL,
     constraint re_pr_product_fk foreign key(product_id) references products(product_id)
 );
-CREATE TABLE `product_technologies`(
-    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `product_id` INT NULL,
-    `technology` VARCHAR(100) NULL,
-    `description` VARCHAR(255) NULL,
+CREATE TABLE product_technologies(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NULL,
+    technology VARCHAR(100) NULL,
+    description VARCHAR(255) NULL,
     constraint pr_tec_product_fk foreign key(product_id) references products(product_id)
 );
-CREATE TABLE `product_milestones`(
-    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `product_id` INT NULL,
-    `milestone` VARCHAR(255) NULL,
-    `badge_color` VARCHAR(50) NULL,
+CREATE TABLE product_milestones(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NULL,
+    milestone VARCHAR(255) NULL,
+    badge_color VARCHAR(50) NULL,
      constraint pr_mi_product_fk foreign key(product_id) references products(product_id)
 );
-CREATE TABLE `product_timeline`(
-    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `product_id` INT NULL,
-    `title` VARCHAR(255) NULL,
-    `date` DATE NULL,
-    `description` TEXT NULL,
+CREATE TABLE product_timeline(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NULL,
+    title VARCHAR(255) NULL,
+    date DATE NULL,
+    description TEXT NULL,
      constraint pr_ti_product_fk foreign key(product_id) references products(product_id)
 );
-CREATE TABLE `product_faq`(
-    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `product_id` INT NULL,
-    `question` VARCHAR(255) NULL,
-    `answer` TEXT NULL,
+CREATE TABLE product_faq(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NULL,
+    question VARCHAR(255) NULL,
+    answer TEXT NULL,
 	 constraint pr_fa_product_fk foreign key(product_id) references products(product_id)
+);
+
+create table cite_developers(
+id int primary key auto_increment,
+name varchar(50),
+role varchar(50),
+photo varchar(255),
+github varchar(255),
+twitter varchar(255),
+linkedin varchar(255),
+github_image varchar(255),
+twitter_image varchar(255),
+linkedin_image varchar(255)
 );
 
 INSERT INTO users (user_name, password, email, photo, user_type, role) VALUES
@@ -773,160 +796,20 @@ VALUES
 
 INSERT INTO blog_comments (blog_id, user_id, dates, content) VALUES
 (1, 3, '2023-01-15', 'Great insights on upcoming web technologies!'),
-(1, 5, '2023-01-16', 'Would love more details about WASM integration.'),
-(2, 7, '2023-02-01', 'These React optimizations saved us 30% load time!'),
-(3, 9, '2023-02-15', 'Clear explanation of ML concepts for beginners.'),
-(4, 2, '2023-03-01', 'Microservices architecture transformed our cloud deployment.'),
-(5, 4, '2023-03-15', 'This is exactly the skill set we look for in hires.'),
-(6, 6, '2023-04-01', 'Security should never be an afterthought - great reminders.'),
-(7, 8, '2023-04-15', 'Comprehensive framework comparison, very helpful!'),
-(8, 10, '2023-05-01', 'Database patterns saved us during peak traffic.'),
-(9, 12, '2023-05-15', 'Hybrid approach worked perfectly for our use case.'),
-(10, 1, '2023-06-01', 'Serverless reduced our costs by 40%.'),
-(11, 11, '2023-06-15', 'AI is transforming our customer interactions.'),
-(12, 13, '2023-07-01', 'Blockchain applications go far beyond crypto.'),
-(13, 15, '2023-07-15', 'DevOps practices doubled our deployment frequency.'),
-(14, 3, '2023-08-01', 'UX is critical yet often overlooked in dev tools.');
-
-INSERT INTO blog_replays (user_id, comment_id, Dates, content) VALUES
-(1, 1, '2023-01-16', 'Thanks Mike! We\'re excited about these emerging technologies.'),
-(2, 2, '2023-01-17', 'We\'ll cover WASM in-depth in next month\'s post David.'),
-(4, 3, '2023-02-02', 'Those are impressive results Robert!'),
-(6, 4, '2023-02-16', 'Glad you found it helpful Thomas!'),
-(1, 5, '2023-03-02', 'Microservices can be transformative when implemented well Jane.'),
-(3, 6, '2023-03-16', 'Thanks Sarah! We surveyed dozens of companies.'),
-(5, 7, '2023-04-02', 'Absolutely Emily! Security first.'),
-(7, 8, '2023-04-16', 'Thanks Jennifer! We aim to be comprehensive.'),
-(9, 9, '2023-05-02', 'That\'s great to hear Lisa!'),
-(11, 10, '2023-05-16', 'Hybrid gives the best of both worlds Patricia.'),
-(2, 11, '2023-06-02', 'Those savings are impressive John!'),
-(4, 12, '2023-06-16', 'AI applications keep expanding James.'),
-(6, 13, '2023-07-02', 'Exactly Daniel! The tech has so much potential.'),
-(8, 14, '2023-07-16', 'That\'s fantastic velocity Kevin!'),
-(10, 15, '2023-08-02', 'Well said Mike! Developer experience matters.');
-
-
-INSERT INTO blog_images (blog_id, image) VALUES
-(1, 'web-dev-trends-2023.jpg'),
-(1, 'wasm-integration.png'),
-(2, 'react-optimization-chart.jpg'),
-(3, 'ml-algorithms-diagram.png'),
-(4, 'microservices-architecture.jpg'),
-(5, 'fullstack-skills.png'),
-(6, 'cybersecurity-shield.jpg'),
-(7, 'framework-comparison.jpg'),
-(8, 'database-design-patterns.png'),
-(9, 'mobile-app-types.jpg'),
-(10, 'serverless-architecture.png'),
-(11, 'ai-applications.jpg'),
-(12, 'blockchain-uses.jpg'),
-(13, 'devops-pipeline.png'),
-(14, 'ux-design-principles.jpg'),
-(15, 'startup-growth.jpg');
-
--- INSERT INTO developers_links (user_id, link_type, link) VALUES
--- (1, 'GitHub', 'https://github.com/johndoe-dev'),
--- (1, 'Portfolio', 'https://johndoe.dev'),
--- (2, 'GitHub', 'https://github.com/janesmith-code'),
--- (2, 'LinkedIn', 'https://linkedin.com/in/janesmith'),
--- (4, 'GitHub', 'https://github.com/sarahwilliams'),
--- (4, 'Twitter', 'https://twitter.com/sarah_dev'),
--- (6, 'GitHub', 'https://github.com/emilydavis'),
--- (6, 'Blog', 'https://emilydavis.tech'),
--- (8, 'GitHub', 'https://github.com/jenniferlee'),
--- (8, 'Dribbble', 'https://dribbble.com/jenniferlee'),
--- (10, 'GitHub', 'https://github.com/lisaanderson'),
--- (10, 'Medium', 'https://medium.com/@lisaanderson'),
--- (12, 'GitHub', 'https://github.com/patriciaclark'),
--- (12, 'Website', 'https://patriciaclark.dev'),
--- (14, 'GitHub', 'https://github.com/nancywalker');
-
-INSERT INTO product_languages (product_id, language_id) VALUES
-(6, 3),   -- CloudManager supports Java
-(7, 5),   -- SmartHome Hub supports PHP
-(8, 7),   -- AR Designer supports Swift
-(9, 9),   -- HealthTracker supports Go
-(10, 10), -- BlockChain Suite supports Ruby
-(11, 11), -- VR Classroom supports Rust
-(12, 12), -- DevOps Pipeline supports TypeScript
-(13, 13), -- Database Optimizer supports Dart
-(14, 14), -- AI Chatbot supports Scala
-(15, 15), -- IoT Monitor supports R
-(3, 5),   -- SecureVault supports PHP
-(4, 6),   -- MobilePay supports C++
-(5, 8),   -- GameEngine supports Kotlin
-(6, 10),  -- CloudManager supports Ruby
-(7, 12);  -- SmartHome Hub supports TypeScript
-
-INSERT INTO product_featuers (product_id, feature) VALUES
-(6, 'Multi-cloud dashboard'),
-(6, 'Cost optimization tools'),
-(7, 'Voice control integration'),
-(7, 'Energy usage monitoring'),
-(8, 'Real-time 3D rendering'),
-(8, 'Collaboration tools'),
-(9, 'Wearable device sync'),
-(9, 'Health risk alerts'),
-(10, 'Smart contract templates'),
-(10, 'Permission management'),
-(11, 'Classroom management'),
-(11, 'Interactive whiteboard'),
-(12, 'Automated testing'),
-(12, 'Deployment rollback'),
-(13, 'Query optimization'),
-(13, 'Index suggestions');
-
-INSERT INTO product_likes (user_id, product_id) VALUES
-(1, 6),   -- John likes CloudManager
-(2, 7),   -- Jane likes SmartHome Hub
-(3, 8),   -- Mike likes AR Designer
-(4, 9),   -- Sarah likes HealthTracker
-(5, 10),  -- David likes BlockChain Suite
-(6, 11),  -- Emily likes VR Classroom
-(7, 12),  -- Robert likes DevOps Pipeline
-(8, 13),  -- Jennifer likes Database Optimizer
-(9, 14),  -- Thomas likes AI Chatbot
-(10, 15), -- Lisa likes IoT Monitor
-(11, 1),  -- James likes CodeMaster IDE
-(12, 2),  -- Patricia likes DataAnalyzer Pro
-(13, 3),  -- Daniel likes SecureVault
-(14, 4),  -- Nancy likes MobilePay
-(15, 5);  -- Kevin likes GameEngine 3D
-
-INSERT INTO blog_producs (blog_id, product_id) VALUES
-(1, 12),  -- Web dev trends related to DevOps Pipeline
-(2, 13),  -- React optimization related to Database Optimizer
-(3, 14),  -- Machine learning related to AI Chatbot
-(4, 15),  -- Microservices related to IoT Monitor
-(5, 2),   -- Full-stack developer related to DataAnalyzer
-(6, 4),   -- Cybersecurity related to MobilePay
-(7, 5),   -- Frontend frameworks related to GameEngine
-(8, 7),   -- Database design related to SmartHome Hub
-(9, 8),   -- Mobile app development related to AR Designer
-(10, 9),  -- Serverless architecture related to HealthTracker
-(11, 10), -- AI applications related to BlockChain Suite
-(12, 11), -- Blockchain related to VR Classroom
-(13, 3),  -- DevOps related to SecureVault
-(14, 6),  -- UX design related to CloudManager
-(15, 1);  -- Tech startup related to CodeMaster IDE
-
-
-INSERT INTO blog_comments (blog_id, user_id, dates, content) VALUES
-(1, 5, '2023-01-20', 'How does this compare to last year\'s trends?'),
-(2, 7, '2023-02-05', 'Would love to see Vue.js included in the comparison.'),
-(3, 9, '2023-02-20', 'What about ethical considerations in ML?'),
-(4, 11, '2023-03-05', 'How do you handle service discovery?'),
-(5, 13, '2023-03-20', 'What about DevOps skills for full-stack?'),
-(6, 15, '2023-04-05', 'Any thoughts on quantum encryption?'),
-(7, 2, '2023-04-20', 'Svelte should be in this conversation too.'),
-(8, 4, '2023-05-05', 'How do these patterns apply to NoSQL?'),
-(9, 6, '2023-05-20', 'What about Flutter for cross-platform?'),
-(10, 8, '2023-06-05', 'Cold start problem solutions?'),
-(11, 10, '2023-06-20', 'How to prevent AI bias?'),
-(12, 12, '2023-07-05', 'Energy consumption of blockchain?'),
-(13, 14, '2023-07-20', 'Security implications of CI/CD?'),
-(14, 1, '2023-08-05', 'Dark mode considerations?'),
-(15, 3, '2023-08-20', 'Bootstrapping vs funding?');
+(2, 5, '2023-01-16', 'Would love more details about WASM integration.'),
+(3, 7, '2023-02-01', 'These React optimizations saved us 30% load time!'),
+(4, 9, '2023-02-15', 'Clear explanation of ML concepts for beginners.'),
+(5, 2, '2023-03-01', 'Microservices architecture transformed our cloud deployment.'),
+(6, 4, '2023-03-15', 'This is exactly the skill set we look for in hires.'),
+(7, 6, '2023-04-01', 'Security should never be an afterthought - great reminders.'),
+(8, 8, '2023-04-15', 'Comprehensive framework comparison, very helpful!'),
+(9, 10, '2023-05-01', 'Database patterns saved us during peak traffic.'),
+(10, 12, '2023-05-15', 'Hybrid approach worked perfectly for our use case.'),
+(11, 14, '2023-06-01', 'Serverless reduced our costs by 40%.'),
+(12, 1, '2023-06-15', 'AI is transforming our customer interactions.'),
+(13, 11, '2023-07-01', 'Blockchain applications go far beyond crypto.'),
+(14, 13, '2023-07-15', 'DevOps practices doubled our deployment frequency.'),
+(15, 3, '2023-08-01', 'UX is critical yet often overlooked in dev tools.');
 
 INSERT INTO blog_replays (user_id, comment_id, Dates, content) VALUES
 (1, 16, '2023-01-21', 'Great question David! We\'ll publish a comparison next week.'),
@@ -980,3 +863,83 @@ INSERT INTO related_products (product_id, related_product_id) VALUES
 (1, 13);  -- CodeMaster IDE related to Database Optimizer
 
 
+CREATE TABLE investment_returns (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    investment_id INT NOT NULL,
+    return_amount DECIMAL(10,2) NOT NULL,
+    return_date DATE NOT NULL,
+    return_type ENUM('dividend', 'interest', 'capital_gain') NOT NULL,
+    notes TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (investment_id) REFERENCES investments(id) ON DELETE CASCADE
+);
+
+CREATE TABLE investment_portfolio (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    total_invested DECIMAL(10,2) DEFAULT 0,
+    total_returns DECIMAL(10,2) DEFAULT 0,
+    current_value DECIMAL(10,2) DEFAULT 0,
+    last_updated DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE investment_portfolio_history (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    total_invested DECIMAL(10,2) NOT NULL,
+    total_returns DECIMAL(10,2) NOT NULL,
+    current_value DECIMAL(10,2) NOT NULL,
+    last_updated DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE investment_notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    investment_id INT,
+    notification_type ENUM('return', 'maturity', 'milestone', 'alert') NOT NULL,
+    message TEXT NOT NULL,
+    is_read BOOLEAN DEFAULT FALSE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (investment_id) REFERENCES investments(id) ON DELETE SET NULL
+);
+
+CREATE TABLE investment_goals (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    goal_name VARCHAR(255) NOT NULL,
+    target_amount DECIMAL(10,2) NOT NULL,
+    current_amount DECIMAL(10,2) DEFAULT 0,
+    target_date DATE,
+    status ENUM('active', 'completed', 'cancelled') DEFAULT 'active',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE investment_analytics (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    period_start DATE NOT NULL,
+    period_end DATE NOT NULL,
+    total_invested DECIMAL(10,2) NOT NULL,
+    total_returns DECIMAL(10,2) NOT NULL,
+    roi_percentage DECIMAL(10,2) NOT NULL,
+    risk_score DECIMAL(5,2),
+    diversification_score DECIMAL(5,2),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE IF NOT EXISTS remember_tokens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    token VARCHAR(64) NOT NULL,
+    expires_at DATETIME NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    UNIQUE KEY unique_token (token)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci; 

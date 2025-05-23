@@ -85,7 +85,7 @@ $gttt = [
 // echo "<pre> <br><br><br><br><br><br><br><br>";
 // print_r($gttt);
 // echo "<br><br><br>$productData<br><br></pre>";
-
+// echo$project['id'];
 view('project/show.view.php', [
     'project' => $project,
     'gttt' => $gttt
