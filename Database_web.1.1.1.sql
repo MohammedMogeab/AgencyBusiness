@@ -163,7 +163,14 @@ CREATE TABLE investments (
     transaction_id VARCHAR(255),
     status ENUM('pending', 'completed', 'cancelled') DEFAULT 'pending',
     created_at DATETIME,
-    updated_at DATETIME
+    updated_at DATETIME,
+    product_id INT,
+    roi_percentage DECIMAL(10,2),
+    expected_return DECIMAL(10,2),
+    actual_return DECIMAL(10,2),
+    investment_date DATE,
+    maturity_date DATE,
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 create table comments_likes(
 user_id int,
@@ -687,231 +694,21 @@ INSERT INTO blog_producs (blog_id, product_id) VALUES
 (15, 15); -- Tech startup blog related to IoT Monitor
 
 INSERT INTO blog_comments (blog_id, user_id, dates, content) VALUES
-(1, 3, '2022-03-01', 'Great overview of upcoming trends! Especially interested in WASM integration.'),
-(2, 5, '2022-02-15', 'Your performance tips cut our bundle size by 40%. Amazing!'),
-(3, 7, '2022-01-20', 'Clear explanation of ML concepts. More examples would be helpful.'),
-(4, 9, '2022-04-10', 'We implemented this architecture and saw 3x throughput improvement.'),
-(5, 2, '2022-03-15', 'As a hiring manager, this is exactly the skill set we look for.'),
-(6, 4, '2022-02-28', 'Important reminders about security that many teams overlook.'),
-(7, 6, '2022-01-25', 'Would love to see a deeper comparison of state management solutions.'),
-(8, 8, '2022-03-05', 'These patterns saved us during Black Friday traffic spikes.'),
-(9, 10, '2022-04-01', 'The hybrid approach worked perfectly for our cross-platform app.'),
-(10, 12, '2022-03-20', 'Serverless reduced our infra costs by 60% as you predicted.'),
-(11, 14, '2022-02-10', 'AI is transforming our customer service - great case studies!'),
-(12, 1, '2022-01-15', 'Blockchain has so many uses beyond crypto - thanks for highlighting.'),
-(13, 11, '2022-03-25', 'Our deployment frequency increased 5x after these changes.'),
-(14, 13, '2022-02-20', 'UX is so critical yet often neglected in developer tools.'),
-(15, 15, '2022-04-05', 'Spot-on advice about finding product-market fit first.');
-
-INSERT INTO blog_replays (user_id, comment_id, Dates, content) VALUES
-(1, 1, '2022-03-02', 'Thanks Mike! WASM is definitely a game-changer we''re excited about.'),
-(2, 2, '2022-02-16', 'That''s fantastic to hear David! Optimization can have huge impacts.'),
-(4, 3, '2022-01-21', 'Appreciate the feedback Robert! We''ll add more examples in part 2.'),
-(6, 4, '2022-04-11', 'Those are impressive results Thomas! Microservices scale beautifully.'),
-(1, 5, '2022-03-16', 'Thanks Jane! We surveyed 50 companies to build this profile.'),
-(3, 6, '2022-03-01', 'Absolutely Sarah! Security should never be an afterthought.'),
-(5, 7, '2022-01-26', 'Great suggestion Emily! We''ll do a follow-up on state management.'),
-(7, 8, '2022-03-06', 'That''s wonderful Jennifer! Proper database design pays off.'),
-(9, 9, '2022-04-02', 'Glad it helped Lisa! Hybrid gives the best of both worlds.'),
-(11, 10, '2022-03-21', 'Those savings are impressive Patricia! Serverless is transformative.'),
-(13, 11, '2022-02-11', 'Thanks Nancy! AI applications keep expanding daily.'),
-(2, 12, '2022-01-16', 'Exactly John! The underlying tech has so much potential.'),
-(4, 13, '2022-03-26', 'That''s amazing velocity James! DevOps practices really deliver.'),
-(6, 14, '2022-02-21', 'Well said Daniel! Developer experience matters tremendously.'),
-(8, 15, '2022-04-06', 'Thanks Kevin! Too many startups build before validating.');
-
-INSERT INTO blog_comments_likes (user_id, comment_id) VALUES
-(2, 1),   -- Jane liked Mike's comment on web development trends
-(4, 2),   -- Sarah liked David's comment on performance tips
-(6, 3),   -- Emily liked Robert's comment on ML examples
-(8, 4),   -- Jennifer liked Thomas' comment on microservices
-(10, 5),  -- Lisa liked Jane's comment on hiring skills
-(12, 6),  -- Patricia liked Sarah's comment on security
-(14, 7),  -- Nancy liked Emily's comment on state management
-(1, 8),   -- John liked Jennifer's comment on database patterns
-(3, 9),   -- Mike liked Lisa's comment on hybrid apps
-(5, 10),  -- David liked Patricia's comment on serverless
-(7, 11),  -- Robert liked Nancy's comment on AI
-(9, 12),  -- Thomas liked John's comment on blockchain
-(11, 13), -- James liked James' comment on DevOps
-(13, 14), -- Daniel liked Daniel's comment on UX
-(15, 15); -- Kevin liked Kevin's comment on startups
-
-INSERT INTO related_products (product_id, related_product_id) VALUES
-(1, 12),   -- CodeMaster IDE related to DevOps Pipeline
-(1, 13),   -- CodeMaster IDE related to Database Optimizer
-(2, 14),   -- DataAnalyzer related to AI Chatbot
-(3, 9),    -- SecureVault related to HealthTracker (both handle sensitive data)
-(4, 7),    -- MobilePay related to SmartHome (both mobile-focused)
-(5, 11),   -- GameEngine related to VR Classroom (both use 3D/VR)
-(6, 1),    -- CloudManager related to CodeMaster (cloud development)
-(7, 15),   -- SmartHome related to IoT Monitor (both IoT)
-(8, 5),    -- AR Designer related to GameEngine (both 3D)
-(9, 3),    -- HealthTracker related to SecureVault (data security)
-(10, 2),   -- BlockChain related to DataAnalyzer (data applications)
-(11, 8),   -- VR Classroom related to AR Designer (immersive tech)
-(12, 6),   -- DevOps Pipeline related to CloudManager
-(13, 1),   -- Database Optimizer related to CodeMaster
-(14, 10),  -- AI Chatbot related to BlockChain (emerging tech)
-(15, 4);   -- IoT Monitor related to MobilePay (mobile connectivity)
-
-
-INSERT INTO blog_comments (blog_id, user_id, dates, content) VALUES
 (1, 3, '2023-01-15', 'Great insights on upcoming web technologies!'),
-(1, 5, '2023-01-16', 'Would love more details about WASM integration.'),
-(2, 7, '2023-02-01', 'These React optimizations saved us 30% load time!'),
-(3, 9, '2023-02-15', 'Clear explanation of ML concepts for beginners.'),
-(4, 2, '2023-03-01', 'Microservices architecture transformed our cloud deployment.'),
-(5, 4, '2023-03-15', 'This is exactly the skill set we look for in hires.'),
-(6, 6, '2023-04-01', 'Security should never be an afterthought - great reminders.'),
-(7, 8, '2023-04-15', 'Comprehensive framework comparison, very helpful!'),
-(8, 10, '2023-05-01', 'Database patterns saved us during peak traffic.'),
-(9, 12, '2023-05-15', 'Hybrid approach worked perfectly for our use case.'),
-(10, 1, '2023-06-01', 'Serverless reduced our costs by 40%.'),
-(11, 11, '2023-06-15', 'AI is transforming our customer interactions.'),
-(12, 13, '2023-07-01', 'Blockchain applications go far beyond crypto.'),
-(13, 15, '2023-07-15', 'DevOps practices doubled our deployment frequency.'),
-(14, 3, '2023-08-01', 'UX is critical yet often overlooked in dev tools.');
-
-INSERT INTO blog_replays (user_id, comment_id, Dates, content) VALUES
-(1, 1, '2023-01-16', 'Thanks Mike! We\'re excited about these emerging technologies.'),
-(2, 2, '2023-01-17', 'We\'ll cover WASM in-depth in next month\'s post David.'),
-(4, 3, '2023-02-02', 'Those are impressive results Robert!'),
-(6, 4, '2023-02-16', 'Glad you found it helpful Thomas!'),
-(1, 5, '2023-03-02', 'Microservices can be transformative when implemented well Jane.'),
-(3, 6, '2023-03-16', 'Thanks Sarah! We surveyed dozens of companies.'),
-(5, 7, '2023-04-02', 'Absolutely Emily! Security first.'),
-(7, 8, '2023-04-16', 'Thanks Jennifer! We aim to be comprehensive.'),
-(9, 9, '2023-05-02', 'That\'s great to hear Lisa!'),
-(11, 10, '2023-05-16', 'Hybrid gives the best of both worlds Patricia.'),
-(2, 11, '2023-06-02', 'Those savings are impressive John!'),
-(4, 12, '2023-06-16', 'AI applications keep expanding James.'),
-(6, 13, '2023-07-02', 'Exactly Daniel! The tech has so much potential.'),
-(8, 14, '2023-07-16', 'That\'s fantastic velocity Kevin!'),
-(10, 15, '2023-08-02', 'Well said Mike! Developer experience matters.');
-
-
-INSERT INTO blog_images (blog_id, image) VALUES
-(1, 'web-dev-trends-2023.jpg'),
-(1, 'wasm-integration.png'),
-(2, 'react-optimization-chart.jpg'),
-(3, 'ml-algorithms-diagram.png'),
-(4, 'microservices-architecture.jpg'),
-(5, 'fullstack-skills.png'),
-(6, 'cybersecurity-shield.jpg'),
-(7, 'framework-comparison.jpg'),
-(8, 'database-design-patterns.png'),
-(9, 'mobile-app-types.jpg'),
-(10, 'serverless-architecture.png'),
-(11, 'ai-applications.jpg'),
-(12, 'blockchain-uses.jpg'),
-(13, 'devops-pipeline.png'),
-(14, 'ux-design-principles.jpg'),
-(15, 'startup-growth.jpg');
-
--- INSERT INTO developers_links (user_id, link_type, link) VALUES
--- (1, 'GitHub', 'https://github.com/johndoe-dev'),
--- (1, 'Portfolio', 'https://johndoe.dev'),
--- (2, 'GitHub', 'https://github.com/janesmith-code'),
--- (2, 'LinkedIn', 'https://linkedin.com/in/janesmith'),
--- (4, 'GitHub', 'https://github.com/sarahwilliams'),
--- (4, 'Twitter', 'https://twitter.com/sarah_dev'),
--- (6, 'GitHub', 'https://github.com/emilydavis'),
--- (6, 'Blog', 'https://emilydavis.tech'),
--- (8, 'GitHub', 'https://github.com/jenniferlee'),
--- (8, 'Dribbble', 'https://dribbble.com/jenniferlee'),
--- (10, 'GitHub', 'https://github.com/lisaanderson'),
--- (10, 'Medium', 'https://medium.com/@lisaanderson'),
--- (12, 'GitHub', 'https://github.com/patriciaclark'),
--- (12, 'Website', 'https://patriciaclark.dev'),
--- (14, 'GitHub', 'https://github.com/nancywalker');
-
-INSERT INTO product_languages (product_id, language_id) VALUES
-(6, 3),   -- CloudManager supports Java
-(7, 5),   -- SmartHome Hub supports PHP
-(8, 7),   -- AR Designer supports Swift
-(9, 9),   -- HealthTracker supports Go
-(10, 10), -- BlockChain Suite supports Ruby
-(11, 11), -- VR Classroom supports Rust
-(12, 12), -- DevOps Pipeline supports TypeScript
-(13, 13), -- Database Optimizer supports Dart
-(14, 14), -- AI Chatbot supports Scala
-(15, 15), -- IoT Monitor supports R
-(3, 5),   -- SecureVault supports PHP
-(4, 6),   -- MobilePay supports C++
-(5, 8),   -- GameEngine supports Kotlin
-(6, 10),  -- CloudManager supports Ruby
-(7, 12);  -- SmartHome Hub supports TypeScript
-
-INSERT INTO product_featuers (product_id, feature) VALUES
-(6, 'Multi-cloud dashboard'),
-(6, 'Cost optimization tools'),
-(7, 'Voice control integration'),
-(7, 'Energy usage monitoring'),
-(8, 'Real-time 3D rendering'),
-(8, 'Collaboration tools'),
-(9, 'Wearable device sync'),
-(9, 'Health risk alerts'),
-(10, 'Smart contract templates'),
-(10, 'Permission management'),
-(11, 'Classroom management'),
-(11, 'Interactive whiteboard'),
-(12, 'Automated testing'),
-(12, 'Deployment rollback'),
-(13, 'Query optimization'),
-(13, 'Index suggestions');
-
-INSERT INTO product_likes (user_id, product_id) VALUES
-(1, 6),   -- John likes CloudManager
-(2, 7),   -- Jane likes SmartHome Hub
-(3, 8),   -- Mike likes AR Designer
-(4, 9),   -- Sarah likes HealthTracker
-(5, 10),  -- David likes BlockChain Suite
-(6, 11),  -- Emily likes VR Classroom
-(7, 12),  -- Robert likes DevOps Pipeline
-(8, 13),  -- Jennifer likes Database Optimizer
-(9, 14),  -- Thomas likes AI Chatbot
-(10, 15), -- Lisa likes IoT Monitor
-(11, 1),  -- James likes CodeMaster IDE
-(12, 2),  -- Patricia likes DataAnalyzer Pro
-(13, 3),  -- Daniel likes SecureVault
-(14, 4),  -- Nancy likes MobilePay
-(15, 5);  -- Kevin likes GameEngine 3D
-
-INSERT INTO blog_producs (blog_id, product_id) VALUES
-(1, 12),  -- Web dev trends related to DevOps Pipeline
-(2, 13),  -- React optimization related to Database Optimizer
-(3, 14),  -- Machine learning related to AI Chatbot
-(4, 15),  -- Microservices related to IoT Monitor
-(5, 2),   -- Full-stack developer related to DataAnalyzer
-(6, 4),   -- Cybersecurity related to MobilePay
-(7, 5),   -- Frontend frameworks related to GameEngine
-(8, 7),   -- Database design related to SmartHome Hub
-(9, 8),   -- Mobile app development related to AR Designer
-(10, 9),  -- Serverless architecture related to HealthTracker
-(11, 10), -- AI applications related to BlockChain Suite
-(12, 11), -- Blockchain related to VR Classroom
-(13, 3),  -- DevOps related to SecureVault
-(14, 6),  -- UX design related to CloudManager
-(15, 1);  -- Tech startup related to CodeMaster IDE
-
-
-INSERT INTO blog_comments (blog_id, user_id, dates, content) VALUES
-(1, 5, '2023-01-20', 'How does this compare to last year\'s trends?'),
-(2, 7, '2023-02-05', 'Would love to see Vue.js included in the comparison.'),
-(3, 9, '2023-02-20', 'What about ethical considerations in ML?'),
-(4, 11, '2023-03-05', 'How do you handle service discovery?'),
-(5, 13, '2023-03-20', 'What about DevOps skills for full-stack?'),
-(6, 15, '2023-04-05', 'Any thoughts on quantum encryption?'),
-(7, 2, '2023-04-20', 'Svelte should be in this conversation too.'),
-(8, 4, '2023-05-05', 'How do these patterns apply to NoSQL?'),
-(9, 6, '2023-05-20', 'What about Flutter for cross-platform?'),
-(10, 8, '2023-06-05', 'Cold start problem solutions?'),
-(11, 10, '2023-06-20', 'How to prevent AI bias?'),
-(12, 12, '2023-07-05', 'Energy consumption of blockchain?'),
-(13, 14, '2023-07-20', 'Security implications of CI/CD?'),
-(14, 1, '2023-08-05', 'Dark mode considerations?'),
-(15, 3, '2023-08-20', 'Bootstrapping vs funding?');
+(2, 5, '2023-01-16', 'Would love more details about WASM integration.'),
+(3, 7, '2023-02-01', 'These React optimizations saved us 30% load time!'),
+(4, 9, '2023-02-15', 'Clear explanation of ML concepts for beginners.'),
+(5, 2, '2023-03-01', 'Microservices architecture transformed our cloud deployment.'),
+(6, 4, '2023-03-15', 'This is exactly the skill set we look for in hires.'),
+(7, 6, '2023-04-01', 'Security should never be an afterthought - great reminders.'),
+(8, 8, '2023-04-15', 'Comprehensive framework comparison, very helpful!'),
+(9, 10, '2023-05-01', 'Database patterns saved us during peak traffic.'),
+(10, 12, '2023-05-15', 'Hybrid approach worked perfectly for our use case.'),
+(11, 14, '2023-06-01', 'Serverless reduced our costs by 40%.'),
+(12, 1, '2023-06-15', 'AI is transforming our customer interactions.'),
+(13, 11, '2023-07-01', 'Blockchain applications go far beyond crypto.'),
+(14, 13, '2023-07-15', 'DevOps practices doubled our deployment frequency.'),
+(15, 3, '2023-08-01', 'UX is critical yet often overlooked in dev tools.');
 
 INSERT INTO blog_replays (user_id, comment_id, Dates, content) VALUES
 (1, 16, '2023-01-21', 'Great question David! We\'ll publish a comparison next week.'),
@@ -965,3 +762,72 @@ INSERT INTO related_products (product_id, related_product_id) VALUES
 (1, 13);  -- CodeMaster IDE related to Database Optimizer
 
 
+CREATE TABLE investment_returns (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    investment_id INT NOT NULL,
+    return_amount DECIMAL(10,2) NOT NULL,
+    return_date DATE NOT NULL,
+    return_type ENUM('dividend', 'interest', 'capital_gain') NOT NULL,
+    notes TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (investment_id) REFERENCES investments(id) ON DELETE CASCADE
+);
+
+CREATE TABLE investment_portfolio (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    total_invested DECIMAL(10,2) DEFAULT 0,
+    total_returns DECIMAL(10,2) DEFAULT 0,
+    current_value DECIMAL(10,2) DEFAULT 0,
+    last_updated DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE investment_portfolio_history (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    total_invested DECIMAL(10,2) NOT NULL,
+    total_returns DECIMAL(10,2) NOT NULL,
+    current_value DECIMAL(10,2) NOT NULL,
+    last_updated DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE investment_notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    investment_id INT,
+    notification_type ENUM('return', 'maturity', 'milestone', 'alert') NOT NULL,
+    message TEXT NOT NULL,
+    is_read BOOLEAN DEFAULT FALSE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (investment_id) REFERENCES investments(id) ON DELETE SET NULL
+);
+
+CREATE TABLE investment_goals (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    goal_name VARCHAR(255) NOT NULL,
+    target_amount DECIMAL(10,2) NOT NULL,
+    current_amount DECIMAL(10,2) DEFAULT 0,
+    target_date DATE,
+    status ENUM('active', 'completed', 'cancelled') DEFAULT 'active',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE investment_analytics (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    period_start DATE NOT NULL,
+    period_end DATE NOT NULL,
+    total_invested DECIMAL(10,2) NOT NULL,
+    total_returns DECIMAL(10,2) NOT NULL,
+    roi_percentage DECIMAL(10,2) NOT NULL,
+    risk_score DECIMAL(5,2),
+    diversification_score DECIMAL(5,2),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);

@@ -56,3 +56,4 @@ $router->post( '/createorder','Invest/createorder.php');
 $router->get('/thankyou', 'Invest/thankyou.php');
 $router->get('/cancel', 'Invest/cancel.php');
 $router->get('/captureorder', 'Invest/captureorder.php');
+$router->get('/usermanage', 'user/usermanage.php')->only("auth");   
