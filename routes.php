@@ -48,7 +48,7 @@ $router->get('/aboutus', 'about.php');
 $router->get('/logout', 'logout.php');
 
 
-$router->get('/manage', 'manage/dashboard.php')->only("auth");
+$router->get('/manage', 'manage/dashboard.php')->only("admin");
 $router->get('/blog', 'blogs/blog.php');
 $router->get('/mohammed', 'mohammed.php');
 $router->get('/invest', 'Invest/invest.php')->only("auth");

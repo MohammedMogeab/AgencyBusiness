@@ -32,9 +32,9 @@
                     <li class="nav-item">
                         <a href="/about" class="nav-link">About</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a href="/services" class="nav-link">Services</a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a href="/projects" class="nav-link">projects</a>
                     </li>
@@ -61,11 +61,16 @@
                         <span class="profile-name"><?php echo $_SESSION['user']['user_name'] ?? 'User'; ?></span>
                         <ion-icon name="chevron-down-outline"></ion-icon>
                     </button>
+
                     <div class="dropdown-menu">
-                        <a href="/manage" class="dropdown-item">
+                       <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin'): ?>
+                       <a href="/manage" class="dropdown-item">
                             <ion-icon name="grid-outline"></ion-icon>
                             <span>Dashboard</span>
                         </a>
+
+                    <?php endif; ?>
+
                         <a href="/profile" class="dropdown-item">
                             <ion-icon name="person-outline"></ion-icon>
                             <span>Profile</span>
