@@ -32,7 +32,7 @@ try{
     ]);
     $_SESSION['user']['user_name'] = $username;
     $_SESSION['user']['role'] = $role;
-    if($_FILES['photo']['name'] != null && move_uploaded_file($_FILES['photo']['tmp_name'], base_path('views/uploads/') . $_FILES['photo']['name'])){
+    if($_FILES['photo']['name'] != null && saveUpload($_FILES['photo']['tmp_name'],$_FILES['photo']['name'])){
         $db->query("update users set photo = :photo where user_id = :user_id", [
             'user_id' => $user_id,
             'photo' => $_FILES['photo']['name']

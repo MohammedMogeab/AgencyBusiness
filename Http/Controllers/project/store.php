@@ -47,7 +47,7 @@ if (!empty($errors)) {
     exit;
 }
 
-$uploadDir=base_path('views/uploads/');
+$uploadDir=base_path('public/uploads/');
 // product_id AS id,
 // product_name AS title,
 // large_description AS description,
