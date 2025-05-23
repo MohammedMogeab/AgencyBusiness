@@ -67,7 +67,8 @@ blog_id int primary key auto_increment,
 blog_title varchar(255), -- the title of blog
 content text,
 user_id int,  -- author of blog
-date date, -- the date of blog creation
+date date default current_timestamp, -- the date of blog creation
+image varchar(255),
 constraint bl_fk_us foreign key(user_id) references users(user_id) on delete cascade
 );
 
@@ -336,22 +337,22 @@ INSERT INTO developers (name, role, avatar) VALUES
 ('Benjamin Parker', 'Security Specialist', 'https://example.com/avatars/benjamin-parker.jpg');
 
 
-INSERT INTO blogs (content) VALUES
-('The future of web development: Trends to watch in 2023'),
-('How to optimize your React application for better performance'),
-('Introduction to machine learning with Python'),
-('Building scalable microservices with Docker and Kubernetes'),
-('The complete guide to becoming a full-stack developer'),
-('Cybersecurity best practices for modern web applications'),
-('Comparing frontend frameworks: React vs Vue vs Angular'),
-('Database design patterns for high-traffic applications'),
-('Mobile app development: Native vs Hybrid approaches'),
-('The rise of serverless architecture and its benefits'),
-('Artificial intelligence in everyday applications'),
-('Blockchain technology beyond cryptocurrencies'),
-('DevOps practices that accelerate software delivery'),
-('User experience design principles for developers'),
-('How to build a successful tech startup in 2023');
+INSERT INTO blogs (content,user_id,blog_title,date, image) VALUES
+('The future of web development: Trends to watch in 2023',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('How to optimize your React application for better performance',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('Introduction to machine learning with Python',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('Building scalable microservices with Docker and Kubernetes',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('The complete guide to becoming a full-stack developer',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('Cybersecurity best practices for modern web applications',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('Comparing frontend frameworks: React vs Vue vs Angular',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('Database design patterns for high-traffic applications',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('Mobile app development: Native vs Hybrid approaches',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('The rise of serverless architecture and its benefits',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('Artificial intelligence in everyday applications',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('Blockchain technology beyond cryptocurrencies',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('DevOps practices that accelerate software delivery',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('User experience design principles for developers',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
+('How to build a successful tech startup in 2023',1,'this is a blog titile',current_timestamp,'blog-1.jpg');
 
 INSERT INTO categorys (category_name) VALUES
 ('Web Development'),

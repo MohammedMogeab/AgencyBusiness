@@ -67,3 +67,6 @@ function old($key, $default = '')
 function saveUpload($file , $name){
     return move_uploaded_file($file, base_path('public/uploads/') . $name);
 }
+function getUpload($file_name){
+    return 'uploads/'. $file_name;
+}

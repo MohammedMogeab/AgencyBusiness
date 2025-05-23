@@ -29,6 +29,8 @@ $router->get('/about', 'about.php');
 $router->get('/contact', 'contact/contact.php');
 $router->post('/contact', 'contact/send.php');
 $router->get('/blog', 'blogs/show.php');
+$router->get('/blog/create', 'blogs/create.php');
+$router->get('/blog/edit', 'blogs/edit.php');
 $router->get('/projects', 'projects/projects.php');
 $router->get('/signup', 'registration/create.php');
 $router->post('/signup', 'registration/store.php')->only('guest');

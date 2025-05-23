@@ -17,64 +17,25 @@
         <div class="blog-grid">
           <?php foreach($blogs as $blog): ?>
 
-            <a href="blog-post.php?id=1" class="blog-card">
+            <a  class="blog-card">
               <div class="blog-img-wrapper">
-                <img src="./assets/images/blog-1.jpg" alt="Blog Post" class="blog-img">
+                <img src="<?= getUpload($blog['image'])?>" alt="Blog Post" class="blog-img">
               </div>
               <div class="blog-card-content">
                 <h2 class="blog-title"><?= $blog['blog_title']?></h2>
                 <p class="blog-excerpt"><?= $blog['content']?></p>
                 <div class="blog-meta">
                   <span class="blog-author"><?= $blog['author']?></span>
-                  <span class="blog-date"><?php  echo (new DateTime($blog['date'])->format('F j, Y')); ?></span>
+                  <span class="blog-date"><?php  echo (new DateTime($blog['date']))->format('F j, Y'); ?></span>
                 </div>
               </div>
             </a>
 
           <?php endforeach; ?>
-          <a href="blog-post.php?id=2" class="blog-card">
-            <div class="blog-img-wrapper">
-              <img src="./assets/images/blog-2.jpg" alt="Blog Post" class="blog-img">
-            </div>
-            <div class="blog-card-content">
-              <h2 class="blog-title">Design Trends to Watch</h2>
-              <p class="blog-excerpt">Explore the top UI/UX design trends that are shaping the digital world and how to implement them in your projects.</p>
-              <div class="blog-meta">
-                <span class="blog-author">By Sara Lee</span>
-                <span class="blog-date">April 18, 2024</span>
-              </div>
-            </div>
-          </a>
-          <a href="blog-post.php?id=3" class="blog-card">
-            <div class="blog-img-wrapper">
-              <img src="./assets/images/blog-3.jpg" alt="Blog Post" class="blog-img">
-            </div>
-            <div class="blog-card-content">
-              <h2 class="blog-title">Building Scalable Web Apps</h2>
-              <p class="blog-excerpt">A practical guide to architecting web applications that grow with your business and user base.</p>
-              <div class="blog-meta">
-                <span class="blog-author">By Michael Chen</span>
-                <span class="blog-date">April 5, 2024</span>
-              </div>
-            </div>
-          </a>
-          <a href="blog-post.php?id=4" class="blog-card">
-            <div class="blog-img-wrapper">
-              <img src="./assets/images/blog-4.jpg" alt="Blog Post" class="blog-img">
-            </div>
-            <div class="blog-card-content">
-              <h2 class="blog-title">Digital Marketing in 2024</h2>
-              <p class="blog-excerpt">Learn the latest strategies and tools for effective digital marketing in a rapidly changing landscape.</p>
-              <div class="blog-meta">
-                <span class="blog-author">By Priya Patel</span>
-                <span class="blog-date">March 22, 2024</span>
-              </div>
-            </div>
-          </a>
         </div>
       </div>
       <!-- Sidebar -->
-      <aside class="blog-sidebar">
+      <!-- <aside class="blog-sidebar">
         <div class="sidebar-section">
           <h3 class="sidebar-title">Categories</h3>
           <ul class="sidebar-list">
@@ -95,7 +56,7 @@
             <li><a href="#" class="sidebar-link">Digital Marketing in 2024</a></li>
           </ul>
         </div>
-      </aside>
+      </aside> -->
     </div>
   </section>
 </main>
