@@ -5,11 +5,11 @@ use core\Database;
 
 
 class Investment {
-    public static function create($userId, $amount) {
+    public static function create($userId, $amount,$projectId) {
         $db = App::resolve(Database::class);
          
 
-        $stmt = $db->query("INSERT INTO investments (user_id, amount, status, created_at) VALUES (:user_id, :amount, :status, NOW())", ['user_id' => $userId, 'amount' => $amount, 'status' => 'pending']);
+        $stmt = $db->query("INSERT INTO investments (user_id,product_id, amount, status, created_at) VALUES (:user_id,:product_id, :amount, :status, NOW())", ['user_id' => $userId,'product_id'=>$projectId, 'amount' => $amount, 'status' => 'pending']);
 
     }
 

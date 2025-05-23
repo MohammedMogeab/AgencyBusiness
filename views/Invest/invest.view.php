@@ -4,6 +4,7 @@
   <div class="container" style="max-width:420px;margin:0 auto;padding:32px 16px;">
     <section class="card" style="background:#fff;border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,0.04);padding:32px 24px;">
       <h2 style="font-size:1.5rem;font-weight:700;color:#1e293b;margin-bottom:20px;text-align:center;">Invest in a Project</h2>
+
       <form id="investForm" action="/createorder" method="POST" style="display:flex;flex-direction:column;gap:20px;">
         <!-- Project Selection -->
         <div class="form-group">
@@ -18,6 +19,7 @@
         <div class="form-group">
           <label for="amount" class="form-label" style="font-weight:600;">Amount to Invest ($)</label>
           <input type="number" id="amount" name="amount" class="form-input" min="1" required style="width:100%;padding:12px 10px;border-radius:8px;border:1px solid #e2e8f0;">
+          <input type="hidden" value="<?=$project[0]['product_id']?>" name="project_id">
         </div>
         <!-- PayPal Button Placeholder -->
         <div class="form-group" style="text-align:center;">

@@ -1,0 +1,8 @@
+personal :
+sb-wjlmu42374535@personal.example.com
+password:
+H-YtiK6m
+
+business:
+sb-aqpzm42086515@business.example.com
+5F#KL5lM

@@ -75,9 +75,10 @@
                             <ion-icon name="person-outline"></ion-icon>
                             <span>Profile</span>
                         </a>
-                        <a href="/settings" class="dropdown-item">
+                        <a href="/usermanage" class="dropdown-item">
                             <ion-icon name="settings-outline"></ion-icon>
-                            <span>Settings</span>
+                            <span>
+                                Settings</span>
                         </a>
                         <div class="dropdown-divider"></div>
                         <a href="/logout" class="dropdown-item text-danger">
