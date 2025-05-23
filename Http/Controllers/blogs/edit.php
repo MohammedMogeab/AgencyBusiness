@@ -4,7 +4,8 @@ use core\Database;
 $db = App::resolve(Database::class);
 $page_name = 'blogs';
 
-if(!isset($_SESSION['user']) || $_SESSION['user']['type'] != 'admin') {
+//|| $_SESSION['user']['user_type'] != 'admin'
+if(!isset($_SESSION['user']) ) {
     abort( 403);
     header( "location: /login");
 }

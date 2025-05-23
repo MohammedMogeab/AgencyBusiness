@@ -75,7 +75,13 @@ require base_path('views/partials/header.php');
     <div class="bg-blob bg-blob3"></div>
     <div class="form-container">
         <h1><?php echo $request === 'edit' ? 'Edit Blog' : 'Create Blog'; ?></h1>
-        <form action="<?php echo $request === 'edit' ? '/blog/edit' : '/blog/store'; ?>" method="POST" enctype="multipart/form-data">
+        <?php if(isset($errors) && isset($errors['save_update'])):?>
+            <h6 style="color: red; text-align: center;" ><?= $errors['save_update']?></h6>
+        <?php endif;?>
+        <?php if(isset($errors) && isset($errors['success'])):?>
+            <h6 style="color: blue; text-align: center;" ><?= $errors['success']?></h6>
+        <?php endif;?>
+        <form action="/blog/store" method="POST" enctype="multipart/form-data">
             <?php if ($request === 'edit'): ?>
                 <input type="hidden" name="blog_id" value="<?php echo $blog['blog_id']; ?>">
             <?php endif; ?>
