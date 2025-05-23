@@ -156,7 +156,18 @@ content text,
 constraint re_fk_us foreign key(user_id) references users(user_id) on delete cascade,
 constraint re_fk_co foreign key(comment_id) references comments(comment_id)
 );
-
+CREATE TABLE investments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    amount DECIMAL(10,2),
+    transaction_id VARCHAR(255),
+    status ENUM('pending', 'completed', 'cancelled') DEFAULT 'pending',
+    created_at DATETIME,
+    updated_at DATETIME,
+    constraint re_fk_us foreign key(user_id) references users(user_id) on delete cascade,
+    constraint re_fk_pro foreign key(product_id) references products(product_id) on delete cascade
+);
 create table comments_likes(
 user_id int,
 comment_id int,
@@ -747,6 +758,18 @@ INSERT INTO related_products (product_id, related_product_id) VALUES
 (14, 10),  -- AI Chatbot related to BlockChain (emerging tech)
 (15, 4);   -- IoT Monitor related to MobilePay (mobile connectivity)
 
+INSERT INTO investments(user_id,product_id,amount,status,created_at,updated_at)
+VALUES
+(1,1,20000,'completed','2023-01-10 11:30:00','2023-03-10 11:30:00'),
+(2,9,40000,'completed','2023-02-10 11:30:00','2023-03-10 11:30:00'),
+(3,8,15000,'completed','2023-03-10 11:30:00','2023-04-10 11:30:00'),
+(2,7,25000,'completed','2023-04-10 11:30:00','2023-05-10 11:30:00'),
+(2,3,28000,'completed','2023-06-10 11:30:00','2023-07-10 11:30:00'),
+(4,6,30000,'completed','2023-07-10 11:30:00','2023-08-10 11:30:00'),
+(3,5,20000,'completed','2023-08-10 11:30:00','2023-09-10 11:30:00'),
+(7,6,35000,'completed','2023-09-10 11:30:00','2023-10-10 11:30:00'),
+(2,3,45000,'completed','2023-10-10 11:30:00','2023-11-10 11:30:00'),
+(8,4,23000,'completed','2023-11-10 11:30:00','2023-12-10 11:30:00');
 
 INSERT INTO blog_comments (blog_id, user_id, dates, content) VALUES
 (1, 3, '2023-01-15', 'Great insights on upcoming web technologies!'),

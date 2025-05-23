@@ -7,16 +7,12 @@
       <form id="investForm" action="/createorder" method="POST" style="display:flex;flex-direction:column;gap:20px;">
         <!-- Project Selection -->
         <div class="form-group">
-          <label for="project" class="form-label" style="font-weight:600;">Select Project</label>
-          <select id="project" name="project_id" class="form-input" required style="width:100%;padding:12px 10px;border-radius:8px;border:1px solid #e2e8f0;">
-            <option value="">Choose a project</option>
-            <option value="1">CodeMaster IDE</option>
-            <option value="2">DataAnalyzer Pro</option>
-            <option value="3">SecureVault</option>
-           
-            <!-- Populate with PHP -->
-          </select>
-        </div>
+          <label for="">
+            <p>Project</p>
+            <?= $project[0]['product_name']?>
+          </label>
+</div>
+       
         
         <!-- Amount -->
         <div class="form-group">

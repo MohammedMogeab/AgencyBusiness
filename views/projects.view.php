@@ -608,13 +608,13 @@
           </div>
         </div>
       </div>
-      <h3>the Number of project now <span id="projectCount" style="font-size: 20px;">0</span></h3>
+      <!-- <h3>the Number of project now <s pan id="projectCount" style="font-size: 20px;">0</span></h3> -->
       <div class="projects-grid" id="projectsGrid">
         <?php if(isset($results) && is_array($results)):?>
         <?php  foreach($results as  $v):?>
           
           <div class="project-card" data-language="JavaScript" data-type="Desktop">
-                          <img src="<?= isset($v['main_image'])?$v['main_image']:''?>" alt="AI Chatting Desktop" class="project-image">
+                          <img src="/assets/uploads/<?= isset($v['main_image']) && $v['main_image'] ? $v['main_image'] : 'default-avatar.jpeg' ?>" alt="AI Chatting Desktop" class="project-image" onerror="this.src='/assets/images/default-avatar.jpeg'">
                           <div class="project-content">
                         
                             <div class="tags">
@@ -622,7 +622,7 @@
                               <span class="tag red"><?= isset($v['caregory_name'])?$v['category_name']:'oooo'?></span>
                               <span class="tag green">Project</span>
                             </div>
-                            <h2 class="project-title"><?= isset($v['product_name'])?$v['product_name']:'oooooo'?></h2>
+                            <h2 class="project-title"><?= isset($v['product_name'])?$v['product_Zname']:'oooooo'?></h2>
                             <p class="project-desc"><?= isset($v['short_description'])?$v['short_description']:'pppp'?></p>
                             <div class="project-stats">
                               <span><ion-icon name="chatbubble-ellipses-outline"></ion-icon>  <?= isset($v['number_comments'])?$v['number_comments']:'1'?><span>Comments</span></span>
@@ -637,8 +637,8 @@
                               </div>
                               <div class="footer-divider"></div>
                               <div class="button-group">
-                                <button class="btn-quick-view"><ion-icon name="eye-outline"></ion-icon> Quick View</button>
-                                <button onclick="window.location.href='/project'">View Investment</button>
+                                <button class="btn-quick-view" ><ion-icon name="eye-outline"></ion-icon> Quick View</button>
+                                <button onclick="window.location.href='/project?project_id=<?=$v['product_id']?>'">View Investment</button>
                               </div>
                             </div>
                           </div>
@@ -647,72 +647,12 @@
         <?php   endforeach;?>
         
         <?php else :?>
-          <p>nnnnnnnnnnnnnnnnnnnn</p>
         <?php endif;?>
         <div id ="load-more"></div>
-
-        <!-- <div class="project-card" data-language="HTML" data-type="Website">
-          <img src="../assets/images/blog-1.jpg" alt="Portfolio Website" class="project-image">
-          <div class="project-content">
-            <div class="tags">
-              <span class="tag blue">Development</span>
-              <span class="tag red">Website</span>
-              <span class="tag green">Project</span>
-            </div>
-            <h2 class="project-title">Portfolio Website</h2>
-            <p class="project-desc">A modern, responsive portfolio website built with HTML, CSS, and JavaScript.</p>
-            <div class="project-stats">
-              <span><ion-icon name="chatbubble-ellipses-outline"></ion-icon> 1200 <span>Comments</span></span>
-              <span><ion-icon name="star-outline"></ion-icon> 950 <span>Rate</span></span>
-              <span><ion-icon name="trending-up-outline"></ion-icon> 280 <span>ROI</span></span>
-              <span><ion-icon name="time-outline"></ion-icon> 8 <span>Months</span></span>
-            </div>
-            <div class="project-footer">
-              <div class="investment-info">
-                <span class="investment-amount">$1,200</span>
-                <span class="investment-label">Minimum Investment</span>
-              </div>
-              <div class="footer-divider"></div>
-              <div class="button-group">
-                <button class="btn-quick-view"><ion-icon name="eye-outline"></ion-icon> Quick View</button>
-                <button onclick="window.location.href='/project'">View Investment</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="project-card" data-language="Android" data-type="Android">
-          <img src="../assets/images/blog-1.jpg" alt="Mobile App" class="project-image">
-          <div class="project-content">
-            <div class="tags">
-              <span class="tag blue">Development</span>
-              <span class="tag red">Android</span>
-              <span class="tag green">Project</span>
-            </div>
-            <h2 class="project-title">Mobile App</h2>
-            <p class="project-desc">A feature-rich Android app for productivity and communication.</p>
-            <div class="project-stats">
-              <span><ion-icon name="chatbubble-ellipses-outline"></ion-icon> 500 <span>Comments</span></span>
-              <span><ion-icon name="star-outline"></ion-icon> 300 <span>Rate</span></span>
-              <span><ion-icon name="trending-up-outline"></ion-icon> 420 <span>ROI</span></span>
-              <span><ion-icon name="time-outline"></ion-icon> 18 <span>Months</span></span>
-            </div>
-            <div class="project-footer">
-              <div class="investment-info">
-                <span class="investment-amount">$2,000</span>
-                <span class="investment-label">Minimum Investment</span>
-              </div>
-              <div class="footer-divider"></div>
-              <div class="button-group">
-                <button class="btn-quick-view"><ion-icon name="eye-outline"></ion-icon> Quick View</button>
-                <button onclick="window.location.href='/project'">View Investment</button>
-              </div>
-            </div>
-          </div>
-        </div> -->
       </div>
     </section>
   </main>
-  <h3>the Number of project now <span id="projectCount" style="font-size: 20px;">0</span></h3>
+  <!-- <h3>the Number of project now <span id="projectCount" style="font-size: 20px;">0</span></h3> -->
   <?php require('partials/footer.php') ?>
   <script>
     // Simple search and filter functionality
@@ -730,7 +670,7 @@
       const maxPrice = parseFloat(document.getElementById('price-max').value) || Infinity;
 
       cards.forEach(card => {
-        const title = card.querySelector('.project-title').textContent.toLowerCase();
+        const title = card.querySelector('.project-title')?.textContent.toLowerCase() || 'not foud';
         const desc = card.querySelector('.project-desc').textContent.toLowerCase();
         const cardLang = card.getAttribute('data-language');
         const cardType = card.getAttribute('data-type');
@@ -807,9 +747,9 @@
         <div class="modal-content">
           <span class="close-modal">&times;</span>
           <div class="modal-body">
-            <img src="${card.querySelector('.project-image').src}" alt="${card.querySelector('.project-title').textContent}">
+            <img src="${card.querySelector('.project-image').src}" alt="${card.querySelector('.project-title')?.textContent || 'not found'}">
             <div class="modal-details">
-              <h2>${card.querySelector('.project-title').textContent}</h2>
+              <h2>${card.querySelector('.project-title')?.textContent||'not found'}</h2>
               <p>${card.querySelector('.project-desc').textContent}</p>
               <div class="modal-stats">
                 ${card.querySelector('.project-stats').innerHTML}
@@ -825,8 +765,14 @@
                 </ul>
               </div>
               <div class="modal-actions">
-                <button class="btn-invest">Invest Now</button>
-                <button class="btn-details">View Full Details</button>
+                <button class="btn-invest"> 
+                <a  class="btn-invest" href="/invest?project_id=<?=$v['product_id']?>">
+                invest now
+                </a>
+                </button>
+                <button class="btn-details">
+                <a class="btn-details" href="/project?project_id=<?=$v['product_id']?>">View Full Details</a>
+                </button>
               </div>
             </div>
           </div>
@@ -840,15 +786,15 @@
       };
     }
 
-    // Attach event listeners to all .btn-quick-view buttons in the HTML
-    document.querySelectorAll('.btn-quick-view').forEach(btn => {
-      btn.addEventListener('click', function(e) {
+    document.getElementById('projectsGrid').addEventListener('click', function(e) {
+      const btn = e.target.closest('.btn-quick-view');
+      if (btn) {
         e.preventDefault();
-        // Find the closest project card
         const card = btn.closest('.project-card');
         if (card) createQuickViewModal(card);
-      });
+      }
     });
+  
     /*
 
     document.getElementById("search").addEventListener('input',function()
@@ -892,7 +838,7 @@ function fetchFilteredProjects(reset = true) {
         document.getElementById("projectsGrid").innerHTML = defaultProjectsHTML;
         page = defaultPage;
         hasMoreProjects = true;
-        updateProjectCount();
+        
         return;
     }
 
@@ -923,9 +869,7 @@ function fetchFilteredProjects(reset = true) {
             if (filtersAreDefault) {
                 defaultProjectsHTML = grid.innerHTML;
                 defaultPage = page;
-            }
-
-            updateProjectCount();
+            }      
         }
         isLoading = false;
     };
@@ -1012,20 +956,8 @@ function isFiltersDefault() {
 }
 
   // update the projectCount
-  function updateProjectCount()
-  {
-    const CheckExist = 
-    setInterval(()=>{
-    const count = document.querySelectorAll('.project-card').length;
-    if(count >0 )
-    {
-    document.getElementById('projectCount').innerText=count;
-    clearInterval(CheckExist);
-    }
-  },100);
-  
-  }
-  window.onload= updateProjectCount;
+
+
 
     // Scorll 
 
@@ -1109,6 +1041,15 @@ function isFiltersDefault() {
                 }
 
                 updateProjectCount();
+                // Re-attach listeners for new buttons
+                document.getElementById('projectsGrid').addEventListener('click', function(e) {
+                  const btn = e.target.closest('.btn-quick-view');
+                  if (btn) {
+                    e.preventDefault();
+                    const card = btn.closest('.project-card');
+                    if (card) createQuickViewModal(card);
+                  }
+                });
             } else {
                 hasMoreProjects = false;
             }

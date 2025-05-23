@@ -65,7 +65,7 @@ if (! empty($result)){
 
                          
                         <div class="project-card" data-language="JavaScript" data-type="Desktop">
-                          <img src="<?= isset($v['main_image'])?$v['main_image']:''?>" alt="AI Chatting Desktop" class="project-image">
+                          <img src="/assets/uploads/<?= isset($v['main_image']) && $v['main_image'] ? $v['main_image'] : 'default-avatar.jpeg' ?>" alt="AI Chatting Desktop" class="project-image" onerror="this.src='/assets/images/default-avatar.jpeg'">
                           <div class="project-content">
                         
                             <div class="tags">
@@ -173,7 +173,7 @@ switch ($sort) {
 
 // الاستعلام النهائي مع كل العلاقات
 $results = $db->query("
-    SELECT 
+    SELECT DISTINCT
         p.*,
         c.category_name,
         l.language_name,
@@ -195,7 +195,7 @@ $results = $db->query("
 if (isset($_GET['ajax']) && $_GET['ajax'] === '1') {
     foreach ($results as $v): ?>
         <div class="project-card" data-language="<?= htmlspecialchars($v['language_name'] ?? '') ?>" data-type="<?= htmlspecialchars($v['type'] ?? '') ?>">
-            <img src="<?= htmlspecialchars($v['main_image'] ?? 'default.jpg') ?>" class="project-image" alt="Project">
+            <img src="/assets/uploads/<?= isset($v['main_image']) && $v['main_image'] ? $v['main_image'] : 'default-avatar.jpeg' ?>" alt="AI Chatting Desktop" class="project-image" onerror="this.src='/assets/images/default-avatar.jpeg'">
             <div class="project-content">
                 <div class="tags">
                     <span class="tag blue">Development</span>
