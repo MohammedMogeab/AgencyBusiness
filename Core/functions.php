@@ -65,8 +65,8 @@ function old($key, $default = '')
  * @return bool Returns true on success, or false on failure.
  */
 function saveUpload($file , $name){
-    return move_uploaded_file($file, base_path('public/uploads/') . $name);
+    return move_uploaded_file($file, base_path('public/assets/uploads/') . $name);
 }
 function getUpload($file_name){
-    return 'uploads/'. $file_name;
+    return 'assets/uploads/'. $file_name;
 }
