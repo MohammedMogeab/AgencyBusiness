@@ -23,23 +23,7 @@ create table developers(
     avatar varchar(255)
 );
 
-create table blogs(
-blog_id int primary key auto_increment,
-content text);
 
-create table blog_images(
-blog_id int ,
-image varchar(255) not null,
-constraint bl_fk_im foreign key(blog_id) references blogs(blog_id)
-);
-
-create table developers_links(
-link_id int primary key auto_increment,
-developer_id int,
-link_type varchar(30),
-link varchar(255),
-constraint dev_us_li_fk foreign key(developer_id) references developers(id)
-);
 
 create table categorys(
 category_id int primary key auto_increment,
@@ -78,6 +62,37 @@ constraint pr_fk_ca foreign key(category_id) references categorys(category_id),
 fulltext(product_name,short_description)
 );
 
+create table blogs(
+blog_id int primary key auto_increment,
+blog_title varchar(255), -- the title of blog
+content text,
+user_id int,  -- author of blog
+date date, -- the date of blog creation
+constraint bl_fk_us foreign key(user_id) references users(user_id) on delete cascade
+);
+
+create table blog_images(
+blog_id int ,
+image varchar(255) not null,
+constraint bl_fk_im foreign key(blog_id) references blogs(blog_id)
+);
+
+create table blog_producs(
+blog_id int,
+product_id int,
+-- constraint pk_bl_pr primary key(blog_id,product_id),
+constraint blpr_fk_bl foreign key(blog_id) references blogs(blog_id) on delete cascade,
+constraint blpr_fk_pr foreign key(product_id) references products(product_id) on delete cascade
+);
+
+create table developers_links(
+link_id int primary key auto_increment,
+developer_id int,
+link_type varchar(30),
+link varchar(255),
+constraint dev_us_li_fk foreign key(developer_id) references developers(id)
+);
+
 create table products_photoes(
 id int primary key auto_increment,
 product_id int ,
@@ -113,21 +128,14 @@ create table product_likes(
 	constraint foreign key (product_id) references products(product_id) on delete cascade
 );
 
-create table blog_producs(
-blog_id int,
-product_id int,
--- constraint pk_bl_pr primary key(blog_id,product_id),
-constraint blpr_fk_bl foreign key(blog_id) references blogs(blog_id) on delete cascade,
-constraint blpr_fk_pr foreign key(product_id) references products(product_id) on delete cascade
-);
 
 create table rates(
 user_id int,
 product_id int,
 rate int(1),
+constraint primary key(user_id,product_id),
 constraint foreign key (user_id) references users(user_id) on delete cascade ,
 constraint foreign key (product_id) references products(product_id) on delete cascade,
-constraint pk_us_ra_pr primary key(user_id,product_id,rate),
 constraint check_rate_validate check(rate between 0 and 5)
 );
 
@@ -156,6 +164,7 @@ content text,
 constraint re_fk_us foreign key(user_id) references users(user_id) on delete cascade,
 constraint re_fk_co foreign key(comment_id) references comments(comment_id)
 );
+
 CREATE TABLE investments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -165,9 +174,10 @@ CREATE TABLE investments (
     status ENUM('pending', 'completed', 'cancelled') DEFAULT 'pending',
     created_at DATETIME,
     updated_at DATETIME,
-    constraint re_fk_us foreign key(user_id) references users(user_id) on delete cascade,
-    constraint re_fk_pro foreign key(product_id) references products(product_id) on delete cascade
+    constraint inv_fk_us foreign key(user_id) references users(user_id) on delete cascade,
+    constraint inv_fk_pro foreign key(product_id) references products(product_id) on delete cascade
 );
+
 create table comments_likes(
 user_id int,
 comment_id int,
@@ -200,48 +210,61 @@ comment_id int,
 constraint blcoli_fk_us foreign key(user_id) references users(user_id) on delete cascade,
 constraint blcoli_fk_co foreign key(comment_id) references blog_comments(comment_id) on delete cascade
 );
-CREATE TABLE `product_resources`(
-    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `product_id` INT NULL,
-    `resource_name` VARCHAR(255) NULL,
-    `resource_url` VARCHAR(255) NULL,
-    `type` VARCHAR(50) NULL,
+CREATE TABLE product_resources(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NULL,
+    resource_name VARCHAR(255) NULL,
+    resource_url VARCHAR(255) NULL,
+    type VARCHAR(50) NULL,
     constraint product_resource_product_fk foreign key(product_id) references products(product_id)
 );
-CREATE TABLE `related_products`(
-    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `product_id` INT NULL,
-    `related_product_id` INT NULL,
+CREATE TABLE related_products(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NULL,
+    related_product_id INT NULL,
     constraint re_pr_product_fk foreign key(product_id) references products(product_id)
 );
-CREATE TABLE `product_technologies`(
-    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `product_id` INT NULL,
-    `technology` VARCHAR(100) NULL,
-    `description` VARCHAR(255) NULL,
+CREATE TABLE product_technologies(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NULL,
+    technology VARCHAR(100) NULL,
+    description VARCHAR(255) NULL,
     constraint pr_tec_product_fk foreign key(product_id) references products(product_id)
 );
-CREATE TABLE `product_milestones`(
-    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `product_id` INT NULL,
-    `milestone` VARCHAR(255) NULL,
-    `badge_color` VARCHAR(50) NULL,
+CREATE TABLE product_milestones(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NULL,
+    milestone VARCHAR(255) NULL,
+    badge_color VARCHAR(50) NULL,
      constraint pr_mi_product_fk foreign key(product_id) references products(product_id)
 );
-CREATE TABLE `product_timeline`(
-    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `product_id` INT NULL,
-    `title` VARCHAR(255) NULL,
-    `date` DATE NULL,
-    `description` TEXT NULL,
+CREATE TABLE product_timeline(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NULL,
+    title VARCHAR(255) NULL,
+    date DATE NULL,
+    description TEXT NULL,
      constraint pr_ti_product_fk foreign key(product_id) references products(product_id)
 );
-CREATE TABLE `product_faq`(
-    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `product_id` INT NULL,
-    `question` VARCHAR(255) NULL,
-    `answer` TEXT NULL,
+CREATE TABLE product_faq(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NULL,
+    question VARCHAR(255) NULL,
+    answer TEXT NULL,
 	 constraint pr_fa_product_fk foreign key(product_id) references products(product_id)
+);
+
+create table cite_developers(
+id int primary key auto_increment,
+name varchar(50),
+role varchar(50),
+photo varchar(255),
+github varchar(255),
+twitter varchar(255),
+linkedin varchar(255),
+github_image varchar(255),
+twitter_image varchar(255),
+linkedin_image varchar(255)
 );
 
 INSERT INTO users (user_name, password, email, photo, user_type, role) VALUES
