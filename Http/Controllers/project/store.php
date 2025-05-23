@@ -152,7 +152,7 @@ try{
         $db->query("INSERT INTO developers (name,  role, avatar) VALUES ( :name, :role , :avatar )", [
             'name' => $team['name'],
             'role' => $team['role'],
-            'avatar' => ((isset($_FILES['team']) && isset($_FILES['team']['name'][$key])) && move_uploaded_file( from: $_FILES['team']['tmp_name'][$key]['avatar'],  to: $uploadDir . $_FILES['team']['name'][$key]['avatar']))?$_FILES['team']['name'][$key]['avatar']:null
+            'avatar' => ((isset($_FILES['team']) && isset($_FILES['team']['name'][$key])) && saveUpload( $_FILES['team']['tmp_name'][$key]['avatar'],$_FILES['team']['name'][$key]['avatar']))?$_FILES['team']['name'][$key]['avatar']:null
         ]);
         $developer_id = $db->lastInsertId();
         $db->query("INSERT INTO developers_links (developer_id, link, link_type) VALUES ( :developer_id, :link, :link_type )", [
