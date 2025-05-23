@@ -89,6 +89,7 @@ try{
         'overview' => $_POST['overview'],
         'description' => $_POST['description'],
         'status' => $_POST['status'],
+
         'main_image' => (saveUpload($_FILES['image']['tmp_name'], $_FILES['image']['name'])) ? $_FILES['image']['name'] : null,
         'company' => $_POST['company'],
         'start_date' => $_POST['start_date'],
