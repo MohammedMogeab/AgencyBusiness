@@ -15,13 +15,16 @@ if (!isset($_SESSION['user'])) {
 }
 
 $user_id = $_SESSION['user']['user_id'];
+// dd($_SESSION['user']);
 error_log("User ID: " . $user_id);
 
 try {
+    
     // User info
     $user = $db->query('SELECT * FROM users WHERE user_id = :id', [
         'id' => $user_id
-    ])->findOrFail();
+    ])->find();
+    // dd($user);
 
     error_log("User found: " . print_r($user, true));
 
@@ -104,7 +107,7 @@ try {
     }
 
     error_log("Project details count: " . count($project_details));
-
+    
     view('user/usermanage.view.php', [
         'user' => $user,
         'portfolio' => $portfolio,
@@ -117,6 +120,8 @@ try {
             'per_page' => $per_page
         ]
     ]);
+
+
 
 } catch (Exception $e) {
     // Log the error with more details

@@ -67,7 +67,7 @@ blog_id int primary key auto_increment,
 blog_title varchar(255), -- the title of blog
 content text,
 user_id int,  -- author of blog
-date date default current_timestamp, -- the date of blog creation
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP, -- the date of blog creation
 image varchar(255),
 constraint bl_fk_us foreign key(user_id) references users(user_id) on delete cascade
 );
@@ -343,7 +343,7 @@ INSERT INTO developers (name, role, avatar) VALUES
 ('Benjamin Parker', 'Security Specialist', 'https://example.com/avatars/benjamin-parker.jpg');
 
 
-INSERT INTO blogs (content,user_id,blog_title,date, image) VALUES
+INSERT INTO blogs (content,user_id,blog_title,created_at, image) VALUES
 ('The future of web development: Trends to watch in 2023',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
 ('How to optimize your React application for better performance',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),
 ('Introduction to machine learning with Python',1,'this is a blog titile',current_timestamp,'blog-1.jpg'),

@@ -6,7 +6,7 @@
         <div class="user-profile">
             <div class="profile-image">
                 <img src="<?= isset($user['photo']) ?getUpload($user['photo']) : 'assets/images/default-avatar.png' ?>" alt="Profile">
-            </div>
+                </div>
             <div class="profile-info">
                 <h4><?= htmlspecialchars($user['user_name']) ?></h4>
                 <p class="text-muted"><?= htmlspecialchars($user['email']) ?></p>
@@ -49,7 +49,7 @@
                 <div class="stat-card">
                     <div class="stat-icon">
                         <i class="fas fa-coins"></i>
-                    </div>
+                        </div>
                     <div class="stat-info">
                         <h3>$<?= number_format($portfolio['total_invested'] ?? 0, 2) ?></h3>
                         <p>Total Invested</p>
@@ -58,7 +58,7 @@
                 <div class="stat-card">
                     <div class="stat-icon">
                         <i class="fas fa-chart-line"></i>
-                    </div>
+                        </div>
                     <div class="stat-info">
                         <h3>$<?= number_format($portfolio['total_returns'] ?? 0, 2) ?></h3>
                         <p>Total Returns</p>
@@ -67,7 +67,7 @@
                 <div class="stat-card">
                     <div class="stat-icon">
                         <i class="fas fa-wallet"></i>
-                    </div>
+                        </div>
                     <div class="stat-info">
                         <h3>$<?= number_format($portfolio['current_value'] ?? 0, 2) ?></h3>
                         <p>Current Value</p>
@@ -76,7 +76,7 @@
                 <div class="stat-card">
                     <div class="stat-icon">
                         <i class="fas fa-trophy"></i>
-                    </div>
+                        </div>
                     <div class="stat-info">
                         <h3><?= $portfolio['success_rate'] ?? '0' ?>%</h3>
                         <p>Success Rate</p>
@@ -89,7 +89,7 @@
         <section id="investments" class="dashboard-section">
             <div class="section-header">
                 <h2>Active Investments</h2>
-            </div>
+    </div>
 
             <?php if (empty($active_investments)): ?>
                 <div class="empty-state">
@@ -105,7 +105,7 @@
                 </div>
             <?php else: ?>
                 <div class="investments-grid">
-                    <?php foreach ($active_investments as $inv): ?>
+                <?php foreach ($active_investments as $inv): ?>
                         <div class="investment-card">
                             <div class="investment-header">
                                 <img src="<?= htmlspecialchars($inv['product_image']) ?>" alt="<?= htmlspecialchars($inv['product_name']) ?>">
@@ -140,11 +140,11 @@
                                         <div class="progress" style="width: <?= $inv['progress'] ?>%"></div>
                                     </div>
                                     <span class="progress-text">Progress: <?= $inv['progress'] ?>%</span>
-                                </div>
-                            </div>
                         </div>
-                    <?php endforeach; ?>
+                    </div>
                 </div>
+                <?php endforeach; ?>
+            </div>
             <?php endif; ?>
         </section>
 
@@ -152,7 +152,7 @@
         <section id="history" class="dashboard-section">
             <div class="section-header">
                 <h2>Investment History</h2>
-            </div>
+    </div>
 
             <?php if (empty($investment_history)): ?>
                 <div class="empty-state">
@@ -164,18 +164,18 @@
             <?php else: ?>
                 <div class="history-table">
                     <table>
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Project</th>
-                                <th>Amount</th>
-                                <th>ROI</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($investment_history as $h): ?>
-                                <tr>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Project</th>
+                            <th>Amount</th>
+                            <th>ROI</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($investment_history as $h): ?>
+                        <tr>
                                     <td>
                                         <i class="far fa-calendar-alt"></i>
                                         <?= date('M d, Y', strtotime($h['created_at'])) ?>
@@ -188,22 +188,22 @@
                                             <span><?= htmlspecialchars($h['product_name']) ?></span>
                                         </div>
                                     </td>
-                                    <td>$<?= number_format($h['amount'], 2) ?></td>
+                            <td>$<?= number_format($h['amount'], 2) ?></td>
                                     <td>
                                         <span class="roi-badge <?= $h['roi_percentage'] >= 0 ? 'positive' : 'negative' ?>">
-                                            <?= $h['roi_percentage'] >= 0 ? '+' : '' ?><?= number_format($h['roi_percentage'], 2) ?>%
+                                <?= $h['roi_percentage'] >= 0 ? '+' : '' ?><?= number_format($h['roi_percentage'], 2) ?>%
                                         </span>
-                                    </td>
-                                    <td>
+                            </td>
+                            <td>
                                         <span class="status-badge <?= $h['status'] ?>">
-                                            <?= ucfirst($h['status']) ?>
-                                        </span>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
+                                    <?= ucfirst($h['status']) ?>
+                                </span>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
 
                 <?php if ($pagination['total_pages'] > 1): ?>
                     <div class="pagination">
@@ -262,9 +262,9 @@
                                         <div class="tech-tags">
                                             <?php foreach (explode(',', $proj['technologies']) as $tech): ?>
                                                 <span class="tech-tag"><?= htmlspecialchars(trim($tech)) ?></span>
-                                            <?php endforeach; ?>
-                                        </div>
-                                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
                                 <?php endif; ?>
                             </div>
                         </div>

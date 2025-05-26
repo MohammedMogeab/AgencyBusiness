@@ -12,7 +12,7 @@ if(!isset($_SESSION['user']) && $_SESSION['user']['user_type'] != 'admin') {
 
 
 
-view('../views/blogs/create.php', [
+view('views/blogs/create.php', [
  'page_name' => $page_name,
  'request' => 'create'
 ]);

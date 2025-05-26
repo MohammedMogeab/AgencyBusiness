@@ -13,22 +13,22 @@
                         <?php endif; ?>
                         <button type="button" class="edit-photo-btn" onclick="image_changed()">
                             <ion-icon name="camera-outline"></ion-icon>
-                        </button>
+        </button>
                     </div>
                     <h2 class="profile-name"><?php echo htmlspecialchars($user['user_name']); ?></h2>
                     <span class="profile-role"><?php echo htmlspecialchars($user['role']); ?></span>
                 </div>
                 <div class="profile-actions">
                     <button class="action-btn" onclick="window.location.href='/forget'">
-                        <ion-icon name="key-outline"></ion-icon>
+            <ion-icon name="key-outline"></ion-icon>
                         <span>Change Password</span>
-                    </button>
+          </button>
                     <button class="action-btn" onclick="window.location.href='/logout'">
-                        <ion-icon name="log-out-outline"></ion-icon>
+            <ion-icon name="log-out-outline"></ion-icon>
                         <span>Sign Out</span>
-                    </button>
-                </div>
-            </div>
+          </button>
+        </div>
+      </div>
         </div>
 
         <div class="profile-content">
@@ -38,51 +38,51 @@
                     <span>Back</span>
                 </button>
                 <h1>Edit Profile</h1>
-            </div>
-
+      </div>
+      
             <div class="content-card">
                 <form class="profile-form" autocomplete="off" method="POST" action="/profile/update" enctype="multipart/form-data">
-                    <input type="file" id="photo-upload" name="photo" accept="image/*" style="display: none;">
-                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['user_id']); ?>">
+        <input type="file" id="photo-upload" name="photo" accept="image/*" style="display: none;">
+        <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['user_id']); ?>">
 
-                    <div class="form-group">
-                        <label for="username">Username</label>
+        <div class="form-group">
+          <label for="username">Username</label>
                         <div class="input-wrapper">
-                            <ion-icon name="person-outline"></ion-icon>
-                            <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user['user_name']); ?>" required oninput="enableSaveButton()">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
+            <ion-icon name="person-outline"></ion-icon>
+            <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user['user_name']); ?>" required oninput="enableSaveButton()">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address</label>
                         <div class="input-wrapper">
-                            <ion-icon name="mail-outline"></ion-icon>
-                            <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" readonly>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="role">Role</label>
+            <ion-icon name="mail-outline"></ion-icon>
+            <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" readonly>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="role">Role</label>
                         <div class="input-wrapper">
-                            <ion-icon name="ribbon-outline"></ion-icon>
-                            <input type="text" id="role" name="role" value="<?php echo htmlspecialchars($user['role']); ?>" oninput="enableSaveButton()">
-                        </div>
-                    </div>
+            <ion-icon name="ribbon-outline"></ion-icon>
+            <input type="text" id="role" name="role" value="<?php echo htmlspecialchars($user['role']); ?>" oninput="enableSaveButton()">
+          </div>
+        </div>
 
                     <?php if(isset($error) || isset($success)): ?>
                         <div class="message <?= isset($error) ? 'error' : 'success' ?>">
-                            <?php 
-                                if(isset($error)) echo $error;
-                                if(isset($success)) echo $success;
-                            ?>
-                        </div>
+            <?php 
+                if(isset($error)) echo $error;
+                if(isset($success)) echo $success;
+            ?>
+        </div>
                     <?php endif; ?>
 
                     <button type="submit" class="save-btn" name="update_profile" id="save-button" disabled>
                         <ion-icon name="save-outline"></ion-icon>
                         <span>Save Changes</span>
                     </button>
-                </form>
+      </form>
             </div>
         </div>
     </div>
@@ -96,7 +96,7 @@
 }
 
 .profile-page .profile-container {
-    display: flex;
+  display: flex;
     background-color: #f8f9fa;
     padding: 2rem;
     gap: 2rem;
@@ -116,13 +116,13 @@
 
 .profile-page .profile-photo-section {
     padding: 2rem;
-    text-align: center;
+  text-align: center;
     background: linear-gradient(135deg, #4361ee, #3f37c9);
     color: white;
 }
 
 .profile-page .profile-photo-wrapper {
-    position: relative;
+  position: relative;
     width: 150px;
     height: 150px;
     margin: 0 auto 1.5rem;
@@ -138,8 +138,8 @@
 }
 
 .profile-page .profile-initials {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
     justify-content: center;
     background-color: rgba(255, 255, 255, 0.1);
     font-size: 3rem;
@@ -157,7 +157,7 @@
     background-color: #4361ee;
     border: none;
     color: white;
-    display: flex;
+  display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -170,7 +170,7 @@
 }
 
 .profile-page .profile-name {
-    margin: 0;
+  margin: 0;
     font-size: 1.5rem;
     font-weight: 600;
 }
@@ -193,11 +193,11 @@
     align-items: center;
     width: 100%;
     padding: 0.75rem 1rem;
-    border: none;
+  border: none;
     background: none;
     color: #2b2d42;
     font-size: 1rem;
-    cursor: pointer;
+  cursor: pointer;
     transition: all 0.3s ease;
     border-radius: 0.5rem;
     margin-bottom: 0.5rem;
@@ -228,7 +228,7 @@
 }
 
 .profile-page .back-btn {
-    display: flex;
+  display: flex;
     align-items: center;
     padding: 0.5rem 1rem;
     border: none;
@@ -254,7 +254,7 @@
 .profile-page .content-header h1 {
     margin: 0;
     font-size: 1.75rem;
-    font-weight: 600;
+  font-weight: 600;
     color: #2b2d42;
 }
 
@@ -274,15 +274,15 @@
 }
 
 .profile-page .form-group label {
-    display: block;
+  display: block;
     margin-bottom: 0.5rem;
     color: #2b2d42;
     font-weight: 500;
 }
 
 .profile-page .input-wrapper {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
     background-color: #f8f9fa;
     border: 1px solid #e9ecef;
     border-radius: 0.5rem;
@@ -302,11 +302,11 @@
 }
 
 .profile-page .input-wrapper input {
-    flex: 1;
-    border: none;
+  flex: 1;
+  border: none;
     background: none;
-    outline: none;
-    font-size: 1rem;
+  outline: none;
+  font-size: 1rem;
     color: #2b2d42;
 }
 
@@ -336,11 +336,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
+  width: 100%;
     padding: 0.75rem 1.5rem;
     background-color: #4361ee;
     color: white;
-    border: none;
+  border: none;
     border-radius: 0.5rem;
     font-size: 1rem;
     font-weight: 500;
@@ -360,8 +360,8 @@
 
 .profile-page .save-btn:disabled {
     background-color: #8d99ae;
-    cursor: not-allowed;
-    opacity: 0.7;
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 @media (max-width: 1024px) {
@@ -374,14 +374,14 @@
     }
 
     .profile-page .profile-card {
-        display: flex;
-        align-items: center;
+  display: flex;
+  align-items: center;
         padding: 1rem;
     }
 
     .profile-page .profile-photo-section {
-        display: flex;
-        align-items: center;
+  display: flex;
+  align-items: center;
         padding: 0;
         background: none;
         color: #2b2d42;
@@ -395,7 +395,7 @@
     }
 
     .profile-page .profile-actions {
-        display: flex;
+  display: flex;
         gap: 1rem;
         padding: 0;
         margin-left: auto;
@@ -433,7 +433,7 @@
 
     .profile-page .action-btn {
         width: 100%;
-    }
+  }
 }
 </style>
 

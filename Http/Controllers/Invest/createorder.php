@@ -10,7 +10,7 @@ require base_path('vendor/autoload.php');
 $db = App::resolve(Database::class);
 $auth = new Authenticator();
 
-$userId = 12; // Example user
+$userId = $_SESSION['user']['user_id'] ?? null;
 $amount = $_POST['amount'] ?? null;
 $projectId= $_POST['project_id'] ?? null;
 

@@ -26,7 +26,7 @@
                 <p class="blog-excerpt"><?= $blog['content']?></p>
                 <div class="blog-meta">
                   <span class="blog-author"><?= $blog['author']?></span>
-                  <span class="blog-date"><?php  echo (new DateTime($blog['date']))->format('F j, Y'); ?></span>
+                  <span class="blog-date"><?php  echo (new DateTime($blog['created_at']))->format('F j, Y'); ?></span>
                 </div>
               </div>
             </a>
