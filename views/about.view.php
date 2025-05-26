@@ -48,54 +48,21 @@
             <div class="container">
                 <h2 class="section-title">Meet Our Team</h2>
                 <div class="team-grid">
+                    <?php foreach($developers as $developer):?>
                     <div class="team-card">
                         <div class="team-img-wrapper">
-                            <img src="./assets/images/blog-2.jpg" alt="Team Member" class="team-img">
+                            <img src="./assets/uploads/<?= $developer['photo']?>" alt="Team Member" class="team-img">
                         </div>
-                        <h3 class="team-name">Alex Morgan</h3>
-                        <p class="team-role">CEO & Founder</p>
+                        <h3 class="team-name"><?= $developer['name']?></h3>
+                        <p class="team-role"><?= $developer['role']?></p>
                         <div class="team-social">
-                            <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
-                            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
-                            <a href="#"><ion-icon name="mail-outline"></ion-icon></a>
+                            <a href="<?= $developer['linkedin']?>"><ion-icon name="logo-linkedin"></ion-icon></a>
+                            <a href="<?= $developer['twitter']?>"><ion-icon name="logo-twitter"></ion-icon></a>
+                            <a href="mailto:<?= $developer['email']?>"><ion-icon name="mail-outline"></ion-icon></a>
+                            <a href="<?= $developer['github']?>"><ion-icon name="logo-github"></ion-icon></a>
                         </div>
                     </div>
-                    <div class="team-card">
-                        <div class="team-img-wrapper">
-                            <img src="./assets/images/blog-2.jpg" alt="Team Member" class="team-img">
-                        </div>
-                        <h3 class="team-name">Sara Lee</h3>
-                        <p class="team-role">Lead Designer</p>
-                        <div class="team-social">
-                            <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
-                            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
-                            <a href="#"><ion-icon name="mail-outline"></ion-icon></a>
-                        </div>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-img-wrapper">
-                            <img src="./assets/images/blog-2.jpg" alt="Team Member" class="team-img">
-                        </div>
-                        <h3 class="team-name">Michael Chen</h3>
-                        <p class="team-role">Head of Development</p>
-                        <div class="team-social">
-                            <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
-                            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
-                            <a href="#"><ion-icon name="mail-outline"></ion-icon></a>
-                        </div>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-img-wrapper">
-                            <img src="./assets/images/blog-2.jpg" alt="Team Member" class="team-img">
-                        </div>
-                        <h3 class="team-name">Priya Patel</h3>
-                        <p class="team-role">Marketing Director</p>
-                        <div class="team-social">
-                            <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
-                            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
-                            <a href="#"><ion-icon name="mail-outline"></ion-icon></a>
-                        </div>
-                    </div>
+                    <?php endforeach;?>
                 </div>
             </div>
         </section>

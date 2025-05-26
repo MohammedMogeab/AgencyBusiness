@@ -563,9 +563,7 @@
             <div class="options-filter-language">
               <select name="language" id="filter-language">
                 <option value="">Language</option>
-           
                   <?php  foreach($results as  $v):?>
-                 
                  <option value="<?= isset($v['language_name'])?$v['language_name']:''?>"><?= isset($v['language_name'])?$v['language_name']:''?></option>
                  <?php   endforeach;?>
               </select>
@@ -574,7 +572,7 @@
               <select name="type" id="filter-type">
                 <option value="">Type</option>
                  <?php  foreach($results as  $v):?>
-                 <option value="<?= isset($v['cetagory_name'])?$v['category_name']:''?>"><?= isset($v['category_name'])?$v['category_name']:''?></option>
+                 <option value="<?= isset($v['category_name'])?$v['category_name']:''?>"><?= isset($v['category_name'])?$v['category_name']:''?></option>
                  <?php   endforeach;?>
               </select>
             </div>
@@ -612,23 +610,21 @@
       <div class="projects-grid" id="projectsGrid">
         <?php if(isset($results) && is_array($results)):?>
         <?php  foreach($results as  $v):?>
-          
           <div class="project-card" data-language="JavaScript" data-type="Desktop">
                           <img src="/assets/uploads/<?= isset($v['main_image']) && $v['main_image'] ? $v['main_image'] : 'default-avatar.jpeg' ?>" alt="AI Chatting Desktop" class="project-image" onerror="this.src='/assets/images/default-avatar.jpeg'">
                           <div class="project-content">
-                        
                             <div class="tags">
                               <span class="tag blue">Development</span>
-                              <span class="tag red"><?= isset($v['category_name'])?$v['category_name']:'oooo'?></span>
+                              <span class="tag red"><?= isset($v['category_name'])?$v['category_name']:'project'?></span>
                               <span class="tag green">Project</span>
                             </div>
-                            <h2 class="project-title"><?= isset($v['product_name'])?$v['product_name']:'oooooo'?></h2>
-                            <p class="project-desc"><?= isset($v['short_description'])?$v['short_description']:'pppp'?></p>
+                            <h2 class="project-title"><?= isset($v['product_name'])?$v['product_name']:'No Name'?></h2>
+                            <p class="project-desc"><?= isset($v['short_description'])?$v['short_description']:'this is a project'?></p>
                             <div class="project-stats">
-                              <span><ion-icon name="chatbubble-ellipses-outline"></ion-icon>  <?= isset($v['number_comments'])?$v['number_comments']:'1'?><span>Comments</span></span>
-                              <span><ion-icon name="star-outline"></ion-icon> <?= isset($v['number_rates'])?$v['number_rates']:'2'?><span>Rate</span></span>
+                              <span><ion-icon name="chatbubble-ellipses-outline"></ion-icon>  <?= isset($v['number_comments'])?$v['number_comments']:'0'?><span>Comments</span></span>
+                              <span><ion-icon name="star-outline"></ion-icon> <?= isset($v['number_rates'])?$v['number_rates']:'0'?><span>Rate</span></span>
                               <span><ion-icon name="trending-up-outline"></ion-icon> 345 <span>ROI</span></span>
-                              <span><ion-icon name="time-outline"></ion-icon> <?= isset($v['duration'])?$v['duration']:'99'?><span>Months</span></span>
+                              <span><ion-icon name="time-outline"></ion-icon> <?= isset($v['duration'])?$v['duration']:'12'?><span>Months</span></span>
                             </div>
                             <div class="project-footer">
                               <div class="investment-info">
@@ -643,9 +639,7 @@
                             </div>
                           </div>
                         </div>
-
         <?php   endforeach;?>
-        
         <?php else :?>
         <?php endif;?>
         <div id ="load-more"></div>
@@ -675,7 +669,8 @@
         const cardLang = card.getAttribute('data-language');
         const cardType = card.getAttribute('data-type');
         const cardStatus = card.getAttribute('data-status') || 'Completed';
-        const price = parseFloat(card.querySelector('.project-price').textContent.replace('$', '').replace(',', ''));
+        const priceText = card.querySelector('.investment-amount')?.textContent || '0';
+        const price = parseFloat(priceText.replace('$', '').replace(',', ''));
 
         const matchesSearch = title.includes(search) || desc.includes(search);
         const matchesLang = !lang || cardLang === lang;
@@ -853,9 +848,7 @@ function fetchFilteredProjects(reset = true) {
         price_min: priceMin,
         price_max: priceMax
     });
-
     isLoading = true;
-
     const xhr = new XMLHttpRequest();
     xhr.open("GET", "projects?" + params.toString(), true);
     xhr.onload = function () {
@@ -864,12 +857,11 @@ function fetchFilteredProjects(reset = true) {
             grid.innerHTML = xhr.responseText;
             page = 2;
             hasMoreProjects = true;
-
             // حفظ الصفحة الحالية كمحتوى افتراضي إذا كانت الفلاتر افتراضية
             if (filtersAreDefault) {
                 defaultProjectsHTML = grid.innerHTML;
                 defaultPage = page;
-            }      
+            }
         }
         isLoading = false;
     };
@@ -1040,7 +1032,7 @@ function isFiltersDefault() {
                     defaultPage = page;
                 }
 
-                updateProjectCount();
+                
                 // Re-attach listeners for new buttons
                 document.getElementById('projectsGrid').addEventListener('click', function(e) {
                   const btn = e.target.closest('.btn-quick-view');

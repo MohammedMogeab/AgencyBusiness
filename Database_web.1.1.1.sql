@@ -67,7 +67,10 @@ blog_id int primary key auto_increment,
 blog_title varchar(255), -- the title of blog
 content text,
 user_id int,  -- author of blog
+
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP, -- the date of blog creation
+
+
 image varchar(255),
 constraint bl_fk_us foreign key(user_id) references users(user_id) on delete cascade
 );
@@ -270,9 +273,9 @@ email varchar(255)
 );
 
 Insert into cite_developers VALUES
-(1,'Mubarak Ashraf Sharaf','Developer','profile.jpg','https://github.com/MubarakAshrafAlrawy','https://twitter.com/MubarakAshrafAlrawy','https://linkedin.com/MubarakAshrafAlrawy','profile.jpg','profile.jpg','profile.jpg','MubarakAshrafAlrawy@gmail.com'),
-(2,'Mohammed Mogeab','Developer','MohammedMogeab.png','https://github.com/MohammedMogeab','https://twitter.com/MohammedMogeab','https://linkedin.com/MohammedMogeab','MohammedMogeab.png','MohammedMogeab.png','MohammedMogeab.png','MubarakAshrafAlrawy@gmail.com'),
-(3,'Mohammed Ali Mahyoob','Developer','1693342683509.jpg','https://github.com/MohammedAli12345678','https://twitter.com/MohammedAli12345678','https://linkedin.com/MohammedAli12345678','1693342683509.jpg','1693342683509.jpg','1693342683509.jpg','MubarakAshrafAlrawy@gmail.com');
+(1,'Mubarak Ashraf Sharaf','WEB Developer','profile.jpg','https://github.com/MubarakAshrafAlrawy','https://twitter.com/MubarakAshrafAlrawy','https://linkedin.com/MubarakAshrafAlrawy','profile.jpg','profile.jpg','profile.jpg','MubarakAshrafAlrawy@gmail.com'),
+(2,'Mohammed Mogeab','DESKTOP Developer','MohammedMogeab.png','https://github.com/MohammedMogeab','https://twitter.com/MohammedMogeab','https://linkedin.com/MohammedMogeab','MohammedMogeab.png','MohammedMogeab.png','MohammedMogeab.png','MohammedMogeaby@gmail.com'),
+(3,'Mohammed Ali Mahyoob','MOBILE Developer','1693342683509.jpg','https://github.com/MohammedAli12345678','https://twitter.com/MohammedAli12345678','https://linkedin.com/MohammedAli12345678','1693342683509.jpg','1693342683509.jpg','1693342683509.jpg','MohammedAli12345678y@gmail.com');
 
 INSERT INTO users (user_name, password, email, photo, user_type, role) VALUES
 ('JohnDoe', '$2y$10$YD3BNdW7o2mrcsGfY/7bE.KjbIgnJ8ZNpaMJNjo89/stcOLLHAGba', 'john@example.com', 'profile1.jpg', 'developer', 'admin'),
