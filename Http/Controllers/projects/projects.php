@@ -172,8 +172,8 @@ switch ($sort) {
 }
 
 // الاستعلام النهائي مع كل العلاقات
-$results = $db->query("
-    SELECT DISTINCT
+$results = $db->query(
+  "SELECT DISTINCT
         p.*,
         c.category_name,
         l.language_name,
@@ -227,8 +227,8 @@ if (isset($_GET['ajax']) && $_GET['ajax'] === '1') {
     exit;
 }
 
-$getAllTypeAndStatus =$db->query("SELECT * FROM products ");
-$getAllLauange =$db->query("SELECT * FROM languages ");
+$getAllTypeAndStatus = $db->query("SELECT * FROM products ");
+$getAllLauange = $db->query("SELECT * FROM languages ");
 
 // عرض الصفحة الكاملة (غير AJAX)
 view("projects.view.php", ['results' => $results,
