@@ -574,7 +574,7 @@
               <select name="type" id="filter-type">
                 <option value="">Type</option>
                  <?php  foreach($results as  $v):?>
-                 <option value="<?= isset($v['cetagory_name'])?$v['category_name']:''?>"><?= isset($v['category_name'])?$v['category_name']:''?></option>
+                 <option value="<?= isset($v['category_name'])?$v['category_name']:''?>"><?= isset($v['category_name'])?$v['category_name']:''?></option>
                  <?php   endforeach;?>
               </select>
             </div>
@@ -675,7 +675,8 @@
         const cardLang = card.getAttribute('data-language');
         const cardType = card.getAttribute('data-type');
         const cardStatus = card.getAttribute('data-status') || 'Completed';
-        const price = parseFloat(card.querySelector('.project-price').textContent.replace('$', '').replace(',', ''));
+        const priceText = card.querySelector('.investment-amount')?.textContent || '0';
+        const price = parseFloat(priceText.replace('$', '').replace(',', ''));
 
         const matchesSearch = title.includes(search) || desc.includes(search);
         const matchesLang = !lang || cardLang === lang;
@@ -1040,7 +1041,7 @@ function isFiltersDefault() {
                     defaultPage = page;
                 }
 
-                updateProjectCount();
+                
                 // Re-attach listeners for new buttons
                 document.getElementById('projectsGrid').addEventListener('click', function(e) {
                   const btn = e.target.closest('.btn-quick-view');

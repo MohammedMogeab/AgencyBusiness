@@ -137,8 +137,12 @@ $params = [];
 
 // بناء شروط الفلترة
 if (!empty($search)) {
-    $where .= " AND MATCH(p.product_name, p.short_description) AGAINST (:search IN NATURAL LANGUAGE MODE)";
-    $params['search'] = $search;
+    // $where .= " AND MATCH(p.product_name, p.short_description) AGAINST (:search IN NATURAL LANGUAGE MODE)";
+    // $params['search'] = $search;
+//     $where .= " AND MATCH(p.product_name, p.short_description) AGAINST (:search IN BOOLEAN MODE)";
+// $params['search'] = $search . '*';
+$where .= " AND (p.product_name LIKE :search OR p.short_description LIKE :search)";
+$params['search'] = '%' . $search . '%';
 }
 if (!empty($type)) {
     $where .= " AND c.category_name = :type";
