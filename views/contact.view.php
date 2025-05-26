@@ -261,7 +261,7 @@
                                 </div>
                                 <div class="contact-text">
                                     <h3>Email</h3>
-                                    <p>moha772876@gmail.com</p>
+                                    <a href="mailto:moha772876@gmail.com">moha772876@gmail.com</a>
                                 </div>
                             </div>
                             <div class="contact-item">
@@ -270,7 +270,8 @@
                                 </div>
                                 <div class="contact-text">
                                     <h3>Phone</h3>
-                                    <p>+967772867128</p>
+                                    <a href="https://wa.me/967772867128" target="_blank">+967772867128</a>
+
                                 </div>
                             </div>
                             <div class="contact-item">

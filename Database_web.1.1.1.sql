@@ -67,7 +67,7 @@ blog_id int primary key auto_increment,
 blog_title varchar(255), -- the title of blog
 content text,
 user_id int,  -- author of blog
-date date default current_timestamp, -- the date of blog creation
+date DATETIME default current_timestamp, -- the date of blog creation
 image varchar(255),
 constraint bl_fk_us foreign key(user_id) references users(user_id) on delete cascade
 );
