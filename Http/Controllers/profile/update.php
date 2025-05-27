@@ -22,18 +22,18 @@ if($useremain['email'] != $_POST['email'] || $useremain['email'] != $_SESSION['u
 $user_id = $_POST['user_id'];
 $username = $_POST['username'];
 $email = $_POST['email'];
-$role = $_POST['role'];
+$role = $_POST['user_type'];
 try{
 
-    $db->query("update users set user_name = :username, role = :role where user_id = :user_id", [
+    $db->query("update users set user_name = :username, user_type = :role where user_id = :user_id", [
         'user_id' => $user_id,
         'username' => $username,
         'role' => $role
     ]);
     $_SESSION['user']['user_name'] = $username;
-    $_SESSION['user']['role'] = $role;
+    $_SESSION['user']['user_type'] = $role;
 
-    if($_FILES['photo']['name'] != null && saveUpload($_FILES['photo']['tmp_name'],$_FILES['photo']['name'])){
+    if(isset($_FILES['photo']['name']) && saveUpload($_FILES['photo']['tmp_name'],$_FILES['photo']['name'])){
         $db->query("update users set photo = :photo where user_id = :user_id", [
             'user_id' => $user_id,
             'photo' => $_FILES['photo']['name']

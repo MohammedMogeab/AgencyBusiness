@@ -38,7 +38,49 @@ try {
         FROM investments
         WHERE user_id = :id
     ", ['id' => $user_id])->findOrFail();
-
+    $user_products_investments = $db->query("SELECT p.* from investments I join products p on (I.product_id = p.product_id) where I.user_id = :user_id and p.user_id != :user_id",[
+        'user_id' => $_SESSION['user']['user_id'],
+        // 'user_id' => $_SESSION['user']['user_id']
+    ])->get();
+    foreach($user_products_investments as $in){
+        $in['total_invests'] = $db->query(
+            "SELECT SUM(I.amount) from investments I 
+            JOIN users s on s.user_id = I.user_id
+            JOIN products p on I.product_id = p.product_id
+            Where p.product_id = :product_id and p.user_id != I.user_id ",[
+                'product_id' => $in['product_id']
+            ]
+        )->find();
+    }
+    foreach($user_products_investments as $key => $in){
+        $user_products_investments[$key]['pn_amount'] = abs($db->query(
+            "SELECT SUM(I.amount) as am from investments I 
+            JOIN users s on s.user_id = I.user_id
+            JOIN products p on I.product_id = p.product_id
+            Where p.product_id = :product_id and p.user_id = I.user_id and I.amount < 0",[
+                'product_id' => $user_products_investments[$key]['product_id']
+            ]
+        )->find()['am']);
+        $user_products_investments[$key]['po_amount'] = abs($db->query(
+            "SELECT SUM(I.amount) as am from investments I 
+            JOIN users s on s.user_id = I.user_id
+            JOIN products p on I.product_id = p.product_id
+            Where p.product_id = :product_id and p.user_id = I.user_id and I.amount > 0",[
+                'product_id' => $user_products_investments[$key]['product_id']
+            ]
+        )->find()['am']);
+        if($user_products_investments[$key]['pn_amount'] != 0 && $user_products_investments[$key]['po_amount'] > $user_products_investments[$key]['pn_amount']){
+            $user_products_investments[$key]['ROI'] = ($user_products_investments[$key]['po_amount'] / $user_products_investments[$key]['pn_amount']) * 100;
+        }else if($user_products_investments[$key]['po_amount'] != 0 && $user_products_investments[$key]['po_amount'] > $user_products_investments[$key]['pn_amount']){
+            $user_products_investments[$key]['ROI'] = ($user_products_investments[$key]['pn_amount'] / $user_products_investments[$key]['po_amount']) * 100;
+        }else{
+            $user_products_investments[$key]['ROI'] = 0;
+        }
+        $user_products_investments[$key]['profit'] = ($user_products_investments[$key]['po_amount'] - $user_products_investments[$key]['pn_amount']);
+    }
+    // echo "<br><br><br><br>";
+    // dd($user_products_investments);
+    // echo "</pre>";
     error_log("Portfolio summary: " . print_r($portfolio, true));
 
     // Active investments

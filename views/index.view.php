@@ -400,7 +400,7 @@
                 <a href="#projects" class="btn btn-primary">Explore Projects</a>
                 <a href="#contact" class="btn btn-outline">Contact Us</a>
             </div>
-            <img src="./assets/images/hero-slide-1.jpg" alt="Hero" class="hero-img">
+            <img src="<?= getUpload('main.jpg')?>" alt="Hero" class="hero-img">
         </section>
         <!-- Features/Services Section -->
         <section class="features-section">
@@ -436,7 +436,7 @@
                 <div class="project-preview-card">
                     <span class="project-badge"><?= isset($row['status'])?$row['status']:'Not status' ?></span>
                     <div class="project-preview-img-wrapper">
-                        <img src="/assets/uploads/<?= isset($row['main_image'])?$row['main_image']:'' ?>" alt="AI Chatting Desktop" class="project-preview-img">
+                        <img src="<?= isset($row['main_image'])?getUpload($row['main_image']):getUpload('blog-1.jpg') ?>" alt="AI Chatting Desktop" class="project-preview-img">
                         <div class="project-img-gradient"></div>
                     </div>
                     <div class="project-preview-content">

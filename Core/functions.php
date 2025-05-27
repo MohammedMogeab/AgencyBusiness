@@ -75,3 +75,7 @@ function saveUpload($file , $name){
 function getUpload($file_name){
     return 'assets/uploads/'. $file_name;
 }
+
+// function abs($value): int {
+//     return ($value > 0? $value : -1 * $value);
+// }

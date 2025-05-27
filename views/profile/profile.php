@@ -65,7 +65,7 @@
           <label for="role">Role</label>
                         <div class="input-wrapper">
             <ion-icon name="ribbon-outline"></ion-icon>
-            <input type="text" id="role" name="role" value="<?php echo htmlspecialchars($user['role']); ?>" oninput="enableSaveButton()">
+            <input   type="text" id="role" name="user_type" value="<?php echo htmlspecialchars($user['user_type']); ?>" oninput="enableSaveButton()">
           </div>
         </div>
 

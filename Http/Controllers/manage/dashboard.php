@@ -50,6 +50,7 @@ WHERE i.status =:status'
 
 
 
+
 $productAndInvstment = $db->query("SELECT 
     p.product_name AS name,
     p.start_date AS start_date,

@@ -44,6 +44,7 @@ short_description text,
 product_version varchar(10),
 product_video varchar(255),
 price float,
+user_id int not null,
 discount float,
 category_id int,
 status varchar(255) null,
@@ -59,6 +60,7 @@ lines_of_code long,
 countries_deployed int,
 duration int,
 constraint pr_fk_ca foreign key(category_id) references categorys(category_id),
+constraint us_fk_pr foreign key(user_id) references users(user_id),
 fulltext(product_name,short_description)
 );
 

@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50">
+<?//php require(__DIR__.'/../partials/header.php'); ?>
     <!-- Hero Section -->
     <div class="relative bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white overflow-hidden">
         <div class="container mx-auto px-6 py-24 relative">
@@ -25,7 +26,7 @@
                     </div>
                 </div>
                 <div class="md:w-1/2 relative">
-                    <img src='<?= "/assets/uploads/". $project['main_image'] ?>' alt="Project Preview" class="w-full h-[400px] object-cover rounded-2xl shadow-2xl">
+                    <img src='<?= getUpload($project['main_image']) ?>' alt="Project Preview" class="w-full h-[400px] object-cover rounded-2xl shadow-2xl">
                 </div>
             </div>
         </div>
@@ -180,7 +181,7 @@
         <h2 class="text-3xl font-bold mb-6 text-gray-800">Downloadable Resources</h2>
         <div class="flex flex-wrap gap-4">
             <?php foreach ($project['resources'] as $resource): ?>
-            <a href="<?= isset($resource['resource_url'])? $resource['resource_url']:("../uploads/". $resource['resource_name'] .'.'. $resource['type']) ?>" download class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">Download Brochure (<?= $resource['type'] ?>)</a>
+            <a href="<?= isset($resource['resource_url'])? $resource['resource_url']:(getUpload( $resource['resource_name'] .'.'. $resource['type'])) ?>" download class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">Download Brochure (<?= $resource['type'] ?>)</a>
             <?php endforeach; ?>
         </div>
     </div>
@@ -335,7 +336,7 @@
         projectData.gallery.forEach(item => {
             const div = document.createElement('div');
             div.className = 'group relative rounded-xl overflow-hidden aspect-square cursor-pointer';
-            div.innerHTML = `<img src="../uploads/${ item.url}" alt="${item.caption}" class="w-full h-full object-cover"><div class="absolute bottom-0 left-0 right-0 p-2 bg-black bg-opacity-50 text-white text-xs">${item.caption}</div>`;
+            div.innerHTML = `<img src="<?= getUpload(item.uri)?>" alt="${item.caption}" class="w-full h-full object-cover"><div class="absolute bottom-0 left-0 right-0 p-2 bg-black bg-opacity-50 text-white text-xs">${item.caption}</div>`;
             gallery.appendChild(div);
             glry = false;
         });

@@ -18,7 +18,7 @@
                 <i class="fas fa-chart-line"></i>
                 <span>Overview</span>
             </a>
-            <a href="#investments" class="nav-item">
+            <a href="#investments" class="nav-item">  
                 <i class="fas fa-wallet"></i>
                 <span>Investments</span>
             </a>
@@ -108,7 +108,7 @@
                 <?php foreach ($active_investments as $inv): ?>
                         <div class="investment-card">
                             <div class="investment-header">
-                                <img src="<?= htmlspecialchars($inv['product_image']) ?>" alt="<?= htmlspecialchars($inv['product_name']) ?>">
+                                <img src="<?= htmlspecialchars(getUpload($inv['product_image'])) ?>" alt="<?= htmlspecialchars($inv['product_name']) ?>">
                                 <span class="status-badge <?= $inv['status'] ?>">
                                     <?= ucfirst($inv['status']) ?>
                                 </span>
@@ -183,7 +183,7 @@
                                     <td>
                                         <div class="project-info">
                                             <?php if ($h['main_image']): ?>
-                                                <img src="<?= htmlspecialchars($h['main_image']) ?>" alt="">
+                                                <img src="<?= htmlspecialchars(getUpload($h['main_image'])) ?>" alt="">
                                             <?php endif; ?>
                                             <span><?= htmlspecialchars($h['product_name']) ?></span>
                                         </div>
@@ -239,7 +239,7 @@
                     <?php foreach ($project_details as $proj): ?>
                         <div class="project-card">
                             <div class="project-image">
-                                <img src="<?= htmlspecialchars($proj['main_image']) ?>" alt="<?= htmlspecialchars($proj['product_name']) ?>">
+                                <img src="<?= htmlspecialchars(getUpload($proj['main_image'])) ?>" alt="<?= htmlspecialchars($proj['product_name']) ?>">
                             </div>
                             <div class="project-content">
                                 <h4><?= htmlspecialchars($proj['product_name']) ?></h4>
@@ -255,16 +255,15 @@
                                         </div>
                                     </div>
                                 <?php endif; ?>
-
                                 <?php if ($proj['technologies']): ?>
                                     <div class="project-tech">
                                         <h5>Technologies</h5>
                                         <div class="tech-tags">
                                             <?php foreach (explode(',', $proj['technologies']) as $tech): ?>
                                                 <span class="tech-tag"><?= htmlspecialchars(trim($tech)) ?></span>
-                <?php endforeach; ?>
-            </div>
-        </div>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
                                 <?php endif; ?>
                             </div>
                         </div>
