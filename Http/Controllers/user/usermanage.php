@@ -40,7 +40,7 @@ try {
     ", ['id' => $user_id])->findOrFail();
     $user_products_investments = $db->query("SELECT p.* from investments I join products p on (I.product_id = p.product_id) where I.user_id = :user_id and p.user_id != :user_id",[
         'user_id' => $_SESSION['user']['user_id'],
-        // 'user_id' => $_SESSION['user']['user_id']
+        // 'user_id' => $_SESSION['user']['user_id'] 
     ])->get();
     foreach($user_products_investments as $in){
         $in['total_invests'] = $db->query(
